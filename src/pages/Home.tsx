@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   return (
@@ -19,8 +19,21 @@ const Home: React.FC = () => {
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Welcome</h2>
             <p className="text-gray-600 mb-8 text-center">Please select your registration type</p>
-            
+
+            <Link
+              to="/register"
+              className="block w-full bg-white text-blue-600 py-4 rounded-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition-colors text-center"
+            >
+              Register as Patient
+            </Link>
             <div className="space-y-4">
+              <Link
+                to="/doctor/register"
+                className="block w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg text-center"
+              >
+                Register as Doctor
+              </Link>
+
               <Link
                 to="/vendor/register"
                 className="block w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg text-center"
@@ -37,7 +50,7 @@ const Home: React.FC = () => {
 
               <div className="pt-6 border-t border-gray-200 mt-6">
                 <p className="text-center text-gray-600 text-sm">
-                  Already have an account?{' '}
+                  Already have an account?{" "}
                   <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
                     Login here
                   </a>
@@ -48,10 +61,14 @@ const Home: React.FC = () => {
 
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-500">
-              By registering, you agree to our{' '}
-              <a href="/terms" className="text-blue-600 hover:underline">Terms of Service</a>
-              {' '}and{' '}
-              <a href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</a>
+              By registering, you agree to our{" "}
+              <a href="/terms" className="text-blue-600 hover:underline">
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a href="/privacy" className="text-blue-600 hover:underline">
+                Privacy Policy
+              </a>
             </p>
           </div>
         </div>
