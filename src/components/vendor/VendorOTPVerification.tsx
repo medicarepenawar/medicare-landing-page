@@ -67,97 +67,98 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-blue-50 via-white to-pink-50">
-      {/* Left Side - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 items-center justify-center p-12">
-        <div className="text-center">
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold">
-              <span className="text-blue-600">Medi</span>
-              <span className="text-red-500">Care</span>
-            </h1>
-          </div>
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC]">
+      {/* Main Container - Increased size */}
+      <div className="w-full max-w-[1400px] bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden my-8">
+        <div className="flex flex-col lg:flex-row min-h-[800px]">
+          {/* Left Side - Illustration */}
+          <div className="lg:w-1/2 px-8 py-16 flex flex-col items-center justify-center bg-white">
+            {/* Logo */}
+            <div className="mb-12">
+              <h1 className="text-5xl font-bold text-center">
+                <span className="text-blue-600">Medi</span>
+                <span className="text-red-500">Care</span>
+              </h1>
+            </div>
 
-          <div className="mb-8 flex justify-center">
-            <div className="relative">
-              <div className="w-80 h-80 bg-white rounded-full flex items-center justify-center shadow-2xl overflow-hidden">
+            {/* Hospital Illustration */}
+            <div className="mb-12">
+              <div className="w-[380px] h-[380px] bg-gradient-to-br from-gray-50 to-white rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden">
                 <img 
                   src={hospitalIcon} 
                   alt="Hospital" 
-                  className="w-full h-full object-contain p-8"
+                  className="w-full h-full object-contain scale-90"
                 />
               </div>
             </div>
+
+            <h2 className="text-5xl font-bold text-gray-900 mb-8">Vendor</h2>
+            
+            <button 
+              onClick={handleSelectRole}
+              type="button"
+              className="text-blue-600 flex items-center justify-center hover:text-blue-700 transition-colors font-medium text-lg"
+            >
+              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Select another role
+            </button>
           </div>
 
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">Vendor</h2>
-          
-          <button 
-            onClick={handleSelectRole}
-            type="button"
-            className="text-blue-600 flex items-center justify-center mx-auto hover:text-blue-700 transition-colors"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Select another role
-          </button>
-        </div>
-      </div>
-
-      {/* Right Side - OTP Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
-          <div className="bg-white rounded-3xl shadow-xl p-10">
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">OTP Verification</h2>
-              <p className="text-gray-600">
-                We will send you OTP Code to your email. Please enter the code correctly
-              </p>
-            </div>
-            
-            <form onSubmit={handleSubmit}>
-              <div className="flex gap-3 justify-center mb-6">
-                {otp.map((digit, index) => (
-                  <input
-                    key={index}
-                    id={`otp-${index}`}
-                    type="text"
-                    maxLength={1}
-                    value={digit}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    className="w-14 h-14 text-center text-2xl font-semibold border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all"
-                  />
-                ))}
-              </div>
-
-              <div className="text-center mb-6">
-                <p className="text-sm text-gray-600">
-                  00:{timer.toString().padStart(2, '0')} Left
+          {/* Right Side - OTP Form */}
+          <div className="lg:w-1/2 px-12 py-16 bg-white flex items-center">
+            <div className="w-full max-w-[500px] mx-auto">
+              <div className="mb-10">
+                <h2 className="text-4xl font-bold text-gray-900 mb-3">OTP Verification</h2>
+                <p className="text-gray-600 text-base leading-relaxed">
+                  We will send you OTP Code to your email. Please enter the code correctly
                 </p>
               </div>
+              
+              <form onSubmit={handleSubmit}>
+                <div className="flex gap-4 justify-center mb-8">
+                  {otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      id={`otp-${index}`}
+                      type="text"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      className="w-16 h-16 text-center text-2xl font-bold border-2 border-gray-300 rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all"
+                    />
+                  ))}
+                </div>
 
-              <button
-                type="button"
-                onClick={handleResend}
-                disabled={timer > 0}
-                className={`w-full mb-4 py-3.5 rounded-xl font-semibold transition-all ${
-                  timer > 0
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50'
-                }`}
-              >
-                Send Again
-              </button>
+                <div className="text-center mb-8">
+                  <p className="text-base text-gray-600 font-medium">
+                    00:{timer.toString().padStart(2, '0')} Left
+                  </p>
+                </div>
 
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Submit
-              </button>
-            </form>
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={timer > 0}
+                  className={`w-full mb-5 py-4 rounded-2xl font-semibold text-lg transition-all ${
+                    timer > 0
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-2 border-gray-200'
+                      : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50'
+                  }`}
+                >
+                  Send Again
+                </button>
+
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
