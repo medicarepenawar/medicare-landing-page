@@ -45,7 +45,6 @@ const NursePostRegister: React.FC<NursePostRegisterProps> = ({
 
   const [cities, setCities] = useState<DropdownOption[]>([]);
 
-  // Mock data - replace with actual data
   const nationalityOptions: DropdownOption[] = [
     { value: 'MY', label: 'Malaysian' },
     { value: 'SG', label: 'Singaporean' },
@@ -77,7 +76,6 @@ const NursePostRegister: React.FC<NursePostRegisterProps> = ({
     { value: 'PhD', label: 'PhD' }
   ];
 
-  // Mock cities based on state
   const citiesByState: Record<string, DropdownOption[]> = {
     'Kuala Lumpur': [
       { value: 'Bukit Bintang', label: 'Bukit Bintang' },
@@ -95,7 +93,6 @@ const NursePostRegister: React.FC<NursePostRegisterProps> = ({
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
-    // Update cities when state changes
     if (name === 'state') {
       setCities(citiesByState[value] || []);
       setFormData(prev => ({ ...prev, city: '' }));
@@ -116,11 +113,15 @@ const NursePostRegister: React.FC<NursePostRegisterProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Complete Your Profile</h2>
-          <p className="text-gray-600 mb-8">Please provide your professional information</p>
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC]">
+      <div className="w-full max-w-[1400px] bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden my-8">
+        <div className="px-12 py-16 overflow-y-auto max-h-[90vh]">
+          <div className="mb-10">
+            <h2 className="text-4xl font-bold text-gray-900 mb-3">Complete Your Profile</h2>
+            <p className="text-gray-600 text-base leading-relaxed">
+              Please provide your professional information
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit}>
             {/* Personal Info Section */}
@@ -370,7 +371,7 @@ const NursePostRegister: React.FC<NursePostRegisterProps> = ({
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+              className="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Complete Registration
             </button>
