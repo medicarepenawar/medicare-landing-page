@@ -67,23 +67,22 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC]">
-      {/* Main Container - Increased size */}
-      <div className="w-full max-w-[1400px] bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden my-8">
-        <div className="flex flex-col lg:flex-row min-h-[800px]">
+    <div className="h-screen flex items-center justify-center px-4 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC] overflow-hidden">
+      <div className="w-full max-w-[1200px] h-[85vh] bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
+        <div className="flex h-full">
           {/* Left Side - Illustration */}
-          <div className="lg:w-1/2 px-8 py-16 flex flex-col items-center justify-center bg-white">
+          <div className="w-1/2 px-6 py-8 flex flex-col items-center justify-center bg-white">
             {/* Logo */}
-            <div className="mb-12">
-              <h1 className="text-5xl font-bold text-center">
+            <div className="mb-8">
+              <h1 className="text-4xl font-bold text-center">
                 <span className="text-blue-600">Medi</span>
                 <span className="text-red-500">Care</span>
               </h1>
             </div>
 
             {/* Hospital Illustration */}
-            <div className="mb-12">
-              <div className="w-[380px] h-[380px] bg-gradient-to-br from-gray-50 to-white rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden">
+            <div className="mb-8">
+              <div className="w-[300px] h-[300px] bg-gradient-to-br from-gray-50 to-white rounded-full flex items-center justify-center shadow-[0_15px_40px_rgba(0,0,0,0.1)] overflow-hidden">
                 <img 
                   src={hospitalIcon} 
                   alt="Hospital" 
@@ -92,14 +91,14 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
               </div>
             </div>
 
-            <h2 className="text-5xl font-bold text-gray-900 mb-8">Vendor</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Vendor</h2>
             
             <button 
               onClick={handleSelectRole}
               type="button"
-              className="text-blue-600 flex items-center justify-center hover:text-blue-700 transition-colors font-medium text-lg"
+              className="text-blue-600 flex items-center justify-center hover:text-blue-700 transition-colors font-medium text-base"
             >
-              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Select another role
@@ -107,17 +106,17 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
           </div>
 
           {/* Right Side - OTP Form */}
-          <div className="lg:w-1/2 px-12 py-16 bg-white flex items-center">
-            <div className="w-full max-w-[500px] mx-auto">
-              <div className="mb-10">
-                <h2 className="text-4xl font-bold text-gray-900 mb-3">OTP Verification</h2>
-                <p className="text-gray-600 text-base leading-relaxed">
+          <div className="w-1/2 px-10 py-8 bg-white flex items-center">
+            <div className="w-full max-w-[450px] mx-auto">
+              <div className="mb-6">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">OTP Verification</h2>
+                <p className="text-gray-600 text-sm leading-relaxed">
                   We will send you OTP Code to your email. Please enter the code correctly
                 </p>
               </div>
               
               <form onSubmit={handleSubmit}>
-                <div className="flex gap-4 justify-center mb-8">
+                <div className="flex gap-3 justify-center mb-6">
                   {otp.map((digit, index) => (
                     <input
                       key={index}
@@ -127,13 +126,13 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
                       value={digit}
                       onChange={(e) => handleChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
-                      className="w-16 h-16 text-center text-2xl font-bold border-2 border-gray-300 rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all"
+                      className="w-14 h-14 text-center text-xl font-bold border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all"
                     />
                   ))}
                 </div>
 
-                <div className="text-center mb-8">
-                  <p className="text-base text-gray-600 font-medium">
+                <div className="text-center mb-6">
+                  <p className="text-sm text-gray-600 font-medium">
                     00:{timer.toString().padStart(2, '0')} Left
                   </p>
                 </div>
@@ -142,7 +141,7 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
                   type="button"
                   onClick={handleResend}
                   disabled={timer > 0}
-                  className={`w-full mb-5 py-4 rounded-2xl font-semibold text-lg transition-all ${
+                  className={`w-full mb-4 py-3 rounded-xl font-semibold text-base transition-all ${
                     timer > 0
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-2 border-gray-200'
                       : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50'
@@ -153,7 +152,7 @@ const VendorOTPVerification: React.FC<VendorOTPVerificationProps> = ({
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold text-base hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   Submit
                 </button>

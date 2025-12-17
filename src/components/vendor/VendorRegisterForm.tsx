@@ -41,23 +41,22 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC]">
-      {/* Main Container - Increased size */}
-      <div className="w-full max-w-[1400px] bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden my-8">
-        <div className="flex flex-col lg:flex-row min-h-[800px]">
+    <div className="h-screen flex items-center justify-center px-4 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC] overflow-hidden">
+      <div className="w-full max-w-[1200px] h-[85vh] bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
+        <div className="flex h-full">
           {/* Left Side - Illustration */}
-          <div className="lg:w-1/2 px-8 py-16 flex flex-col items-center justify-center bg-white">
+          <div className="w-1/2 px-6 py-8 flex flex-col items-center justify-center bg-white">
             {/* Logo */}
-            <div className="mb-12">
-              <h1 className="text-5xl font-bold text-center">
+            <div className="mb-8">
+              <h1 className="text-4xl font-bold text-center">
                 <span className="text-blue-600">Medi</span>
                 <span className="text-red-500">Care</span>
               </h1>
             </div>
 
             {/* Hospital Illustration */}
-            <div className="mb-12">
-              <div className="w-[380px] h-[380px] bg-gradient-to-br from-gray-50 to-white rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden">
+            <div className="mb-8">
+              <div className="w-[300px] h-[300px] bg-gradient-to-br from-gray-50 to-white rounded-full flex items-center justify-center shadow-[0_15px_40px_rgba(0,0,0,0.1)] overflow-hidden">
                 <img 
                   src={hospitalIcon} 
                   alt="Hospital" 
@@ -66,14 +65,14 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
               </div>
             </div>
 
-            <h2 className="text-5xl font-bold text-gray-900 mb-8">Vendor</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Vendor</h2>
             
             <button 
               onClick={handleSelectRole}
               type="button"
-              className="text-blue-600 flex items-center justify-center hover:text-blue-700 transition-colors font-medium text-lg"
+              className="text-blue-600 flex items-center justify-center hover:text-blue-700 transition-colors font-medium text-base"
             >
-              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Select another role
@@ -81,16 +80,18 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
           </div>
 
           {/* Right Side - Form */}
-          <div className="lg:w-1/2 px-12 py-16 bg-white flex items-center">
-            <div className="w-full max-w-[500px] mx-auto">
-              <div className="mb-10">
-                <h2 className="text-4xl font-bold text-gray-900 mb-3">Register</h2>
-                <p className="text-gray-600 text-lg">Please complete the following data</p>
+          <div className="w-1/2 px-10 py-8 bg-white flex items-center overflow-y-auto">
+            <div className="w-full max-w-[450px] mx-auto">
+              <div className="mb-6">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">Register</h2>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Please complete the following data
+                </p>
               </div>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -100,12 +101,12 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     onChange={handleChange}
                     placeholder="eg: John Doe"
                     required
-                    className="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Email <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -115,12 +116,12 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     onChange={handleChange}
                     placeholder="eg: john.doe@gmail.com"
                     required
-                    className="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Phone Number <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -130,12 +131,12 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     onChange={handleChange}
                     placeholder="eg: +60 10-1234568"
                     required
-                    className="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Password <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -146,12 +147,12 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     placeholder="min. 8 characters"
                     required
                     minLength={8}
-                    className="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Confirm Password <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -162,11 +163,11 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     placeholder="min. 8 characters"
                     required
                     minLength={8}
-                    className="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-base"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm"
                   />
                 </div>
 
-                <div className="flex items-start gap-3 pt-3">
+                <div className="flex items-start gap-2 pt-2">
                   <input
                     type="checkbox"
                     id="agreementAccepted"
@@ -174,9 +175,9 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     checked={formData.agreementAccepted}
                     onChange={handleChange}
                     required
-                    className="mt-1 w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+                    className="mt-0.5 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
                   />
-                  <label htmlFor="agreementAccepted" className="text-sm text-gray-700 leading-relaxed">
+                  <label htmlFor="agreementAccepted" className="text-xs text-gray-700 leading-relaxed">
                     By ticking, you're confirm that you have read, understood and agree to Medicare{' '}
                     <a href="/terms" className="text-blue-600 hover:underline font-medium">Terms of Service</a>
                   </label>
@@ -184,7 +185,7 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-8"
+                  className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold text-base hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-5"
                 >
                   Register
                 </button>

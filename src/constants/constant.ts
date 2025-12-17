@@ -1,6 +1,7 @@
-export const BASE_API_URL = "https://api.example.com/v1/";
+export const BASE_API_URL = "https://dev.medicarebackend.com/api";
 export const HOME_PAGE_URL = "/";
 export const REGISTER_URL = "/register";
+export const REGISTRATION_SUCCESS_URL = "/registration-success";
 export const DOCTOR_REGISTER_URL = "/register/doctor";
 export const VENDOR_REGISTER_URL = "/register/vendor";
 export const NURSE_REGISTER_URL = "/register/nurse";
