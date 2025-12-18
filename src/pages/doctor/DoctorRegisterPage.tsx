@@ -1,77 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import DoctorRegisterForm from "../../components/doctor/DoctorRegisterForm";
 import DoctorOTPVerification from "../../components/doctor/DoctorOTPVerification";
-import DoctorPostRegister from "../../components/doctor/DoctorPostRegister";
-
-import type { DoctorRegisterForm as DoctorRegisterFormType, DoctorPostRegisterForm, OTPVerification } from "../../types";
-
-type Step = "register" | "otp" | "post-register" | "success";
+import { useDoctorRegistration } from "../../hooks/useDoctorRegistration";
+import { REGISTRATION_SUCCESS_URL } from "../../constants/constant";
 
 const DoctorRegisterPage: React.FC = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<Step>("register");
+  const { currentStep, registerData, loading, error, handleRegisterSubmit, handleOTPSubmit, handleOTPResend, clearError } = useDoctorRegistration();
 
-  const [registerData, setRegisterData] = useState<DoctorRegisterFormType | null>(null);
+  // Redirect to success page when registration is complete
+  useEffect(() => {
+    if (currentStep === "success") {
+      const timer = setTimeout(() => {
+        navigate(REGISTRATION_SUCCESS_URL, {
+          state: { role: "doctor" },
+        });
+      }, 1500);
 
-  const handleRegisterSubmit = (data: DoctorRegisterFormType) => {
-    setRegisterData(data);
-    // TODO: Call API to send OTP to Doctor
-    console.log("Doctor Register data:", data);
-    setCurrentStep("otp");
-  };
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, navigate]);
 
-  const handleOTPSubmit = (data: OTPVerification) => {
-    // TODO: Call API to verify OTP
-    console.log("OTP:", data);
-    setCurrentStep("post-register");
-  };
-
-  const handleOTPResend = () => {
-    // TODO: Call API to resend OTP
-    console.log("Resending OTP...");
-  };
-
-  const handlePostRegisterSubmit = (data: DoctorPostRegisterForm) => {
-    // TODO: Call API to complete doctor registration
-    console.log("Complete doctor registration data:", data);
-    setCurrentStep("success");
-
-    // Redirect to success page after 2 seconds
-    setTimeout(() => {
-      navigate("/registration-success");
-    }, 2000);
-  };
+  // Show error alert
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      clearError();
+    }
+  }, [error, clearError]);
 
   return (
     <>
-      {currentStep === "register" && <DoctorRegisterForm onSubmit={handleRegisterSubmit} />}
-
-      {currentStep === "otp" && registerData && <DoctorOTPVerification onSubmit={handleOTPSubmit} onResend={handleOTPResend} email={registerData.email} />}
-
-      {currentStep === "post-register" && registerData && (
-        <DoctorPostRegister
-          onSubmit={handlePostRegisterSubmit}
-          initialData={{
-            fullName: registerData.fullName,
-            email: registerData.email,
-            phone: registerData.phone,
-          }}
-        />
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8">
+            <div className="flex flex-col items-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+              <p className="text-gray-700 font-medium">Processing...</p>
+            </div>
+          </div>
+        </div>
       )}
 
+      {/* Register Form */}
+      {currentStep === "register" && <DoctorRegisterForm onSubmit={handleRegisterSubmit} />}
+
+      {/* OTP Verification */}
+      {currentStep === "otp" && registerData && <DoctorOTPVerification onSubmit={handleOTPSubmit} onResend={handleOTPResend} email={registerData.email} />}
+
+      {/* Success Message */}
       {currentStep === "success" && (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <div className="mb-4">
-              <svg className="w-20 h-20 text-blue-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-20 h-20 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Doctor Registration Successful!</h2>
-            <p className="text-gray-600">Your registration is being reviewed. You will be notified once approved.</p>
-            <p className="text-gray-600 mt-2">Redirecting...</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">Verification Successful!</h2>
+            <p className="text-gray-600">Redirecting...</p>
           </div>
         </div>
       )}

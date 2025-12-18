@@ -1,14 +1,14 @@
 import { useRegistration } from "./useRegistration";
-import type { NurseRegisterForm } from "../types";
+import type { DoctorRegisterForm } from "../types";
 
-interface NurseRegistrationData {
+interface DoctorRegistrationData {
   email: string;
   name: string;
   phone: string;
   fullName: string;
 }
 
-export const useNurseRegistration = () => {
+export const useDoctorRegistration = () => {
   const {
     currentStep,
     registerData,
@@ -19,18 +19,18 @@ export const useNurseRegistration = () => {
     handleOTPSubmit,
     handleOTPResend,
     clearError,
-  } = useRegistration<NurseRegistrationData>("Nurse");
+  } = useRegistration<DoctorRegistrationData>("Doctor");
 
-  // Wrapper for nurse-specific register
-  const handleRegisterSubmit = async (data: NurseRegisterForm) => {
-    const nurseData: NurseRegistrationData = {
+  // Wrapper for Doctor-specific register
+  const handleRegisterSubmit = async (data: DoctorRegisterForm) => {
+    const doctorData: DoctorRegistrationData = {
       email: data.email,
       name: data.fullName,
       phone: data.phone,
       fullName: data.fullName,
     };
 
-    await baseHandleRegisterSubmit(nurseData, data.password, data.confirmPassword);
+    await baseHandleRegisterSubmit(doctorData, data.password, data.confirmPassword);
   };
 
   return {
