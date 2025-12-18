@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import VendorRegisterForm from '../../components/vendor/VendorRegisterForm';
 import VendorOTPVerification from '../../components/vendor/VendorOTPVerification';
-import VendorPostRegister from '../../components/vendor/VendorPostRegister';
 import { useVendorRegistration } from '../../hooks/useVendorRegistration';
 import { REGISTRATION_SUCCESS_URL } from '../../constants/constant';
 
@@ -16,7 +15,6 @@ const VendorRegisterPage: React.FC = () => {
     handleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit,
     clearError,
   } = useVendorRegistration();
 
@@ -24,8 +22,10 @@ const VendorRegisterPage: React.FC = () => {
   useEffect(() => {
     if (currentStep === 'success') {
       const timer = setTimeout(() => {
-        navigate(REGISTRATION_SUCCESS_URL);
-      }, 2000);
+        navigate(REGISTRATION_SUCCESS_URL, { 
+          state: { role: 'vendor' } 
+        });
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
@@ -67,18 +67,6 @@ const VendorRegisterPage: React.FC = () => {
         />
       )}
 
-      {/* Post Register Form */}
-      {currentStep === 'post-register' && registerData && (
-        <VendorPostRegister
-          onSubmit={handlePostRegisterSubmit}
-          initialData={{
-            vendorName: registerData.vendorName,
-            email: registerData.email,
-            phone: registerData.phone,
-          }}
-        />
-      )}
-
       {/* Success Message */}
       {currentStep === 'success' && (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -99,7 +87,7 @@ const VendorRegisterPage: React.FC = () => {
               </svg>
             </div>
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              Registration Successful!
+              Verification Successful!
             </h2>
             <p className="text-gray-600">Redirecting...</p>
           </div>

@@ -3,7 +3,7 @@ import { authService } from '../services/authService';
 import type { UserRole } from '../types/api';
 import type { OTPVerification } from '../types';
 
-type Step = 'register' | 'otp' | 'post-register' | 'success';
+type Step = 'register' | 'otp' | 'success';
 
 interface RegistrationData {
   email: string;
@@ -24,7 +24,6 @@ interface UseRegistrationReturn<T extends RegistrationData> {
   ) => Promise<void>;
   handleOTPSubmit: (data: OTPVerification) => Promise<void>;
   handleOTPResend: () => Promise<void>;
-  handlePostRegisterSubmit: (data: any, endpoint: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -68,8 +67,8 @@ export const useRegistration = <T extends RegistrationData>(
       setToken(response.data.token);
       setRegisterData(data);
 
-      // COMMENT OUT: Backend sudah otomatis kirim OTP saat register
-      // await authService.sendEmailVerification(response.data.token);
+      // Send OTP email (backend requires explicit call)
+      await authService.sendEmailVerification(response.data.token);
 
       // Move to OTP step
       setCurrentStep('otp');
@@ -101,8 +100,8 @@ export const useRegistration = <T extends RegistrationData>(
       // Verify OTP
       await authService.verifyEmail(registerData.email, data.otp, token);
 
-      // Move to post-register step
-      setCurrentStep('post-register');
+      // Move to success step (langsung ke success, tidak ke post-register)
+      setCurrentStep('success');
       
       console.log('✅ Email verified successfully.');
     } catch (err) {
@@ -142,38 +141,6 @@ export const useRegistration = <T extends RegistrationData>(
   };
 
   /**
-   * Handle post-registration form submission
-   */
-  const handlePostRegisterSubmit = async (data: any, endpoint: string) => {
-    if (!token) {
-      setError('Invalid session. Please start registration again.');
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      // Complete registration
-      await authService.completeRegistration(endpoint, data, token);
-
-      // Move to success step
-      setCurrentStep('success');
-      
-      console.log('✅ Registration completed successfully.');
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error
-          ? err.message
-          : 'Failed to complete registration';
-      setError(errorMessage);
-      console.error('Complete registration error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /**
    * Clear error message
    */
   const clearError = () => {
@@ -189,7 +156,6 @@ export const useRegistration = <T extends RegistrationData>(
     handleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit,
     clearError,
   };
 };

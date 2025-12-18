@@ -1,5 +1,5 @@
 import { useRegistration } from './useRegistration';
-import type { VendorRegisterForm, VendorPostRegisterForm, OTPVerification } from '../types';
+import type { VendorRegisterForm, OTPVerification } from '../types';
 
 interface VendorRegistrationData {
   email: string;
@@ -18,7 +18,6 @@ export const useVendorRegistration = () => {
     handleRegisterSubmit: baseHandleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit: baseHandlePostRegisterSubmit,
     clearError,
   } = useRegistration<VendorRegistrationData>('Vendor');
 
@@ -34,11 +33,6 @@ export const useVendorRegistration = () => {
     await baseHandleRegisterSubmit(vendorData, data.password, data.confirmPassword);
   };
 
-  // Wrapper for vendor-specific post-register
-  const handlePostRegisterSubmit = async (data: VendorPostRegisterForm) => {
-    await baseHandlePostRegisterSubmit(data, 'vendor');
-  };
-
   return {
     currentStep,
     registerData,
@@ -48,7 +42,6 @@ export const useVendorRegistration = () => {
     handleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit,
     clearError,
   };
 };

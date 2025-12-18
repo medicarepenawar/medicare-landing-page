@@ -1,5 +1,5 @@
 import { useRegistration } from './useRegistration';
-import type { NurseRegisterForm, NursePostRegisterForm, OTPVerification } from '../types';
+import type { NurseRegisterForm, OTPVerification } from '../types';
 
 interface NurseRegistrationData {
   email: string;
@@ -18,7 +18,6 @@ export const useNurseRegistration = () => {
     handleRegisterSubmit: baseHandleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit: baseHandlePostRegisterSubmit,
     clearError,
   } = useRegistration<NurseRegistrationData>('Nurse');
 
@@ -34,11 +33,6 @@ export const useNurseRegistration = () => {
     await baseHandleRegisterSubmit(nurseData, data.password, data.confirmPassword);
   };
 
-  // Wrapper for nurse-specific post-register
-  const handlePostRegisterSubmit = async (data: NursePostRegisterForm) => {
-    await baseHandlePostRegisterSubmit(data, 'nurse');
-  };
-
   return {
     currentStep,
     registerData,
@@ -48,7 +42,6 @@ export const useNurseRegistration = () => {
     handleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit,
     clearError,
   };
 };

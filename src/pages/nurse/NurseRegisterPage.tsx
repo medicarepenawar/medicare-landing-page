@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NurseRegisterForm from '../../components/nurse/NurseRegisterForm';
 import NurseOTPVerification from '../../components/nurse/NurseOTPVerification';
-import NursePostRegister from '../../components/nurse/NursePostRegister';
 import { useNurseRegistration } from '../../hooks/useNurseRegistration';
 import { REGISTRATION_SUCCESS_URL } from '../../constants/constant';
 
@@ -16,7 +15,6 @@ const NurseRegisterPage: React.FC = () => {
     handleRegisterSubmit,
     handleOTPSubmit,
     handleOTPResend,
-    handlePostRegisterSubmit,
     clearError,
   } = useNurseRegistration();
 
@@ -24,8 +22,10 @@ const NurseRegisterPage: React.FC = () => {
   useEffect(() => {
     if (currentStep === 'success') {
       const timer = setTimeout(() => {
-        navigate(REGISTRATION_SUCCESS_URL);
-      }, 2000);
+        navigate(REGISTRATION_SUCCESS_URL, { 
+          state: { role: 'nurse' } 
+        });
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
@@ -67,18 +67,6 @@ const NurseRegisterPage: React.FC = () => {
         />
       )}
 
-      {/* Post Register Form */}
-      {currentStep === 'post-register' && registerData && (
-        <NursePostRegister
-          onSubmit={handlePostRegisterSubmit}
-          initialData={{
-            fullName: registerData.fullName,
-            email: registerData.email,
-            phone: registerData.phone,
-          }}
-        />
-      )}
-
       {/* Success Message */}
       {currentStep === 'success' && (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -99,12 +87,9 @@ const NurseRegisterPage: React.FC = () => {
               </svg>
             </div>
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              Registration Successful!
+              Verification Successful!
             </h2>
-            <p className="text-gray-600">
-              Your registration is being reviewed. You will be notified once approved.
-            </p>
-            <p className="text-gray-600 mt-2">Redirecting...</p>
+            <p className="text-gray-600">Redirecting...</p>
           </div>
         </div>
       )}
