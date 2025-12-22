@@ -10,6 +10,8 @@ export const REGISTRATION_SUCCESS_URL = "/registration-success";
 export const DOCTOR_REGISTER_URL = "/register/doctor";
 export const VENDOR_REGISTER_URL = "/register/vendor";
 export const NURSE_REGISTER_URL = "/register/nurse";
+
+// Terms and Conditions Routes
 export const TERMS_AND_CONDITIONS_URL = "/terms";
 export const DOCTOR_TERMS_AND_CONDITIONS_URL = "/terms/doctor";
 export const VENDOR_TERMS_AND_CONDITIONS_URL = "/terms/vendor";
