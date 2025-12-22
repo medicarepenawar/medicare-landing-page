@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { VendorRegisterForm as VendorRegisterFormType } from "../../types";
 import hospitalIcon from "../../assets/img/icon-hospital.svg";
-import { REGISTER_URL } from "../../constants/constant";
+import { REGISTER_URL, VENDOR_TERMS_AND_CONDITIONS_URL } from "../../constants/constant";
 
 interface VendorRegisterFormProps {
   onSubmit: (data: VendorRegisterFormType) => void;
@@ -183,7 +183,7 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                   />
                   <label htmlFor="agreementAccepted" className="text-xs text-gray-700 leading-relaxed">
                     By ticking, you're confirm that you have read, understood and agree to Medicare{" "}
-                    <a href="/terms" className="text-blue-600 hover:underline font-medium">
+                    <a href={VENDOR_TERMS_AND_CONDITIONS_URL} className="text-blue-600 hover:underline font-medium">
                       Terms of Service
                     </a>
                   </label>

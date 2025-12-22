@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import type { DoctorRegisterForm as DoctorRegisterFormType } from "../../types";
 import doctorIcon from "../../assets/img/icon-doctor.svg";
-import { REGISTER_URL } from "../../constants/constant";
+import { DOCTOR_TERMS_AND_CONDITIONS_URL, REGISTER_URL } from "../../constants/constant";
 import { useNavigate } from "react-router-dom";
 
 interface DoctorRegisterFormProps {
@@ -183,7 +183,7 @@ const DoctorRegisterForm: React.FC<DoctorRegisterFormProps> = ({ onSubmit }) => 
                   />
                   <label htmlFor="agreementAccepted" className="text-xs text-gray-700 leading-relaxed">
                     By ticking, you're confirm that you have read, understood and agree to Medicare{" "}
-                    <a href="/terms" className="text-blue-600 hover:underline font-medium">
+                    <a href={DOCTOR_TERMS_AND_CONDITIONS_URL} className="text-blue-600 hover:underline font-medium">
                       Terms of Service
                     </a>
                   </label>

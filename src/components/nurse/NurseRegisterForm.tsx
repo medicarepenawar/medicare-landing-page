@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { NurseRegisterForm as NurseRegisterFormType } from "../../types";
 import nurseIcon from "../../assets/img/icon-nurse.svg";
-import { REGISTER_URL } from "../../constants/constant";
+import { NURSE_TERMS_AND_CONDITIONS_URL, REGISTER_URL } from "../../constants/constant";
 
 interface NurseRegisterFormProps {
   onSubmit: (data: NurseRegisterFormType) => void;
@@ -184,7 +184,7 @@ const NurseRegisterForm: React.FC<NurseRegisterFormProps> = ({ onSubmit }) => {
                   />
                   <label htmlFor="agreementAccepted" className="text-xs text-gray-700 leading-relaxed">
                     By ticking, you're confirm that you have read, understood and agree to Medicare{" "}
-                    <a href="/terms" className="text-blue-600 hover:underline font-medium">
+                    <a href={NURSE_TERMS_AND_CONDITIONS_URL} className="text-blue-600 hover:underline font-medium">
                       Terms of Service
                     </a>
                   </label>
