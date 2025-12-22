@@ -4,9 +4,11 @@ import NurseRegisterForm from '../../components/nurse/NurseRegisterForm';
 import NurseOTPVerification from '../../components/nurse/NurseOTPVerification';
 import { useNurseRegistration } from '../../hooks/useNurseRegistration';
 import { REGISTRATION_SUCCESS_URL } from '../../constants/constant';
+import { useToast } from '../../components/common/ToastContainer';
 
 const NurseRegisterPage: React.FC = () => {
   const navigate = useNavigate();
+  const { showError } = useToast();
   const {
     currentStep,
     registerData,
@@ -31,13 +33,13 @@ const NurseRegisterPage: React.FC = () => {
     }
   }, [currentStep, navigate]);
 
-  // Show error alert
+  // Show error toast
   useEffect(() => {
     if (error) {
-      alert(error);
+      showError(error);
       clearError();
     }
-  }, [error, clearError]);
+  }, [error, clearError, showError]);
 
   return (
     <>

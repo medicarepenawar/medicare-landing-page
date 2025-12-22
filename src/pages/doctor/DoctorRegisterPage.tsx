@@ -4,10 +4,21 @@ import DoctorRegisterForm from "../../components/doctor/DoctorRegisterForm";
 import DoctorOTPVerification from "../../components/doctor/DoctorOTPVerification";
 import { useDoctorRegistration } from "../../hooks/useDoctorRegistration";
 import { REGISTRATION_SUCCESS_URL } from "../../constants/constant";
+import { useToast } from "../../components/common/ToastContainer";
 
 const DoctorRegisterPage: React.FC = () => {
   const navigate = useNavigate();
-  const { currentStep, registerData, loading, error, handleRegisterSubmit, handleOTPSubmit, handleOTPResend, clearError } = useDoctorRegistration();
+  const { showError } = useToast();
+  const { 
+    currentStep, 
+    registerData, 
+    loading, 
+    error, 
+    handleRegisterSubmit, 
+    handleOTPSubmit, 
+    handleOTPResend, 
+    clearError 
+  } = useDoctorRegistration();
 
   // Redirect to success page when registration is complete
   useEffect(() => {
@@ -22,13 +33,13 @@ const DoctorRegisterPage: React.FC = () => {
     }
   }, [currentStep, navigate]);
 
-  // Show error alert
+  // Show error toast
   useEffect(() => {
     if (error) {
-      alert(error);
+      showError(error);
       clearError();
     }
-  }, [error, clearError]);
+  }, [error, clearError, showError]);
 
   return (
     <>

@@ -4,9 +4,11 @@ import VendorRegisterForm from '../../components/vendor/VendorRegisterForm';
 import VendorOTPVerification from '../../components/vendor/VendorOTPVerification';
 import { useVendorRegistration } from '../../hooks/useVendorRegistration';
 import { REGISTRATION_SUCCESS_URL } from '../../constants/constant';
+import { useToast } from '../../components/common/ToastContainer';
 
 const VendorRegisterPage: React.FC = () => {
   const navigate = useNavigate();
+  const { showError } = useToast();
   const {
     currentStep,
     registerData,
@@ -31,13 +33,13 @@ const VendorRegisterPage: React.FC = () => {
     }
   }, [currentStep, navigate]);
 
-  // Show error alert
+  // Show error toast
   useEffect(() => {
     if (error) {
-      alert(error);
+      showError(error);
       clearError();
     }
-  }, [error, clearError]);
+  }, [error, clearError, showError]);
 
   return (
     <>

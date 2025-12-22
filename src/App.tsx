@@ -7,19 +7,22 @@ import DoctorRegisterPage from "./pages/doctor/DoctorRegisterPage";
 import { REGISTER_URL, DOCTOR_REGISTER_URL, VENDOR_REGISTER_URL, NURSE_REGISTER_URL, HOME_PAGE_URL, TERMS_AND_CONDITIONS_URL } from "./constants/constant";
 import Home from "./pages/Home";
 import TermsAndConditions from "./components/terms/TermsAndConditions";
+import { ToastProvider } from "./components/common/ToastContainer";
 
 function App() {
   return (
-    <Routes>
-      <Route path={HOME_PAGE_URL} element={<Home />} />
-      <Route path={REGISTER_URL} element={<Register />} />
-      <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
-      <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
-      <Route path={NURSE_REGISTER_URL} element={<NurseRegisterPage />} />
+    <ToastProvider>
+      <Routes>
+        <Route path={HOME_PAGE_URL} element={<Home />} />
+        <Route path={REGISTER_URL} element={<Register />} />
+        <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
+        <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
+        <Route path={NURSE_REGISTER_URL} element={<NurseRegisterPage />} />
 
-      <Route path={TERMS_AND_CONDITIONS_URL} element={<TermsAndConditions />} />
-      <Route path="/registration-success" element={<RegistrationSuccess />} />
-    </Routes>
+        <Route path={TERMS_AND_CONDITIONS_URL} element={<TermsAndConditions />} />
+        <Route path="/registration-success" element={<RegistrationSuccess />} />
+      </Routes>
+    </ToastProvider>
   );
 }
 
