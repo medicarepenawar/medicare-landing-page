@@ -1,48 +1,107 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { 
+  VENDOR_REGISTRATION_SUCCESS_URL, 
+  NURSE_REGISTRATION_SUCCESS_URL, 
+  DOCTOR_REGISTRATION_SUCCESS_URL 
+} from '../constants/constant';
 
 const RegistrationSuccess: React.FC = () => {
-  return (
-    <div className="min-h-screen flex">
-      {/* Left Side - Blue Background */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 to-blue-800 items-center justify-center p-12">
-        <div className="text-white text-center">
-          <h1 className="text-5xl font-bold mb-4">MediCare</h1>
-          <p className="text-xl text-blue-100">Healthcare service wherever you are</p>
-        </div>
-      </div>
+  const location = useLocation();
+  
+  // Get role from state or default to vendor
+  const role = (location.state as { role?: string })?.role || 'vendor';
 
-      {/* Right Side - Success Message */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
-        <div className="w-full max-w-md">
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <div className="mb-6">
-              <svg className="w-24 h-24 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  useEffect(() => {
+    // Redirect to appropriate login page after 3 seconds
+    const timer = setTimeout(() => {
+      let loginUrl = VENDOR_REGISTRATION_SUCCESS_URL;
+      
+      switch (role.toLowerCase()) {
+        case 'nurse':
+          loginUrl = NURSE_REGISTRATION_SUCCESS_URL || VENDOR_REGISTRATION_SUCCESS_URL;
+          break;
+        case 'doctor':
+          loginUrl = DOCTOR_REGISTRATION_SUCCESS_URL;
+          break;
+        case 'vendor':
+          loginUrl = VENDOR_REGISTRATION_SUCCESS_URL;
+          break;
+        default:
+          loginUrl = VENDOR_REGISTRATION_SUCCESS_URL;
+      }
+
+      // Only redirect if URL is not empty
+      if (loginUrl) {
+        window.location.href = loginUrl;
+      } else {
+        console.warn(`Login URL for role "${role}" is not configured`);
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [role]);
+
+  // Get role display name
+  const getRoleDisplayName = () => {
+    switch (role.toLowerCase()) {
+      case 'nurse':
+        return 'Nurse';
+      case 'doctor':
+        return 'Doctor';
+      case 'vendor':
+        return 'Vendor';
+      default:
+        return 'User';
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC]">
+      <div className="max-w-md w-full mx-4">
+        <div className="bg-white rounded-3xl shadow-2xl p-12 text-center">
+          {/* Success Icon */}
+          <div className="mb-8">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+              <svg
+                className="w-12 h-12 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
-
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Registration Successful!</h2>
-            
-            <p className="text-gray-600 mb-6">
-              Thank you for registering with MediCare. Your application is currently under review.
-            </p>
-
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <p className="text-sm text-blue-800">
-                <strong>What's Next?</strong><br />
-                Our team will review your application within 1-2 business days. 
-                You will receive an email notification once your account is approved.
-              </p>
-            </div>
-
-            <Link
-              to="/"
-              className="block w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
-            >
-              Back to Home
-            </Link>
           </div>
+
+          {/* Success Message */}
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Registration Successful!
+          </h1>
+          
+          <p className="text-gray-600 text-lg mb-2">
+            Your <span className="font-semibold text-blue-600">{getRoleDisplayName()}</span> account has been created successfully.
+          </p>
+          
+          <p className="text-gray-500 text-base mb-8">
+            You will be redirected to the login page shortly.
+          </p>
+
+          {/* Loading Animation */}
+          <div className="flex justify-center gap-2 mb-4">
+            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce"></div>
+            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+            <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+          </div>
+
+          <p className="text-sm text-gray-400">
+            Redirecting in 3 seconds...
+          </p>
         </div>
       </div>
     </div>
