@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { NurseRegisterForm as NurseRegisterFormType } from "../../types";
 import nurseIcon from "../../assets/img/icon-nurse.svg";
 import { NURSE_TERMS_AND_CONDITIONS_URL, REGISTER_URL } from "../../constants/constant";
+import { useToast } from "../common/ToastContainer";
 
 interface NurseRegisterFormProps {
   onSubmit: (data: NurseRegisterFormType) => void;
@@ -10,6 +11,7 @@ interface NurseRegisterFormProps {
 
 const NurseRegisterForm: React.FC<NurseRegisterFormProps> = ({ onSubmit }) => {
   const navigate = useNavigate();
+  const { showError, showWarning } = useToast();
   const [formData, setFormData] = useState<NurseRegisterFormType>({
     fullName: "",
     email: "",
@@ -39,8 +41,20 @@ const NurseRegisterForm: React.FC<NurseRegisterFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      showError("Passwords do not match");
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      showError("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!formData.agreementAccepted) {
+      showWarning("Please accept the Terms of Service");
       return;
     }
 

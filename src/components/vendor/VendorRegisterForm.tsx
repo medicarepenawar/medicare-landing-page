@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { VendorRegisterForm as VendorRegisterFormType } from "../../types";
 import hospitalIcon from "../../assets/img/icon-hospital.svg";
 import { REGISTER_URL, VENDOR_TERMS_AND_CONDITIONS_URL } from "../../constants/constant";
+import { useToast } from "../common/ToastContainer";
 
 interface VendorRegisterFormProps {
   onSubmit: (data: VendorRegisterFormType) => void;
@@ -10,6 +11,7 @@ interface VendorRegisterFormProps {
 
 const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => {
   const navigate = useNavigate();
+  const { showError, showWarning } = useToast();
   const [formData, setFormData] = useState<VendorRegisterFormType>({
     vendorName: "",
     email: "",
@@ -39,10 +41,23 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      showError("Passwords do not match");
       return;
     }
+
+    if (formData.password.length < 8) {
+      showError("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!formData.agreementAccepted) {
+      showWarning("Please accept the Terms of Service");
+      return;
+    }
+
     onSubmit(formData);
   };
 
