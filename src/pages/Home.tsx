@@ -2,10 +2,11 @@ import React from "react";
 import { Header } from "../components/home/Header";
 import { HeroSection } from "../components/home/HeroSection";
 import { FeaturesSection } from "../components/home/FeaturesSection";
-import { ProductShowcase } from "../components/home/ProductShowcase";
+
 import { Testimonials } from "../components/home/Testimonials";
 import { CTASection } from "../components/home/CTASection";
 import { Footer } from "../components/home/Footer";
+import { ServicesSection } from "../components/home/ServiceSection";
 
 const Home: React.FC = () => {
   return (
@@ -13,7 +14,8 @@ const Home: React.FC = () => {
       <Header />
       <HeroSection />
       <FeaturesSection />
-      <ProductShowcase />
+      <ServicesSection />
+
       <Testimonials />
       <CTASection />
       <Footer />
