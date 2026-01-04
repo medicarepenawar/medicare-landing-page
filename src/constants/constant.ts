@@ -5,6 +5,8 @@ export const BASE_API_URL = "https://dev.medicarebackend.com/api";
 export const HOME_PAGE_URL = "/";
 export const REGISTER_URL = "/register";
 export const REGISTRATION_SUCCESS_URL = "/registration-success";
+export const ABOUT_US_URL = "/about";
+export const CONTACT_US_URL = "/contact";
 
 // Register Routes
 export const DOCTOR_REGISTER_URL = "/register/doctor";

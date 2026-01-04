@@ -4,6 +4,9 @@ import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
 import NurseRegisterPage from "./pages/nurse/NurseRegisterPage";
 import RegistrationSuccess from "./pages/RegistrationSuccess";
 import DoctorRegisterPage from "./pages/doctor/DoctorRegisterPage";
+import { AboutUsPage } from "./components/home/AboutUs";
+("./components/home/AboutUs");
+import { ContactUsPage } from "./components/home/ContactUs";
 import {
   REGISTER_URL,
   DOCTOR_REGISTER_URL,
@@ -13,6 +16,8 @@ import {
   DOCTOR_TERMS_AND_CONDITIONS_URL,
   NURSE_TERMS_AND_CONDITIONS_URL,
   VENDOR_TERMS_AND_CONDITIONS_URL,
+  ABOUT_US_URL,
+  CONTACT_US_URL,
 } from "./constants/constant";
 import Home from "./pages/Home";
 
@@ -30,6 +35,8 @@ function App() {
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
         <Route path={NURSE_REGISTER_URL} element={<NurseRegisterPage />} />
+        <Route path={ABOUT_US_URL} element={<AboutUsPage />} />
+        <Route path={CONTACT_US_URL} element={<ContactUsPage />} />
 
         <Route path={DOCTOR_TERMS_AND_CONDITIONS_URL} element={<DoctorTermsAndConditions />} />
         <Route path={NURSE_TERMS_AND_CONDITIONS_URL} element={<NurseTermsAndConditions />} />
