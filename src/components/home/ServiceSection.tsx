@@ -29,7 +29,7 @@ export const ServicesSection: React.FC = () => {
       description: "Get your prescriptions digitally and have medicines delivered from our partnered pharmacies.",
     },
     {
-      icon: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning/Fast action for emergency
+      icon: "M13 10V3L4 14h7v7l9-11h-7z",
       title: "Ambulance & Telemedicine",
       description: "24/7 Emergency response coordination and immediate telemedicine triage support.",
     },

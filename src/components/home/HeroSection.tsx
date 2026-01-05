@@ -44,9 +44,6 @@ export const HeroSection: React.FC = () => {
                 </Button>
               </div>
             </div>
-
-            {/* Tombol Sekunder (Optional) */}
-            <button className="px-6 py-3 rounded-lg text-gray-600 font-semibold hover:bg-gray-50 transition-colors">Learn more</button>
           </div>
         </div>
 
