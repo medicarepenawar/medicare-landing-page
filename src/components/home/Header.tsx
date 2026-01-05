@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
         </div>
 
         <nav className="hidden md:flex items-center space-x-12">
-          <a href="#home" className="text-gray-800 hover:text-blue-600 transition font-medium">
+          <a href="/" className="text-gray-800 hover:text-blue-600 transition font-medium">
             Home
           </a>
           <a href="/about" className="text-gray-600 hover:text-blue-600 transition">
