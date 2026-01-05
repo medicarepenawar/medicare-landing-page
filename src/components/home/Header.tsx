@@ -65,14 +65,8 @@ export const Header: React.FC = () => {
 
           {/* --- Right Side Actions --- */}
           <div className="hidden md:flex items-center gap-4">
-            {/* Login Link (Optional) */}
-            <button onClick={() => navigate("/login")} className="text-sm font-semibold text-gray-600 hover:text-purple-600 transition-colors">
-              Log In
-            </button>
-
-            {/* CTA Button */}
             <button
-              onClick={() => navigate("/register")}
+              onClick={() => {}}
               className="px-5 py-2.5 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-purple-600 hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
             >
               Get Started
@@ -108,20 +102,14 @@ export const Header: React.FC = () => {
             </NavLink>
           ))}
           <hr className="border-gray-100" />
-          <div className="flex flex-col gap-3 pt-2">
-            <button
-              onClick={() => navigate("/login")}
-              className="w-full py-3 text-center text-gray-600 font-semibold border border-gray-200 rounded-xl hover:bg-gray-50"
-            >
-              Log In
-            </button>
+          {/* <div className="flex flex-col gap-3 pt-2">
             <button
               onClick={() => navigate("/register")}
               className="w-full py-3 text-center bg-purple-600 text-white font-bold rounded-xl shadow-lg hover:bg-purple-700"
             >
               Get Started
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

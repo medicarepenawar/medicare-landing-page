@@ -71,10 +71,10 @@ export const AboutUsPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen max-w-full">
+    <div className="bg-white min-h-screen w-full">
       <Header />
-      {/* 1. Hero /  */}
-      <section className="relative py-20 bg-purple-50 mt-12">
+
+      <section className="relative pt-32 pb-20 bg-purple-50">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             About <span className="text-purple-600">Medicare</span>
@@ -163,9 +163,7 @@ export const AboutUsPage: React.FC = () => {
               <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                 <div className="relative overflow-hidden h-72">
                   <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  {/* Social Overlay (Optional) */}
                   <div className="absolute inset-0 bg-purple-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                    {/* Example Social Icon */}
                     <button className="bg-white text-purple-600 p-2 rounded-full hover:bg-purple-600 hover:text-white transition">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
@@ -186,7 +184,6 @@ export const AboutUsPage: React.FC = () => {
       {/* 5. CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto bg-purple-600 rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden">
-          {/* Decorative circles */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-20 -mt-20"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
 

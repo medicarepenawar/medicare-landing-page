@@ -41,7 +41,7 @@ export const ContactUsPage: React.FC = () => {
     {
       icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
       title: "Visit Us",
-      details: ["Jl. Sudirman No. 45", "Jakarta Selatan, Indonesia"],
+      details: ["23-29, Jalan Sena 1,", "Taman Rinting, 81750", "Masai, Johor, Malaysia"],
       action: "Get directions",
     },
   ];
@@ -49,29 +49,36 @@ export const ContactUsPage: React.FC = () => {
   const faqs: FaqItem[] = [
     {
       question: "Do you accept insurance?",
-      answer: "Yes, we accept most major insurance plans including BPJS Kesehatan and private insurance providers.",
+      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       question: "Can I book appointments online?",
-      answer: "Absolutely. You can use our 'Book Appointment' feature on the homepage or mobile app to schedule visits.",
+      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       question: "Is emergency care available 24/7?",
-      answer: "Yes, our emergency department is open 24 hours a day, 7 days a week, including holidays.",
+      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
   ];
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen w-full">
       <Header />
-      {/* 1. Hero  */}
-      <section className="bg-purple-50 py-20 text-center px-6 max-w-7xl mx-auto mt-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Get in <span className="text-purple-600">Touch</span>
-        </h1>
-        <p className="text-gray-600 max-w-xl mx-auto text-lg">
-          Have questions about our services or need to schedule an appointment? Our team is here to help you.
-        </p>
+
+      {/* 1. HERO SECTION FIX
+         - Ubah margin-top (mt-12) menjadi padding-top (pt-32).
+         - Pastikan 'bg-purple-50' ada di wrapper section agar full width.
+         - Bungkus konten dalam div 'max-w-7xl' agar tetap di tengah.
+      */}
+      <section className="bg-purple-50 pt-32 pb-20 relative">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Get in <span className="text-purple-600">Touch</span>
+          </h1>
+          <p className="text-gray-600 max-w-xl mx-auto text-lg">
+            Have questions about our services or need to schedule an appointment? Our team is here to help you.
+          </p>
+        </div>
       </section>
 
       {/* 2. Contact Info & Form Container */}
@@ -229,10 +236,6 @@ export const ContactUsPage: React.FC = () => {
 
       {/* 3. Map Section */}
       <section className="h-96 w-full bg-gray-200 relative">
-        {/* NOTE: Untuk production, ganti img src di bawah dengan Google Maps Iframe 
-                  atau Google Maps JavaScript API Component.
-                  Contoh iframe: <iframe src="https://www.google.com/maps/embed?..." ... />
-                */}
         <img
           src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1600"
           alt="Map Location Placeholder"
