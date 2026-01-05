@@ -1,36 +1,109 @@
-import React from 'react';
+import React from "react";
 
 export const Footer: React.FC = () => {
-    return (
-        <footer className="bg-gray-900 text-white py-12 px-6">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-8 border-b border-gray-800">
-                    <div className="mb-6 md:mb-0">
-                        <div className="text-3xl font-bold mb-4">
-                            <span className="text-blue-400">Medi</span>
-                            <span className="text-red-400">Care</span>
-                        </div>
-                        <p className="text-gray-400 text-sm mb-1">23-29, Jalan Sena 1, Taman Rinting, 81750</p>
-                        <p className="text-gray-400 text-sm">Masai, Johor, Malaysia</p>
-                    </div>
+  const currentYear = new Date().getFullYear();
 
-                    <div className="flex gap-10">
-                        <a href="#privacy" className="text-gray-400 hover:text-white transition font-medium">
-                            Privacy Policy
-                        </a>
-                        <a href="#contact" className="text-gray-400 hover:text-white transition font-medium">
-                            Contact Us
-                        </a>
-                        <a href="#careers" className="text-gray-400 hover:text-white transition font-medium">
-                            Careers
-                        </a>
-                    </div>
-                </div>
+  return (
+    <footer className="relative bg-gray-950 text-white pt-20 pb-10 overflow-hidden">
+      {/* --- Ambient Background Glow --- */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-900/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-                <div className="text-center text-gray-500 text-sm">
-                    Medicare © 2025. All rights reserved
-                </div>
+      {/* --- Decorative Top Line --- */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          {/* 1. Brand & Address Column */}
+          <div className="space-y-6">
+            <div className="text-3xl font-bold tracking-tight">
+              <span className="text-white">Medi</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Care</span>
             </div>
-        </footer>
-    );
+
+            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+              Providing world-class healthcare services with a personal touch. Your health is our priority.
+            </p>
+
+            <div className="flex items-start space-x-3 text-gray-400 text-sm">
+              <svg className="w-5 h-5 text-purple-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <div>
+                <p>23-29, Jalan Sena 1,</p>
+                <p>Taman Rinting, 81750</p>
+                <p>Masai, Johor, Malaysia</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-6">Company</h4>
+            <ul className="space-y-4">
+              {["About Us", "Careers", "Privacy Policy", "Terms of Service"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-gray-400 hover:text-purple-400 transition-all duration-300 hover:translate-x-1 inline-block text-sm">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 3. Services Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-6">Services</h4>
+            <ul className="space-y-4">
+              {["Teleconsultation", "Home Nursing", "Pharmacy Delivery", "Specialist Visit"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-all duration-300 hover:translate-x-1 inline-block text-sm">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 4. Newsletter & Socials */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-6">Stay Updated</h4>
+            <p className="text-gray-400 text-sm mb-4">Subscribe to our newsletter for the latest health tips.</p>
+
+            <form className="flex flex-col space-y-3 mb-8">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="bg-gray-900 border border-gray-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all text-sm"
+              />
+              <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm">
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-800/50 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-500 text-xs md:text-sm text-center md:text-left">© {currentYear} Medicare Inc. All rights reserved.</p>
+          <div className="flex space-x-6 text-xs md:text-sm text-gray-500">
+            <a href="#" className="hover:text-white transition-colors">
+              Privacy
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              Terms
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              Sitemap
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };

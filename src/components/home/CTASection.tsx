@@ -6,81 +6,126 @@ export const CTASection: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 relative overflow-hidden">
+    <section className="relative py-24 px-6 overflow-hidden bg-indigo-50/50">
+      {/* --- 1. Ambient Background Blobs (Fluid Vibe) --- */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-200/30 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none mix-blend-multiply" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-200/30 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3 pointer-events-none mix-blend-multiply" />
+
+      {/* --- 2. Animated Medical Pattern --- */}
       <MedicalIconsPattern />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="flex-1 max-w-xl">
-            <h2 className="text-4xl font-bold text-gray-900 leading-snug">Join Medicare to provide the best healthcare for others</h2>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 bg-white/40 backdrop-blur-xl border border-white/50 p-10 md:p-16 rounded-3xl shadow-2xl shadow-blue-900/5">
+          {/* Text Content */}
+          <div className="flex-1 max-w-2xl text-center md:text-left">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+              Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Medicare</span> to provide the best healthcare
+              for others
+            </h2>
+            <p className="text-lg text-gray-600 mb-0 leading-relaxed">
+              Become part of a network that prioritizes patient well-being and technological innovation.
+            </p>
           </div>
 
           {/* <div className="flex-shrink-0">
-                        <button
-                            onClick={() => navigate("/register")}
-                            className="bg-blue-600 text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-blue-700 hover:shadow-2xl transition-all inline-flex items-center gap-3 hover:scale-105 shadow-lg"
-                        >
-                            Go To Portal
-                            <ArrowRight className="w-6 h-6" />
-                        </button>
-                    </div> */}
+            <button
+              onClick={() => navigate("/register")}
+              className="group relative bg-gray-900 text-white px-10 py-5 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 active:translate-y-0"
+            >
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative flex items-center gap-3">
+                Go To Portal
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </button>
+          </div> */}
         </div>
       </div>
+
+      {/* --- Custom Keyframes for Floating Animation --- */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };
 
+// --- Sub-component: Animated Pattern ---
 const MedicalIconsPattern: React.FC = () => (
-  <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-20 pointer-events-none">
-    <div className="absolute top-10 right-20 w-24 h-24 border-4 border-blue-400 rounded-2xl transform rotate-12"></div>
-    <div className="absolute top-32 right-40 w-16 h-16">
+  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    {/* Setiap ikon dibungkus div dengan style animasi 'float'.
+      Duration dan Delay dibedakan agar gerakannya tidak seragam (lebih natural/fluid).
+    */}
+
+    {/* Top Right - Box */}
+    <div className="absolute top-10 right-20 opacity-20 animate-float" style={{ animationDuration: "7s" }}>
+      <div className="w-24 h-24 border-4 border-blue-400 rounded-2xl transform rotate-12" />
+    </div>
+
+    {/* Top Right - Shield Icon */}
+    <div className="absolute top-32 right-40 w-16 h-16 opacity-20 animate-float" style={{ animationDuration: "8s", animationDelay: "1s" }}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-purple-400 w-full h-full">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={1.5}
           d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
         />
       </svg>
     </div>
-    <div className="absolute top-1/4 right-10 w-20 h-20">
+
+    {/* Middle Right - Hospital Icon */}
+    <div className="absolute top-1/4 right-10 w-20 h-20 opacity-20 animate-float" style={{ animationDuration: "6s", animationDelay: "2s" }}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-blue-400 w-full h-full">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={1.5}
           d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
         />
       </svg>
     </div>
-    <div className="absolute top-1/3 right-32 w-14 h-14 border-3 border-pink-400 rounded-full"></div>
-    <div className="absolute top-1/2 right-24 w-20 h-20">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-purple-400 w-full h-full">
+
+    {/* Center Right - Circle */}
+    <div
+      className="absolute top-1/3 right-1/4 w-14 h-14 border-2 border-pink-400 rounded-full opacity-20 animate-float"
+      style={{ animationDuration: "9s", animationDelay: "0.5s" }}
+    />
+
+    {/* Center - Doctor Case */}
+    <div className="absolute top-1/2 right-32 w-24 h-24 opacity-10 animate-float" style={{ animationDuration: "7.5s", animationDelay: "1.5s" }}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-purple-500 w-full h-full">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={1.5}
           d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
         />
       </svg>
     </div>
-    <div className="absolute top-2/3 right-16 w-16 h-16 border-4 border-blue-400 rounded-2xl transform -rotate-12"></div>
-    <div className="absolute bottom-32 right-28 w-18 h-18">
+
+    {/* Bottom Left - Floating Square */}
+    <div
+      className="absolute bottom-20 left-20 w-16 h-16 border-4 border-blue-400/30 rounded-2xl transform -rotate-12 animate-float"
+      style={{ animationDuration: "8s" }}
+    />
+
+    {/* Bottom Right - Phone Icon */}
+    <div className="absolute bottom-32 right-28 w-18 h-18 opacity-20 animate-float" style={{ animationDuration: "6.5s", animationDelay: "1s" }}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-pink-400 w-full h-full">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={1.5}
           d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
         />
       </svg>
     </div>
-    <div className="absolute bottom-20 right-44 w-12 h-12 bg-purple-300 rounded-xl transform rotate-45 opacity-60"></div>
-    <div className="absolute bottom-1/4 right-8 w-20 h-20">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-blue-400 w-full h-full">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-    </div>
-    <div className="absolute top-20 right-52 w-10 h-10 bg-pink-300 rounded-full opacity-60"></div>
   </div>
 );

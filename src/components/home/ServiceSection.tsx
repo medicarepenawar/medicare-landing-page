@@ -46,47 +46,81 @@ export const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <span className="text-purple-600 font-semibold tracking-wide uppercase text-sm">Our Services</span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-3 mb-6">
-            Comprehensive Healthcare <br /> Solutions For You
+    <section className="relative py-24 px-6 bg-gray-50 overflow-hidden">
+      {/* --- Ambient Background Effects --- */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-purple-100/60 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* --- Header --- */}
+        <div className="text-center mb-20 max-w-3xl mx-auto animate-fade-in-up">
+          <span className="inline-block py-1 px-3 rounded-full bg-white border border-purple-100 text-purple-600 font-semibold tracking-wide uppercase text-xs shadow-sm mb-4">
+            Our Services
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            Comprehensive <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Healthcare Solutions</span>
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg leading-relaxed">
             We provide a wide range of medical services to ensure your health is taken care of, from emergency needs to routine checkups.
           </p>
         </div>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {/* --- Grid Layout --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
+            <ServiceCard key={index} {...service} index={index} />
           ))}
         </div>
       </div>
+
+      {/* --- Custom CSS for Keyframes --- */}
+      <style>{`
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .animate-card-entry {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+      `}</style>
     </section>
   );
 };
 
-// Reusable Card Component
-const ServiceCard: React.FC<Service> = ({ icon, title, description }) => (
-  <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-    <div className="w-14 h-14 rounded-xl bg-purple-50 group-hover:bg-purple-600 transition-colors duration-300 flex items-center justify-center mb-6">
-      <svg className="w-7 h-7 text-purple-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
-      </svg>
+interface ServiceCardProps extends Service {
+  index: number;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, index }) => (
+  <div
+    className="group relative bg-white p-8 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-100 animate-card-entry flex flex-col h-full"
+    style={{ animationDelay: `${index * 0.1}s` }} // Staggered Animation Logic
+  >
+    <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+    <div className="relative w-14 h-14 mb-6">
+      {/* Background Circle */}
+      <div className="absolute inset-0 bg-purple-50 rounded-2xl group-hover:scale-110 group-hover:bg-purple-600 transition-all duration-300 ease-out" />
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        <svg className="w-7 h-7 text-purple-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
+        </svg>
+      </div>
     </div>
 
-    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">{title}</h3>
+    <h3 className="text-xl font-bold text-gray-900 mb-3 relative z-10 group-hover:text-purple-600 transition-colors duration-300">{title}</h3>
 
-    <p className="text-gray-500 leading-relaxed text-sm">{description}</p>
+    <p className="text-gray-500 leading-relaxed text-sm mb-6 flex-grow relative z-10">{description}</p>
 
-    {/* Optional: 'Learn More' Link style arrow */}
-    <div className="mt-6 flex items-center text-purple-600 font-medium text-sm group-hover:translate-x-2 transition-transform cursor-pointer">
-      Learn more
-      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="relative z-10 flex items-center text-purple-600 font-semibold text-sm group-hover:text-purple-700 cursor-pointer">
+      <span className="mr-2">Learn more</span>
+      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
       </svg>
     </div>
