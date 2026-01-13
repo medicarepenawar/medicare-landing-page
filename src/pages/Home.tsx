@@ -7,6 +7,7 @@ import { CTASection } from "../components/home/CTASection";
 import { Footer } from "../components/home/Footer";
 import { ServicesSection } from "../components/home/ServiceSection";
 import { IndustriesSection } from "../components/home/IndustriesSection";
+import { PartnersSection } from "../components/home/PartnersSection";
 
 const Home: React.FC = () => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
       <FeaturesSection />
       <ServicesSection />
       <IndustriesSection />
+      <PartnersSection />
       <Testimonials />
       <CTASection />
       <Footer />
