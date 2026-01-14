@@ -42,21 +42,9 @@ export const AboutUsPage: React.FC = () => {
   ];
 
   const team: TeamMember[] = [
-    {
-      name: "Dr. Pablo Ijoel",
-      role: "Chief Medical Officer",
-      image: doctor1Img,
-    },
-    {
-      name: "Dr. Alexander Abdurrozzaaq",
-      role: "Senior Neurologist",
-      image: doctor2Img,
-    },
-    {
-      name: "Dr. Onny Dmitriyevich",
-      role: "Head of Pediatrics",
-      image: doctor3Img,
-    },
+    { name: "Dr. Pablo Ijoel", role: "Chief Medical Officer", image: doctor1Img },
+    { name: "Dr. Alexander Abdurrozzaaq", role: "Senior Neurologist", image: doctor2Img },
+    { name: "Dr. Onny Dmitriyevich", role: "Head of Pediatrics", image: doctor3Img },
   ];
 
   const values: ValueProps[] = [
@@ -74,59 +62,84 @@ export const AboutUsPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white min-h-screen w-full">
+    <div className="bg-white min-h-screen w-full font-sans">
       <Header />
 
-      <section className="relative pt-32 pb-20 bg-purple-50">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            About <span className="text-purple-600">Medicare</span>
+      {/* --- 1. HERO SECTION (Fluid Background) --- */}
+      <section className="relative pt-40 pb-24 overflow-hidden">
+        {/* Animated Background Blobs */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#2563EB]/10 rounded-full blur-[100px] animate-float-slow" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#EF4444]/5 rounded-full blur-[100px] animate-float-delayed" />
+        </div>
+
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10 animate-fade-in-up">
+          <span className="inline-block py-1 px-3 rounded-full bg-[#2563EB]/10 text-[#2563EB] text-sm font-bold tracking-wide uppercase mb-6 border border-[#2563EB]/20">
+            About Us
+          </span>
+          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-8 leading-tight">
+            Advancing Healthcare <br />
+            with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">Compassion</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            We are dedicated to providing the most advanced medical care with a personal touch. Your health is our priority, and our journey is defined by the
-            lives we touch.
+          <p className="text-xl text-gray-600 leading-relaxed">
+            We bridge the gap between complex medical treatments and human care. Your health journey is our priority, defined by the lives we touch every day.
           </p>
         </div>
       </section>
 
-      {/* 2. Mission & Story Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-purple-100 rounded-full z-0"></div>
-            <img
-              src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800"
-              alt="Medical Team Meeting"
-              className="relative z-10 rounded-2xl shadow-xl w-full h-auto object-cover"
-            />
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-purple-600/10 rounded-2xl z-0"></div>
+      {/* --- 2. MISSION SECTION (Glassmorphism Cards) --- */}
+      <section className="py-20 px-6 relative bg-white">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left: Image Composition */}
+          <div className="relative animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-[#2563EB]/20 border-4 border-white">
+              <img
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800"
+                alt="Medical Team"
+                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+              />
+              {/* Floating Badge */}
+              <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-white/50 flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#EF4444]/10 rounded-full flex items-center justify-center text-[#EF4444]">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 font-semibold uppercase">Trusted By</p>
+                  <p className="text-lg font-bold text-gray-900">1 Million+ Families</p>
+                </div>
+              </div>
+            </div>
+            {/* Decorative Element */}
+            <div className="absolute -z-10 top-10 -right-10 w-full h-full bg-gradient-to-br from-[#2563EB]/20 to-[#EF4444]/20 rounded-[2.5rem] blur-xl"></div>
           </div>
 
-          <div>
-            <span className="text-purple-600 font-bold uppercase tracking-wider text-sm">Our Mission</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-6">
-              Improving Lives Through <br /> Advanced Medicine
-            </h2>
-            <div className="space-y-4 text-gray-600 leading-relaxed">
+          {/* Right: Content */}
+          <div className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
+            <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-10">
               <p>
-                Founded in 2010, Medicare started with a simple vision: to bridge the gap between complex medical treatments and compassionate human care. We
-                believe that healing requires more than just medicine; it requires trust, understanding, and comfort.
+                Medicare started with a simple vision: to bridge the gap between medical expertise and human empathy. We believe healing requires trust,
+                understanding, and comfort.
               </p>
-              <p>
-                Today, we serve thousands of families with a network of specialized clinics, leveraging cutting-edge technology like telemedicine and
-                AI-assisted diagnostics while keeping patient welfare at the core of everything we do.
-              </p>
+              <p>Today, we leverage AI-assisted diagnostics while ensuring patient welfare remains at our core.</p>
             </div>
 
-            {/* Core Values Mini Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+            {/* Core Values with Hover Effects */}
+            <div className="grid sm:grid-cols-3 gap-4">
               {values.map((val, idx) => (
-                <div key={idx} className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <svg className="w-8 h-8 text-purple-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={val.icon} />
-                  </svg>
-                  <h4 className="font-bold text-gray-900 mb-1">{val.title}</h4>
-                  <p className="text-xs text-gray-500">{val.description}</p>
+                <div
+                  key={idx}
+                  className="group p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-xl hover:shadow-[#2563EB]/10 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="w-10 h-10 mb-3 rounded-lg bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={val.icon} />
+                    </svg>
+                  </div>
+                  <h4 className="font-bold text-gray-900">{val.title}</h4>
+                  <p className="text-xs text-gray-500 mt-1">{val.description}</p>
                 </div>
               ))}
             </div>
@@ -134,49 +147,64 @@ export const AboutUsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Stats Section (Dark Background for Contrast) */}
-      <section className="bg-gray-900 py-16 px-6 text-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.map((stat, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex justify-center mb-4 text-purple-400">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={stat.icon} />
-                </svg>
+      {/* --- 3. STATS SECTION (Modern Dark Theme) --- */}
+      <section className="py-20 bg-[#0f172a] relative overflow-hidden">
+        {/* Background Gradients */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#EF4444]/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-gray-800/50">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center px-4 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="flex justify-center mb-4 text-[#EF4444]">
+                  <svg className="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={stat.icon} />
+                  </svg>
+                </div>
+                <div className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">{stat.value}</div>
+                <div className="text-[#2563EB] text-sm font-bold uppercase tracking-widest">{stat.label}</div>
               </div>
-              <div className="text-4xl font-bold">{stat.value}</div>
-              <div className="text-gray-400 text-sm font-medium uppercase tracking-wide">{stat.label}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 4. Team Section */}
-      <section className="py-20 px-6 bg-gray-50">
+      {/* --- 4. TEAM SECTION (Floating Cards) --- */}
+      <section className="py-24 px-6 bg-gray-50/50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Meet Our Specialists</h2>
+          <div className="text-center mb-16 animate-fade-in-up">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Meet Our Specialists</h2>
             <p className="text-gray-600 max-w-xl mx-auto">
-              Our team of dedicated doctors and healthcare professionals is here to guide you on your path to recovery.
+              Expert care from the industry's best. Our team is dedicated to guiding you on your path to recovery.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-8">
             {team.map((member, index) => (
-              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                <div className="relative overflow-hidden h-72">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-purple-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                    <button className="bg-white text-purple-600 p-2 rounded-full hover:bg-purple-600 hover:text-white transition">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                      </svg>
-                    </button>
+              <div
+                key={index}
+                className="group bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-2xl hover:shadow-[#2563EB]/10 transition-all duration-500 hover:-translate-y-2 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="relative overflow-hidden rounded-[1.5rem] aspect-[4/5] mb-4">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110"
+                  />
+
+                  {/* Social/Action Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span className="text-white font-medium text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      View Profile &rarr;
+                    </span>
                   </div>
                 </div>
-                <div className="p-6 text-center">
+
+                <div className="text-center px-2 pb-2">
                   <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-                  <p className="text-purple-600 font-medium text-sm mt-1">{member.role}</p>
+                  <p className="text-[#2563EB] font-medium text-sm mt-1">{member.role}</p>
                 </div>
               </div>
             ))}
@@ -184,21 +212,53 @@ export const AboutUsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. CTA Section */}
+      {/* --- 5. CTA SECTION (Fluid Gradient) --- */}
       <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto bg-purple-600 rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-20 -mt-20"></div>
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
+        <div className="max-w-6xl mx-auto relative rounded-[3rem] overflow-hidden shadow-2xl shadow-[#2563EB]/20 animate-fade-in-up">
+          {/* Dynamic Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2563EB] to-[#EF4444]"></div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 relative z-10">Ready to Prioritize Your Health?</h2>
-          <p className="text-purple-100 text-lg mb-8 max-w-2xl mx-auto relative z-10">
-            Join thousands of satisfied patients who trust Medicare for their healthcare needs. Book an appointment today.
-          </p>
-          <button className="bg-white text-purple-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-300 relative z-10">
-            Book Appointment
-          </button>
+          {/* Pattern Overlay */}
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+
+          <div className="relative z-10 p-12 md:p-20 text-center text-white">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Prioritize Your Health?</h2>
+            <p className="text-blue-50 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+              Join thousands of satisfied patients who trust Medicare for their healthcare needs. Simple, fast, and caring.
+            </p>
+            <button className="bg-white text-[#2563EB] font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+              Book Appointment
+            </button>
+          </div>
         </div>
       </section>
+
+      {/* --- Custom CSS for Animations --- */}
+      <style>{`
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+        @keyframes floatDelayed {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(20px) scale(1.05); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; /* Start hidden */
+        }
+        .animate-float-slow {
+            animation: floatSlow 10s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: floatDelayed 12s ease-in-out infinite reverse;
+        }
+      `}</style>
     </div>
   );
 };
