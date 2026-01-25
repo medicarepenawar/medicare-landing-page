@@ -1,9 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 
 export const CTASection: React.FC = () => {
-  const navigate = useNavigate();
 
   return (
     <section className="relative py-24 px-6 overflow-hidden bg-[#2563EB]/5">

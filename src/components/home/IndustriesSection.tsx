@@ -8,8 +8,7 @@ interface Industry {
 }
 
 export const IndustriesSection: React.FC = () => {
-  const primaryColor = "#2563EB"; // Blue
-  const secondaryColor = "#EF4444"; // Red
+
 
   const industries: Industry[] = [
     {
@@ -98,7 +97,7 @@ interface CardProps extends Industry {
   index: number;
 }
 
-const IndustryCard: React.FC<CardProps> = ({ title, description, icon, badge, index }) => (
+const IndustryCard: React.FC<CardProps> = ({ title, description, icon, badge }) => (
   <div className="group relative bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-[#2563EB]/10 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full overflow-hidden">
     {/* Badge (Optional) - Menggunakan Secondary Color (Merah) agar menonjol */}
     {badge && (
