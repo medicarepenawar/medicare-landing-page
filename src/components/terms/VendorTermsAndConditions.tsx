@@ -1,4 +1,7 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
+
 const VendorTermsAndConditions = () => {
+  usePageTitle("Vendor Terms & Conditions");
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow px-6 py-4">

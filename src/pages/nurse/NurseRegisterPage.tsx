@@ -6,8 +6,10 @@ import { useNurseRegistration } from '../../hooks/useNurseRegistration';
 import { REGISTRATION_SUCCESS_URL } from '../../constants/constant';
 import { useToast } from '../../components/common/ToastContainer';
 import { getErrorMessage } from '../../utils/errorHandler';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 const NurseRegisterPage: React.FC = () => {
+  usePageTitle('Nurse Registration');
   const navigate = useNavigate();
   const { showError } = useToast();
   const {
@@ -25,8 +27,8 @@ const NurseRegisterPage: React.FC = () => {
   useEffect(() => {
     if (currentStep === 'success') {
       const timer = setTimeout(() => {
-        navigate(REGISTRATION_SUCCESS_URL, { 
-          state: { role: 'nurse' } 
+        navigate(REGISTRATION_SUCCESS_URL, {
+          state: { role: 'nurse' }
         });
       }, 1500);
 

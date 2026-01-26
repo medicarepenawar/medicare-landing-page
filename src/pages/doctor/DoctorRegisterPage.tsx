@@ -6,19 +6,21 @@ import { useDoctorRegistration } from "../../hooks/useDoctorRegistration";
 import { REGISTRATION_SUCCESS_URL } from "../../constants/constant";
 import { useToast } from "../../components/common/ToastContainer";
 import { getErrorMessage } from "../../utils/errorHandler";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const DoctorRegisterPage: React.FC = () => {
+  usePageTitle("Doctor Registration");
   const navigate = useNavigate();
   const { showError } = useToast();
-  const { 
-    currentStep, 
-    registerData, 
-    loading, 
-    error, 
-    handleRegisterSubmit, 
-    handleOTPSubmit, 
-    handleOTPResend, 
-    clearError 
+  const {
+    currentStep,
+    registerData,
+    loading,
+    error,
+    handleRegisterSubmit,
+    handleOTPSubmit,
+    handleOTPResend,
+    clearError
   } = useDoctorRegistration();
 
   // Redirect to success page when registration is complete
@@ -64,10 +66,10 @@ const DoctorRegisterPage: React.FC = () => {
 
       {/* OTP Verification */}
       {currentStep === "otp" && registerData && (
-        <DoctorOTPVerification 
-          onSubmit={handleOTPSubmit} 
-          onResend={handleOTPResend} 
-          email={registerData.email} 
+        <DoctorOTPVerification
+          onSubmit={handleOTPSubmit}
+          onResend={handleOTPResend}
+          email={registerData.email}
         />
       )}
 
@@ -76,17 +78,17 @@ const DoctorRegisterPage: React.FC = () => {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <div className="mb-4">
-              <svg 
-                className="w-20 h-20 text-green-500 mx-auto" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="w-20 h-20 text-green-500 mx-auto"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
             </div>

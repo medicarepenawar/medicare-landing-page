@@ -6,8 +6,10 @@ import { useVendorRegistration } from '../../hooks/useVendorRegistration';
 import { REGISTRATION_SUCCESS_URL } from '../../constants/constant';
 import { useToast } from '../../components/common/ToastContainer';
 import { getErrorMessage } from '../../utils/errorHandler';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 const VendorRegisterPage: React.FC = () => {
+  usePageTitle('Vendor Registration');
   const navigate = useNavigate();
   const { showError } = useToast();
   const {
@@ -25,8 +27,8 @@ const VendorRegisterPage: React.FC = () => {
   useEffect(() => {
     if (currentStep === 'success') {
       const timer = setTimeout(() => {
-        navigate(REGISTRATION_SUCCESS_URL, { 
-          state: { role: 'vendor' } 
+        navigate(REGISTRATION_SUCCESS_URL, {
+          state: { role: 'vendor' }
         });
       }, 1500);
 

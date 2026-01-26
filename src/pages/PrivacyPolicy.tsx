@@ -1,6 +1,8 @@
 import React from "react";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const PrivacyPolicy: React.FC = () => {
+    usePageTitle("Privacy Policy");
     return (
         <div
             style={{

@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { 
-  VENDOR_REGISTRATION_SUCCESS_URL, 
-  NURSE_REGISTRATION_SUCCESS_URL, 
-  DOCTOR_REGISTRATION_SUCCESS_URL 
+import {
+  VENDOR_REGISTRATION_SUCCESS_URL,
+  NURSE_REGISTRATION_SUCCESS_URL,
+  DOCTOR_REGISTRATION_SUCCESS_URL
 } from '../constants/constant';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const RegistrationSuccess: React.FC = () => {
+  usePageTitle('Registration Success');
   const location = useLocation();
-  
+
   // Get role from state or default to vendor
   const role = (location.state as { role?: string })?.role || 'vendor';
 
@@ -16,7 +18,7 @@ const RegistrationSuccess: React.FC = () => {
     // Redirect to appropriate login page after 3 seconds
     const timer = setTimeout(() => {
       let loginUrl = VENDOR_REGISTRATION_SUCCESS_URL;
-      
+
       switch (role.toLowerCase()) {
         case 'nurse':
           loginUrl = NURSE_REGISTRATION_SUCCESS_URL || VENDOR_REGISTRATION_SUCCESS_URL;
@@ -83,11 +85,11 @@ const RegistrationSuccess: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Registration Successful!
           </h1>
-          
+
           <p className="text-gray-600 text-lg mb-2">
             Your <span className="font-semibold text-blue-600">{getRoleDisplayName()}</span> account has been created successfully.
           </p>
-          
+
           <p className="text-gray-500 text-base mb-8">
             You will be redirected to the login page shortly.
           </p>

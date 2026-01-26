@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "./Header";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 // --- Types ---
 interface ContactInfoItem {
@@ -16,6 +17,7 @@ interface FaqItem {
 }
 
 export const ContactUsPage: React.FC = () => {
+  usePageTitle("Contact Us");
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
 
   const handleSubmit = (e: React.FormEvent) => {

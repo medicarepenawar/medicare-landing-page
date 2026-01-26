@@ -4,8 +4,10 @@ import doctorIcon from "../assets/img/icon-doctor.svg";
 import nurseIcon from "../assets/img/icon-nurse.svg";
 import hospitalIcon from "../assets/img/icon-hospital.svg";
 import { DOCTOR_REGISTER_URL, VENDOR_REGISTER_URL, NURSE_REGISTER_URL } from "../constants/constant";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const Register: React.FC = () => {
+  usePageTitle("Select Role");
   const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState<string>("");
 
@@ -45,20 +47,18 @@ const Register: React.FC = () => {
           {/* Doctor Card */}
           <button
             onClick={() => setSelectedRole("doctor")}
-            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${
-              selectedRole === "doctor"
+            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${selectedRole === "doctor"
                 ? "border-blue-500 bg-blue-50/30 shadow-lg"
                 : "border-gray-200 bg-white hover:border-gray-300"
-            }`}
+              }`}
           >
             {/* Selection Indicator */}
             <div className="absolute top-5 left-5">
               <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                  selectedRole === "doctor"
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedRole === "doctor"
                     ? "border-blue-500 bg-blue-500"
                     : "border-gray-300 bg-white"
-                }`}
+                  }`}
               >
                 {selectedRole === "doctor" && (
                   <svg
@@ -78,31 +78,28 @@ const Register: React.FC = () => {
 
             {/* Icon */}
             <div className="mb-6 mt-4">
-              <div 
-                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${
-                  selectedRole === "" || selectedRole === "doctor"
+              <div
+                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${selectedRole === "" || selectedRole === "doctor"
                     ? "bg-blue-50"
                     : "bg-gray-100"
-                }`}
+                  }`}
               >
                 <img
                   src={doctorIcon}
                   alt="Doctor"
-                  className={`w-full h-full object-contain transition-all duration-300 ${
-                    selectedRole !== "" && selectedRole !== "doctor" 
-                      ? "grayscale opacity-30 brightness-150" 
+                  className={`w-full h-full object-contain transition-all duration-300 ${selectedRole !== "" && selectedRole !== "doctor"
+                      ? "grayscale opacity-30 brightness-150"
                       : ""
-                  }`}
+                    }`}
                 />
               </div>
             </div>
 
             {/* Label */}
-            <h3 className={`text-xl font-semibold transition-colors ${
-              selectedRole !== "" && selectedRole !== "doctor"
+            <h3 className={`text-xl font-semibold transition-colors ${selectedRole !== "" && selectedRole !== "doctor"
                 ? "text-gray-400"
                 : "text-gray-900"
-            }`}>
+              }`}>
               Doctor
             </h3>
           </button>
@@ -110,20 +107,18 @@ const Register: React.FC = () => {
           {/* Nurse Card */}
           <button
             onClick={() => setSelectedRole("nurse")}
-            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${
-              selectedRole === "nurse"
+            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${selectedRole === "nurse"
                 ? "border-blue-500 bg-blue-50/30 shadow-lg"
                 : "border-gray-200 bg-white hover:border-gray-300"
-            }`}
+              }`}
           >
             {/* Selection Indicator */}
             <div className="absolute top-5 left-5">
               <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                  selectedRole === "nurse"
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedRole === "nurse"
                     ? "border-blue-500 bg-blue-500"
                     : "border-gray-300 bg-white"
-                }`}
+                  }`}
               >
                 {selectedRole === "nurse" && (
                   <svg
@@ -143,31 +138,28 @@ const Register: React.FC = () => {
 
             {/* Icon */}
             <div className="mb-6 mt-4">
-              <div 
-                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${
-                  selectedRole === "" || selectedRole === "nurse"
+              <div
+                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${selectedRole === "" || selectedRole === "nurse"
                     ? "bg-pink-50"
                     : "bg-gray-100"
-                }`}
+                  }`}
               >
                 <img
                   src={nurseIcon}
                   alt="Nurse"
-                  className={`w-full h-full object-contain transition-all duration-300 ${
-                    selectedRole !== "" && selectedRole !== "nurse" 
-                      ? "grayscale opacity-30 brightness-150" 
+                  className={`w-full h-full object-contain transition-all duration-300 ${selectedRole !== "" && selectedRole !== "nurse"
+                      ? "grayscale opacity-30 brightness-150"
                       : ""
-                  }`}
+                    }`}
                 />
               </div>
             </div>
 
             {/* Label */}
-            <h3 className={`text-xl font-semibold transition-colors ${
-              selectedRole !== "" && selectedRole !== "nurse"
+            <h3 className={`text-xl font-semibold transition-colors ${selectedRole !== "" && selectedRole !== "nurse"
                 ? "text-gray-400"
                 : "text-gray-900"
-            }`}>
+              }`}>
               Nurse
             </h3>
           </button>
@@ -175,20 +167,18 @@ const Register: React.FC = () => {
           {/* Vendor Card */}
           <button
             onClick={() => setSelectedRole("vendor")}
-            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${
-              selectedRole === "vendor"
+            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${selectedRole === "vendor"
                 ? "border-blue-500 bg-blue-50/30 shadow-lg"
                 : "border-gray-200 bg-white hover:border-gray-300"
-            }`}
+              }`}
           >
             {/* Selection Indicator */}
             <div className="absolute top-5 left-5">
               <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                  selectedRole === "vendor"
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedRole === "vendor"
                     ? "border-blue-500 bg-blue-500"
                     : "border-gray-300 bg-white"
-                }`}
+                  }`}
               >
                 {selectedRole === "vendor" && (
                   <svg
@@ -208,31 +198,28 @@ const Register: React.FC = () => {
 
             {/* Icon */}
             <div className="mb-6 mt-4">
-              <div 
-                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${
-                  selectedRole === "" || selectedRole === "vendor"
+              <div
+                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${selectedRole === "" || selectedRole === "vendor"
                     ? "bg-gray-100"
                     : "bg-gray-100"
-                }`}
+                  }`}
               >
                 <img
                   src={hospitalIcon}
                   alt="Vendor"
-                  className={`w-full h-full object-contain transition-all duration-300 ${
-                    selectedRole !== "" && selectedRole !== "vendor" 
-                      ? "grayscale opacity-30 brightness-150" 
+                  className={`w-full h-full object-contain transition-all duration-300 ${selectedRole !== "" && selectedRole !== "vendor"
+                      ? "grayscale opacity-30 brightness-150"
                       : ""
-                  }`}
+                    }`}
                 />
               </div>
             </div>
 
             {/* Label */}
-            <h3 className={`text-xl font-semibold transition-colors ${
-              selectedRole !== "" && selectedRole !== "vendor"
+            <h3 className={`text-xl font-semibold transition-colors ${selectedRole !== "" && selectedRole !== "vendor"
                 ? "text-gray-400"
                 : "text-gray-900"
-            }`}>
+              }`}>
               Vendor
             </h3>
           </button>
@@ -243,11 +230,10 @@ const Register: React.FC = () => {
           <button
             onClick={handleContinue}
             disabled={!selectedRole}
-            className={`px-12 py-3.5 rounded-full font-semibold text-white text-base transition-all duration-300 inline-flex items-center gap-2 ${
-              selectedRole
+            className={`px-12 py-3.5 rounded-full font-semibold text-white text-base transition-all duration-300 inline-flex items-center gap-2 ${selectedRole
                 ? "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg cursor-pointer"
                 : "bg-blue-400 cursor-not-allowed opacity-60"
-            }`}
+              }`}
           >
             Continue
             <svg
