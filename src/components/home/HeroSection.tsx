@@ -1,101 +1,109 @@
 import React from "react";
-import { Button } from "../common/Button";
 import heroAppImage from "../../assets/img/home/mockup.png";
+import westMalaysiaMap from "../../assets/img/home/westm.png";
+import eastMalaysiaMap from "../../assets/img/home/eastm.png";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
-      {/* --- Ambient Background Effects (Updated Colors) --- */}
-      {/* Primary Blue Blob */}
+    <section className="relative pt-20 pb-16 px-6 overflow-hidden bg-gradient-to-br from-purple-50 via-white to-purple-50">
+      {/* --- Ambient Background Effects --- */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#2563EB]/10 rounded-full blur-[100px] -translate-y-1/2 animate-pulse" />
-      {/* Secondary Red Blob */}
       <div className="absolute top-20 right-1/4 w-[400px] h-[400px] bg-[#EF4444]/10 rounded-full blur-[80px] translate-x-1/3" />
 
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      <div className="relative max-w-[1400px] mx-auto">
+        {/* --- TOP: Medicare Branding --- */}
+        <div className="text-center mb-12 mt-12 animate-fade-in-up opacity-0" style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}>
+          <h1 className="text-6xl md:text-7xl font-black mb-3 tracking-tight">
+            <span className="text-[#2563EB]">Medi</span>
+            <span className="text-[#EF4444]">Care</span>
+          </h1>
+          <p className="text-lg md:text-xl font-medium text-gray-600 tracking-wide">Healthcare, Anytime, Anywhere</p>
+        </div>
 
-      <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        {/* --- LEFT COLUMN: Text Content --- */}
-        <div className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 text-[#2563EB] text-sm font-medium mb-6 animate-fade-in-up opacity-0"
-            style={{ animationDelay: "0.1s", animationFillMode: "forwards" }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2563EB] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#2563EB]"></span>
-            </span>
-            New standard for healthcare
+        {/* --- MAIN GRID: 3 Columns --- */}
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+          {/* --- LEFT COLUMN: Users Section --- */}
+          <div className="text-center lg:text-left space-y-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}>
+            <div className="flex justify-center lg:justify-start">
+              <span className="inline-flex items-center px-6 py-2 rounded-full bg-gradient-to-r from-[#2563EB]/20 to-[#2563EB]/10 border border-[#2563EB]/30 text-[#2563EB] text-sm font-bold tracking-wider uppercase">
+                Users
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight leading-tight">Medicare brings healthcare closer than ever.</h3>
+              <p className="text-base md:text-lg text-gray-500 font-medium">Comprehensive medical services, simplified</p>
+            </div>
+
+            <p className="text-sm md:text-base leading-relaxed text-gray-600 max-w-md mx-auto lg:mx-0 font-normal">
+              From GP online visits and specialist appointments, specialist visit, home nursing, e-prescriptions, ambulance services, doctor home visits, and
+              onsite laboratory support, everything is available at your fingertips. The intuitive design ensures quick access, clear choices, and peace of
+              mind—whether for routine care or urgent needs.
+            </p>
+
+            {/* Map illustration */}
+            <div className="pt-8 flex flex-col items-center">
+              <div className="relative w-64 h-52 mb-4">
+                <img src={westMalaysiaMap} alt="West Malaysia Map" className="w-full h-full object-contain drop-shadow-lg" />
+              </div>
+              <p className="text-2xl md:text-3xl font-bold italic text-gray-800 tracking-wide">West Malaysia</p>
+            </div>
           </div>
 
-          <h1
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight tracking-tight animate-fade-in-up opacity-0"
-            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-          >
-            Healthcare. <br className="hidden md:block" />
-            {/* Gradient Text: Primary Blue -> Secondary Red -> Primary Blue */}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#EF4444] to-[#2563EB] bg-300% animate-gradient">
-              Anytime. Anywhere.
-            </span>
-          </h1>
-
-          <p
-            className="text-lg text-gray-600 mb-10 leading-relaxed animate-fade-in-up opacity-0"
+          {/* --- CENTER COLUMN: Phone Mockup --- */}
+          <div
+            className="relative flex justify-center perspective-1000 animate-fade-in-up opacity-0"
             style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
           >
-            Experience the future of medical care right from your pocket. Book appointments, consult via video, and manage prescriptions instantly.
-          </p>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[500px] bg-gradient-to-tr from-[#2563EB]/20 to-[#EF4444]/20 blur-[80px] rounded-full pointer-events-none animate-pulse-slow" />
 
-          <div
-            className="flex justify-center lg:justify-start gap-4 animate-fade-in-up opacity-0 mb-12"
-            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-          >
-            <div className="relative group">
-              {/* Button Glow: Primary to Secondary */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563EB] to-[#EF4444] rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
-              <div className="relative">
-                <Button size="lg" icon>
-                  Get Started Now
-                </Button>
+            <div className="relative w-full max-w-[280px] lg:max-w-[320px] animate-float-3d transform-style-3d z-10">
+              <div className="relative rounded-[2.5rem] bg-gray-900 shadow-2xl overflow-hidden border-[8px] border-gray-900 ring-1 ring-white/10 group transition-transform duration-500">
+                <img src={heroAppImage} alt="Medicare Mobile App Interface" className="w-full h-auto object-cover" />
+
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform skew-x-[-25deg] animate-shine" />
               </div>
+
+              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-[80%] h-12 bg-black/20 blur-xl rounded-[100%] animate-shadow-scale" />
+            </div>
+          </div>
+
+          {/* --- RIGHT COLUMN: Healthcare Providers Section --- */}
+          <div className="text-center lg:text-right space-y-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}>
+            <div className="flex justify-center lg:justify-end">
+              <span className="inline-flex items-center px-6 py-2 rounded-full bg-gradient-to-r from-[#EF4444]/20 to-[#EF4444]/10 border border-[#EF4444]/30 text-[#EF4444] text-sm font-bold tracking-wider uppercase">
+                Healthcare Providers
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight leading-tight">Powering Healthcare Excellence</h3>
+              <p className="text-base md:text-lg text-gray-500 font-medium">Integrated solutions for better outcomes</p>
+            </div>
+
+            <p className="text-sm md:text-base leading-relaxed text-gray-600 max-w-md mx-auto lg:mx-0 font-normal">
+              Medicare App is a powerful platform that connects clinics, hospital, doctors, nurses, ambulances, laboratories, and pharmacies within one
+              integrated ecosystem. It supports efficient patient management, teleconsultations, service coordination and delivery, digital records, and
+              real-time communication—improving workflow, response time, and service quality.
+            </p>
+
+            {/* Map illustration */}
+            <div className="pt-8 flex flex-col items-center">
+              <div className="relative w-72 h-52 mb-4">
+                <img src={eastMalaysiaMap} alt="East Malaysia Map" className="w-full h-full object-contain drop-shadow-lg" />
+              </div>
+              <p className="text-2xl md:text-3xl font-bold italic text-gray-800 tracking-wide">East Malaysia</p>
             </div>
           </div>
         </div>
 
-        {/* --- RIGHT COLUMN: 3D Fluid Image View --- */}
-        <div
-          className="relative flex justify-center lg:justify-end animate-fade-in-up opacity-0 perspective-1000"
-          style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
-        >
-          {/* Decorative Back Glow: Primary to Secondary */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[600px] bg-gradient-to-tr from-[#2563EB]/20 to-[#EF4444]/20 blur-[80px] rounded-full pointer-events-none animate-pulse-slow" />
-
-          {/* 3D Phone Container Wrapper */}
-          <div className="relative w-full max-w-[320px] animate-float-3d transform-style-3d">
-            <div className="relative rounded-[2.5rem] bg-gray-900 shadow-2xl overflow-hidden border-[8px] border-gray-900 ring-1 ring-white/10 group transition-transform duration-500 hover:rotate-y-0 hover:rotate-x-0 transform rotate-y-[-12deg] rotate-x-[5deg]">
-              {/* Image */}
-              <img src={heroAppImage} alt="Medicare Mobile App Interface" className="w-full h-auto object-cover" />
-
-              {/* Glossy Reflection Overlay (Efek Kaca) */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-              {/* Shine Line Animation */}
-              <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform skew-x-[-25deg] animate-shine" />
-            </div>
-
-            {/* Drop Shadow 3D yang ikut bergerak */}
-            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-[80%] h-12 bg-black/20 blur-xl rounded-[100%] animate-shadow-scale" />
-
-            {/* Floating Badge (Optional - adds depth) */}
-            <div className="absolute top-20 -right-8 bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-white/50 animate-float-delayed hidden md:block transform translate-z-20">
-              <div className="flex items-center gap-2">
-                <span className="flex h-3 w-3 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2563EB] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-[#2563EB]"></span>
-                </span>
-                <span className="text-xs font-bold text-gray-800">App Preview</span>
-              </div>
-            </div>
-          </div>
+        {/* --- BOTTOM: Tagline --- */}
+        <div className="text-center mt-20 space-y-1 animate-fade-in-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
+            Unified Ecosystem. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">Seamless Care.</span>
+          </h2>
+          <p className="text-base md:text-lg font-medium text-gray-600 pt-2">Connecting healthcare, empowering lives.</p>
         </div>
       </div>
 

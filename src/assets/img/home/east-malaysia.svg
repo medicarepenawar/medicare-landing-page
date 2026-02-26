@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 280" fill="none">
+  <defs>
+    <linearGradient id="eastMalaysiaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sabah (upper portion) -->
+  <path d="M 120 80
+           C 130 75, 145 72, 160 70
+           L 185 68
+           C 200 67, 215 68, 228 72
+           L 245 78
+           C 258 83, 268 90, 275 98
+           L 285 110
+           C 292 120, 295 132, 295 145
+           L 293 160
+           C 290 170, 285 178, 278 185
+           L 268 192
+           C 258 198, 245 200, 232 198
+           L 215 195
+           C 202 192, 190 187, 180 180
+           L 165 168
+           C 155 160, 148 150, 143 138
+           L 135 122
+           C 130 110, 125 98, 122 90
+           L 120 80 Z"
+        fill="url(#eastMalaysiaGradient)"
+        stroke="#047857"
+        stroke-width="2"
+        opacity="0.9"/>
+  
+  <!-- Sarawak (lower elongated portion) -->
+  <path d="M 80 140
+           C 90 135, 105 133, 120 135
+           L 150 140
+           C 170 143, 188 148, 205 155
+           L 230 167
+           C 250 175, 268 185, 285 195
+           L 310 210
+           C 330 220, 348 228, 365 233
+           L 385 238
+           C 395 240, 402 241, 408 240
+           L 415 238
+           C 420 236, 422 232, 421 228
+           L 418 220
+           C 415 212, 410 206, 403 202
+           L 390 195
+           C 375 188, 358 183, 340 180
+           L 315 176
+           C 295 173, 275 172, 255 173
+           L 230 175
+           C 210 177, 192 180, 175 185
+           L 155 192
+           C 140 197, 128 203, 118 210
+           L 105 220
+           C 95 227, 88 233, 83 238
+           L 75 245
+           C 68 250, 64 254, 62 256
+           C 58 258, 55 257, 54 253
+           L 52 245
+           C 51 237, 52 228, 55 220
+           L 60 205
+           C 64 195, 68 186, 73 178
+           L 78 168
+           C 82 160, 85 152, 86 145
+           L 85 138
+           C 84 133, 82 130, 80 140 Z"
+        fill="url(#eastMalaysiaGradient)"
+        stroke="#047857"
+        stroke-width="2"
+        opacity="0.9"/>
+  
+  <!-- Connection detail between Sabah and Sarawak -->
+  <ellipse cx="150" cy="165" rx="8" ry="6" fill="#059669" opacity="0.4"/>
+</svg>

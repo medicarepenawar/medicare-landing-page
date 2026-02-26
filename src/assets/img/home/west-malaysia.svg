@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <defs>
+    <linearGradient id="westMalaysiaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  <!-- West Malaysia (Peninsular Malaysia) -->
+  <path d="M 200 40 
+           C 210 35, 220 38, 225 45
+           L 235 55
+           C 240 60, 245 58, 248 65
+           L 255 80
+           C 258 90, 262 95, 265 105
+           L 268 120
+           C 270 130, 272 138, 270 148
+           L 268 165
+           C 266 175, 264 185, 260 195
+           L 255 210
+           C 250 220, 245 228, 238 235
+           L 228 245
+           C 218 252, 208 256, 198 258
+           L 185 260
+           C 175 261, 165 260, 155 257
+           L 140 252
+           C 130 248, 122 242, 115 235
+           L 105 222
+           C 100 212, 98 202, 95 192
+           L 92 175
+           C 90 165, 88 155, 90 145
+           L 95 128
+           C 98 118, 102 110, 108 102
+           L 118 90
+           C 125 82, 133 76, 142 72
+           L 155 65
+           C 165 60, 175 58, 185 55
+           L 200 40 Z" 
+        fill="url(#westMalaysiaGradient)" 
+        stroke="#047857" 
+        stroke-width="2"
+        opacity="0.9"/>
+  
+  <!-- Inner details for more realistic look -->
+  <path d="M 180 100 C 185 105, 190 110, 188 118" 
+        stroke="#047857" 
+        stroke-width="1" 
+        fill="none" 
+        opacity="0.3"/>
+  <path d="M 220 130 C 215 140, 210 145, 208 155" 
+        stroke="#047857" 
+        stroke-width="1" 
+        fill="none" 
+        opacity="0.3"/>
+</svg>
