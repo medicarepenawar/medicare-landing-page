@@ -25,7 +25,7 @@ export const Testimonials: React.FC = () => {
     },
     {
       name: "Pablo Ijoel",
-      role: "CMO of Medimedicare",
+      role: "CMO of Medimedic",
       text: "Finally, a healthcare solution that puts the user experience first. The interface is intuitive, clean, and incredibly responsive on mobile devices.",
       // Variasi 3: Primary to Secondary Mix
       color: "from-[#2563EB] to-[#EF4444]",
