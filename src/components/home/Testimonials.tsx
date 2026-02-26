@@ -11,21 +11,21 @@ export const Testimonials: React.FC = () => {
   const testimonials: Testimonial[] = [
     {
       name: "Alexander Abdurrozzaaq",
-      role: "CTO of Medimedi",
+      role: "CTO of Medimedicare",
       text: "The efficiency of this platform is unmatched. It has completely transformed how we manage patient records and appointments. Simply brilliant.",
       // Variasi 1: Primary Blue Gradient
       color: "from-[#2563EB] to-[#1E40AF]",
     },
     {
       name: "Onny Dmitriyevich",
-      role: "CEO of Medimedi",
+      role: "CEO of Medimedicare",
       text: "Security was our top concern, and Medicare delivered. The HIPAA compliance features give us and our patients complete peace of mind.",
       // Variasi 2: Secondary Red Gradient
       color: "from-[#EF4444] to-[#B91C1C]",
     },
     {
       name: "Pablo Ijoel",
-      role: "CMO of Medimedi",
+      role: "CMO of Medimedicare",
       text: "Finally, a healthcare solution that puts the user experience first. The interface is intuitive, clean, and incredibly responsive on mobile devices.",
       // Variasi 3: Primary to Secondary Mix
       color: "from-[#2563EB] to-[#EF4444]",
