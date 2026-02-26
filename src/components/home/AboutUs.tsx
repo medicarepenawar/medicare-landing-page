@@ -81,7 +81,7 @@ export const AboutUsPage: React.FC = () => {
             with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">Compassion</span>
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed">
-            We bridge the gap between complex medical treatments and human care. Your health journey is our priority, defined by the lives we touch every day.
+           Test We bridge the gap between complex medical treatments and human care. Your health journey is our priority, defined by the lives we touch every day.
           </p>
         </div>
       </section>
