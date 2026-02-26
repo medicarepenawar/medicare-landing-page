@@ -101,9 +101,9 @@ export const HeroSection: React.FC = () => {
         {/* --- BOTTOM: Tagline --- */}
         <div className="text-center mt-20 space-y-1 animate-fade-in-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
-            Unified Ecosystem. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">Seamless Care.</span>
+            One app. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">One ecosystem.</span>
           </h2>
-          <p className="text-base md:text-lg font-medium text-gray-600 pt-2">Connecting healthcare, empowering lives.</p>
+          <p className="text-base md:text-lg font-medium text-gray-600 pt-2">Better care, connected.</p>
         </div>
       </div>
 
