@@ -30,7 +30,7 @@ export const ContactUsPage: React.FC = () => {
     {
       icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z",
       title: "Call Us",
-      details: ["+60 7-388 8888", "+60 12-345 6789"], // Updated format Malaysia
+      details: ["+60 3-2386 7741"], // Updated format Malaysia
       action: "Call now",
     },
     {
@@ -41,8 +41,8 @@ export const ContactUsPage: React.FC = () => {
     },
     {
       icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
-      title: "Visit Us",
-      details: ["23-29, Jalan Sena 1", "Taman Rinting, 81750", "Masai, Johor, Malaysia"],
+      title: "Address",
+      details: ["Suite 8.01, Level 8", "Menara Binjai No. 2, Jalan Binjai", "50450", "Kuala Lumpur, Malaysia"],
       action: "Get directions",
     },
   ];

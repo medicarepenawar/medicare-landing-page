@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  PRIVACY_POLICY_URL,
-  TERMS_AND_CONDITIONS_URL,
-  ABOUT_US_URL,
-} from "../../constants/constant";
+import { PRIVACY_POLICY_URL, TERMS_AND_CONDITIONS_URL, ABOUT_US_URL } from "../../constants/constant";
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -54,9 +50,9 @@ export const Footer: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               <div>
-                <p>23-29, Jalan Sena 1,</p>
-                <p>Taman Rinting, 81750</p>
-                <p>Masai, Johor, Malaysia</p>
+                <p>Suite 8.01, Level 8</p>
+                <p>Menara Binjai No. 2, Jalan Binjai</p>
+                <p>50450 Kuala Lumpur, Malaysia</p>
               </div>
             </div>
           </div>
