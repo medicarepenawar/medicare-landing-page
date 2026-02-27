@@ -43,10 +43,10 @@ export const ServicesSection: React.FC = () => {
       title: "Doctor Home Visit",
       description: "Schedule a certified doctor to visit your location for personalized medical attention.",
     },
-    {
-      icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-      title: "Doctor Home Visit",
-      description: "Schedule a certified doctor to visit your location for personalized medical attention.",
+  {
+      icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5a4 4 0 100-8 4 4 0 000 8z",
+      title: "Onsite Laboratory",
+      description: "Advanced lab testing and diagnostics conducted at your preferred location with certified technicians.",
     },
   ];
 
