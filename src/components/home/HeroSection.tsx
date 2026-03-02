@@ -2,8 +2,13 @@ import React from "react";
 import heroAppImage from "../../assets/img/home/mockup.png";
 import westMalaysiaMap from "../../assets/img/home/westm.png";
 import eastMalaysiaMap from "../../assets/img/home/eastm.png";
+import type { LandingHero } from "../../types/api";
 
-export const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  hero?: LandingHero;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
   return (
     <section className="relative pt-20 pb-16 px-6 overflow-hidden bg-gradient-to-br from-purple-50 via-white to-purple-50">
       {/* --- Ambient Background Effects --- */}
@@ -17,7 +22,7 @@ export const HeroSection: React.FC = () => {
             <span className="text-[#2563EB]">Medi</span>
             <span className="text-[#EF4444]">Care</span>
           </h1>
-          <p className="text-lg md:text-xl font-medium text-gray-600 tracking-wide">Healthcare, Anytime, Anywhere</p>
+          <p className="text-lg md:text-xl font-medium text-gray-600 tracking-wide">{hero?.tagline || "Healthcare, Anytime, Anywhere"}</p>
         </div>
 
         {/* --- MAIN GRID: 3 Columns --- */}
@@ -103,7 +108,7 @@ export const HeroSection: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
             One app. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">One ecosystem.</span>
           </h2>
-          <p className="text-base md:text-lg font-medium text-gray-600 pt-2">Better care, connected.</p>
+          <p className="text-base md:text-lg font-medium text-gray-600 pt-2">{hero?.description || "Better care, connected."}</p>
         </div>
       </div>
 

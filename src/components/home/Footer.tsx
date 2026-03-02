@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PRIVACY_POLICY_URL, TERMS_AND_CONDITIONS_URL, ABOUT_US_URL } from "../../constants/constant";
+import type { LandingCompanyProfile, LandingServiceItem } from "../../types/api";
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  companyProfile?: LandingCompanyProfile;
+  servicesData?: LandingServiceItem[];
+}
+
+export const Footer: React.FC<FooterProps> = ({ companyProfile, servicesData }) => {
   const currentYear = new Date().getFullYear();
 
   // Company links with proper routes
@@ -12,6 +18,10 @@ export const Footer: React.FC = () => {
     { label: "Privacy Policy", href: PRIVACY_POLICY_URL },
     { label: "Terms of Service", href: TERMS_AND_CONDITIONS_URL },
   ];
+
+  const serviceLinks = servicesData?.length
+    ? servicesData.map((service) => service.name)
+    : ["Teleconsultation", "Home Nursing", "Pharmacy Delivery", "Specialist Visit"];
 
   return (
     <footer className="relative bg-gray-950 text-white pt-20 pb-10 overflow-hidden">
@@ -38,6 +48,13 @@ export const Footer: React.FC = () => {
               Providing world-class healthcare services with a personal touch. Your health is our priority.
             </p>
 
+            {companyProfile && (
+              <div className="text-gray-400 text-sm space-y-1">
+                <p>{companyProfile.company_email}</p>
+                <p>{companyProfile.company_phone}</p>
+              </div>
+            )}
+
             <div className="flex items-start space-x-3 text-gray-400 text-sm">
               {/* Icon using Primary Color */}
               <svg className="w-5 h-5 text-[#2563EB] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,9 +67,15 @@ export const Footer: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               <div>
-                <p>Suite 8.01, Level 8</p>
-                <p>Menara Binjai No. 2, Jalan Binjai</p>
-                <p>50450 Kuala Lumpur, Malaysia</p>
+                {companyProfile?.company_address ? (
+                  <p>{companyProfile.company_address}</p>
+                ) : (
+                  <>
+                    <p>Suite 8.01, Level 8</p>
+                    <p>Menara Binjai No. 2, Jalan Binjai</p>
+                    <p>50450 Kuala Lumpur, Malaysia</p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -81,7 +104,7 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold text-white mb-6">Services</h4>
             <ul className="space-y-4">
-              {["Teleconsultation", "Home Nursing", "Pharmacy Delivery", "Specialist Visit"].map((item) => (
+              {serviceLinks.map((item) => (
                 <li key={item}>
                   <a href="#" className="text-gray-400 hover:text-[#EF4444] transition-all duration-300 hover:translate-x-1 inline-block text-sm">
                     {item}

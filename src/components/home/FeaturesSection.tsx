@@ -1,5 +1,6 @@
 import React from "react";
 import doctorImg from "../../assets/img/home/doctor.png";
+import type { LandingFeatureItem } from "../../types/api";
 
 interface Feature {
   icon: string;
@@ -7,24 +8,45 @@ interface Feature {
   description: string;
 }
 
-export const FeaturesSection: React.FC = () => {
-  const features: Feature[] = [
-    {
-      icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
-      title: "Easy Mobile Access",
-      description: "Book appointments, view medical records, and communicate with doctors directly from your mobile device.",
-    },
-    {
-      icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
-      title: "Clinic Management",
-      description: "Comprehensive web platform for healthcare providers to manage patients, appointments, and medical records.",
-    },
-    {
-      icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-      title: "Secure & Private",
-      description: "Your health data is protected with enterprise-grade security and HIPAA compliance.",
-    },
-  ];
+interface FeaturesSectionProps {
+  featuresData?: LandingFeatureItem[];
+}
+
+const HERO_ICON_PATHS: Record<string, string> = {
+  "heroicon-o-shield-check":
+    "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+  "heroicon-o-clock": "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+  "heroicon-o-credit-card": "M3 10h18M7 15h1m2 0h2m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+  "heroicon-o-cpu-chip":
+    "M9.75 3v2.25M14.25 3v2.25M9.75 18.75V21M14.25 18.75V21M3 9.75h2.25M3 14.25h2.25M18.75 9.75H21M18.75 14.25H21M6.75 6.75h10.5v10.5H6.75V6.75z",
+};
+
+const getIconPath = (icon: string) => HERO_ICON_PATHS[icon] || "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z";
+
+export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ featuresData }) => {
+  const features: Feature[] = featuresData?.length
+    ? featuresData.map((feature) => ({
+        icon: getIconPath(feature.icon),
+        title: feature.headline,
+        description: feature.description,
+      }))
+    : [
+        {
+          icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
+          title: "Easy Mobile Access",
+          description: "Book appointments, view medical records, and communicate with doctors directly from your mobile device.",
+        },
+        {
+          icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
+          title: "Clinic Management",
+          description: "Comprehensive web platform for healthcare providers to manage patients, appointments, and medical records.",
+        },
+        {
+          icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+          title: "Secure & Private",
+          description: "Your health data is protected with enterprise-grade security and HIPAA compliance.",
+        },
+      ];
 
   return (
     <section className="relative py-24 px-6 overflow-hidden bg-gray-50/50">

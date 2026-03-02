@@ -1,7 +1,11 @@
 import React from "react";
+import type { LandingMission } from "../../types/api";
 
-export const CTASection: React.FC = () => {
+interface CTASectionProps {
+  mission?: LandingMission;
+}
 
+export const CTASection: React.FC<CTASectionProps> = ({ mission }) => {
   return (
     <section className="relative py-24 px-6 overflow-hidden bg-[#2563EB]/5">
       {/* --- 1. Ambient Background Blobs (Fluid Vibe) --- */}
@@ -23,7 +27,7 @@ export const CTASection: React.FC = () => {
               others
             </h2>
             <p className="text-lg text-gray-600 mb-0 leading-relaxed">
-              Become part of a network that prioritizes patient well-being and technological innovation.
+              {mission?.description || "Become part of a network that prioritizes patient well-being and technological innovation."}
             </p>
           </div>
 

@@ -1,4 +1,5 @@
 import React from "react";
+import type { LandingIndustries, LandingIndustryItem } from "../../types/api";
 
 interface Industry {
   title: string;
@@ -7,48 +8,73 @@ interface Industry {
   badge?: string;
 }
 
-export const IndustriesSection: React.FC = () => {
+interface IndustriesSectionProps {
+  industriesData?: LandingIndustries;
+}
 
+const HERO_ICON_PATHS: Record<string, string> = {
+  "heroicon-o-building-office": "M3 21h18M5 21V7a2 2 0 012-2h10a2 2 0 012 2v14M9 9h1m-1 4h1m4-4h1m-1 4h1",
+  "heroicon-o-beaker":
+    "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z",
+  "heroicon-o-eye-dropper": "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 013.536 3.536L7 20l-4 1 1-4 12.732-12.268z",
+  "heroicon-o-building-office-2": "M3 21h18M5 21V7a2 2 0 012-2h10a2 2 0 012 2v14M9 9h1m-1 4h1m4-4h1m-1 4h1M8 21v-3h8v3",
+  "heroicon-o-globe-alt": "M12 2a10 10 0 100 20 10 10 0 000-20zm0 0c2.5 2.5 4 6 4 10s-1.5 7.5-4 10m0-20c-2.5 2.5-4 6-4 10s1.5 7.5 4 10",
+  "heroicon-o-heart": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+  "heroicon-o-chart-bar": "M3 3v18h18M7 16v-4m5 4V8m5 8v-6",
+};
 
-  const industries: Industry[] = [
-    {
-      title: "Clinics",
-      description: "Streamline patient flow and digitize records for single or multi-specialty clinics.",
-      icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5",
-    },
-    {
-      title: "Hospitals",
-      description: "Integrated hospital management systems for complex workflows and inpatient care.",
-      icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
-    },
-    {
-      title: "Pharmacies",
-      description: "Digital prescription management and inventory control for modern pharmacies.",
-      icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z",
-    },
-    {
-      title: "Diagnostic Labs",
-      description: "Efficient sample tracking and automated report generation for laboratories.",
-      icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-    },
-    {
-      title: "Ambulance Providers",
-      description: "Real-time fleet tracking and emergency response coordination systems.",
-      icon: "M13 10V3L4 14h7v7l9-11h-7z",
-    },
-    {
-      title: "Corporate / Employers",
-      description: "Employee wellness programs and corporate health benefit management.",
-      icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-      badge: "Enterprise",
-    },
-    {
-      title: "Government / Public Health",
-      description: "Scalable solutions for population health monitoring and public sector clinics.",
-      icon: "M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z",
-      badge: "Public Sector",
-    },
-  ];
+const getIconPath = (icon: string) =>
+  HERO_ICON_PATHS[icon] || "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5";
+
+const toIndustryCard = (item: LandingIndustryItem): Industry => ({
+  title: item.name,
+  description: item.description,
+  icon: getIconPath(item.icon),
+  badge: item.type === "enterprise" ? "Enterprise" : item.type === "public_sector" ? "Public Sector" : undefined,
+});
+
+export const IndustriesSection: React.FC<IndustriesSectionProps> = ({ industriesData }) => {
+  const industries: Industry[] = industriesData
+    ? [...industriesData.normal, ...industriesData.enterprise, ...industriesData.public_sector].map(toIndustryCard)
+    : [
+        {
+          title: "Clinics",
+          description: "Streamline patient flow and digitize records for single or multi-specialty clinics.",
+          icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5",
+        },
+        {
+          title: "Hospitals",
+          description: "Integrated hospital management systems for complex workflows and inpatient care.",
+          icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
+        },
+        {
+          title: "Pharmacies",
+          description: "Digital prescription management and inventory control for modern pharmacies.",
+          icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z",
+        },
+        {
+          title: "Diagnostic Labs",
+          description: "Efficient sample tracking and automated report generation for laboratories.",
+          icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+        },
+        {
+          title: "Ambulance Providers",
+          description: "Real-time fleet tracking and emergency response coordination systems.",
+          icon: "M13 10V3L4 14h7v7l9-11h-7z",
+        },
+        {
+          title: "Corporate / Employers",
+          description: "Employee wellness programs and corporate health benefit management.",
+          icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+          badge: "Enterprise",
+        },
+        {
+          title: "Government / Public Health",
+          description: "Scalable solutions for population health monitoring and public sector clinics.",
+          icon: "M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z",
+          badge: "Public Sector",
+        },
+      ];
 
   return (
     <section className="relative py-24 px-6 bg-white overflow-hidden">

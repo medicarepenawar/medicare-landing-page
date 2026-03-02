@@ -1,36 +1,55 @@
 import React from "react";
+import type { LandingTestimonialItem } from "../../types/api";
 
 interface Testimonial {
   name: string;
   role: string;
   text: string;
+  star: number;
   color: string; // Tailwind Gradient classes
 }
 
-export const Testimonials: React.FC = () => {
-  const testimonials: Testimonial[] = [
-    {
-      name: "Alexander Abdurrozzaaq",
-      role: "CTO of Medimedicare",
-      text: "The efficiency of this platform is unmatched. It has completely transformed how we manage patient records and appointments. Simply brilliant.",
-      // Variasi 1: Primary Blue Gradient
-      color: "from-[#2563EB] to-[#1E40AF]",
-    },
-    {
-      name: "Onny Dmitriyevich",
-      role: "CEO of Medimedicare",
-      text: "Security was our top concern, and Medicare delivered. The HIPAA compliance features give us and our patients complete peace of mind.",
-      // Variasi 2: Secondary Red Gradient
-      color: "from-[#EF4444] to-[#B91C1C]",
-    },
-    {
-      name: "Pablo Ijoel",
-      role: "CMO of Medimedicare",
-      text: "Finally, a healthcare solution that puts the user experience first. The interface is intuitive, clean, and incredibly responsive on mobile devices.",
-      // Variasi 3: Primary to Secondary Mix
-      color: "from-[#2563EB] to-[#EF4444]",
-    },
-  ];
+interface TestimonialsProps {
+  testimonialsData?: LandingTestimonialItem[];
+}
+
+export const Testimonials: React.FC<TestimonialsProps> = ({ testimonialsData }) => {
+  const colors = ["from-[#2563EB] to-[#1E40AF]", "from-[#EF4444] to-[#B91C1C]", "from-[#2563EB] to-[#EF4444]"];
+
+  const testimonials: Testimonial[] = testimonialsData?.length
+    ? testimonialsData.map((item, index) => ({
+        name: item.username,
+        role: item.position_company,
+        text: item.comment,
+        star: item.star,
+        color: colors[index % colors.length],
+      }))
+    : [
+        {
+          name: "Alexander Abdurrozzaaq",
+          role: "CTO of Medimedicare",
+          text: "The efficiency of this platform is unmatched. It has completely transformed how we manage patient records and appointments. Simply brilliant.",
+          star: 5,
+          // Variasi 1: Primary Blue Gradient
+          color: "from-[#2563EB] to-[#1E40AF]",
+        },
+        {
+          name: "Onny Dmitriyevich",
+          role: "CEO of Medimedicare",
+          text: "Security was our top concern, and Medicare delivered. The HIPAA compliance features give us and our patients complete peace of mind.",
+          star: 5,
+          // Variasi 2: Secondary Red Gradient
+          color: "from-[#EF4444] to-[#B91C1C]",
+        },
+        {
+          name: "Pablo Ijoel",
+          role: "CMO of Medimedicare",
+          text: "Finally, a healthcare solution that puts the user experience first. The interface is intuitive, clean, and incredibly responsive on mobile devices.",
+          star: 5,
+          // Variasi 3: Primary to Secondary Mix
+          color: "from-[#2563EB] to-[#EF4444]",
+        },
+      ];
 
   return (
     <section className="relative py-24 px-6 overflow-hidden bg-white">
@@ -79,7 +98,7 @@ interface TestimonialCardProps extends Testimonial {
   index: number;
 }
 
-const TestimonialCard: React.FC<TestimonialCardProps> = ({ name, role, text, color, index }) => (
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ name, role, text, star, color, index }) => (
   <div
     className="group relative bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-card-entry"
     style={{ animationDelay: `${index * 0.15}s` }} // Staggered delay logic
@@ -91,7 +110,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ name, role, text, col
       <div>
         {/* Rating Stars */}
         <div className="flex gap-1 mb-6 text-yellow-400">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(star)].map((_, i) => (
             <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
