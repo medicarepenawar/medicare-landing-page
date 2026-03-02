@@ -65,6 +65,8 @@ const CustomerOTPVerification: React.FC<CustomerOTPVerificationProps> = ({ onSub
                     key={index}
                     id={`otp-${index}`}
                     type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     maxLength={1}
                     value={digit}
                     onChange={(e) => handleChange(index, e.target.value)}
