@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Header } from "./Header";
 import doctor1Img from "../../assets/img/doctors/doctor1.png";
 import doctor2Img from "../../assets/img/doctors/doctor2.png";
 import doctor3Img from "../../assets/img/doctors/doctor3.png";
 import { usePageTitle } from "../../hooks/usePageTitle";
+import { landingService } from "../../services/landingService";
+import type { Data as LandingPageData } from "../../types/landingApi";
 
 // --- Types ---
 interface TeamMember {
   name: string;
   role: string;
-  image: string;
+  image?: string;
 }
 
 interface Stat {
@@ -24,9 +26,48 @@ interface ValueProps {
   icon: string;
 }
 
+const resolveStorageUrl = (path?: string): string => {
+  if (!path) {
+    return "";
+  }
+
+  if (/^https?:\/\//i.test(path)) {
+    return path;
+  }
+
+  return `/storage/${path.replace(/^\/+/, "")}`;
+};
+
 // --- Main Component ---
 export const AboutUsPage: React.FC = () => {
   usePageTitle("About Us");
+
+  const [landingData, setLandingData] = useState<LandingPageData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLandingData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await landingService.getLandingPageData();
+        if (response.success) {
+          setLandingData(response.data);
+        } else {
+          setError(response.message || "Failed to load About Us data.");
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load About Us data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLandingData();
+  }, []);
+
   // Data Mockup
   const stats: Stat[] = [
     { label: "Happy Patients", value: "15k+", icon: "M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
@@ -43,11 +84,25 @@ export const AboutUsPage: React.FC = () => {
     },
   ];
 
-  const team: TeamMember[] = [
+  const defaultTeam: TeamMember[] = [
     { name: "Dr. Pablo Ijoel", role: "Chief Medical Officer", image: doctor1Img },
     { name: "Dr. Alexander Abdurrozzaaq", role: "Senior Neurologist", image: doctor2Img },
     { name: "Dr. Onny Dmitriyevich", role: "Head of Pediatrics", image: doctor3Img },
   ];
+
+  const fallbackDoctorImages = [doctor1Img, doctor2Img, doctor3Img];
+
+  const team: TeamMember[] = useMemo(() => {
+    if (!landingData?.specialists?.length) {
+      return defaultTeam;
+    }
+
+    return landingData.specialists.map((member, index) => ({
+      name: member.name,
+      role: member.position_company,
+      image: resolveStorageUrl(member.image) || fallbackDoctorImages[index % fallbackDoctorImages.length],
+    }));
+  }, [landingData]);
 
   const values: ValueProps[] = [
     {
@@ -67,6 +122,10 @@ export const AboutUsPage: React.FC = () => {
     <div className="bg-white min-h-screen w-full font-sans">
       <Header />
 
+      {loading && <div className="px-6 py-8 text-center text-gray-600">Loading About Us data...</div>}
+
+      {error && <div className="px-6 py-4 text-center text-red-500">{error}</div>}
+
       {/* --- 1. HERO SECTION (Fluid Background) --- */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         {/* Animated Background Blobs */}
@@ -77,11 +136,12 @@ export const AboutUsPage: React.FC = () => {
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10 animate-fade-in-up">
           <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-8 leading-tight">
-            Advancing Healthcare <br />
+            {landingData?.hero?.tagline || "Advancing Healthcare"} <br />
             with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">Compassion</span>
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed">
-            Test We bridge the gap between complex medical treatments and human care. Your health journey is our priority, defined by the lives we touch every day.
+            {landingData?.hero?.description ||
+              "We bridge the gap between complex medical treatments and human care. Your health journey is our priority, defined by the lives we touch every day."}
           </p>
         </div>
       </section>
@@ -93,7 +153,10 @@ export const AboutUsPage: React.FC = () => {
           <div className="relative animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-[#2563EB]/20 border-4 border-white">
               <img
-                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800"
+                src={
+                  resolveStorageUrl(landingData?.mission?.image) ||
+                  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800"
+                }
                 alt="Medical Team"
                 className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
               />
@@ -118,10 +181,7 @@ export const AboutUsPage: React.FC = () => {
           <div className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
             <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-10">
-              <p>
-                Medicare started with a simple vision: to bridge the gap between medical expertise and human empathy. We believe healing requires trust,
-                understanding, and comfort.
-              </p>
+              <p>{landingData?.mission?.description || "Medicare started with a simple vision to bridge medical expertise and human empathy."}</p>
               <p>Today, we leverage AI-assisted diagnostics while ensuring patient welfare remains at our core.</p>
             </div>
 

@@ -12,7 +12,7 @@ import { SpecialistsSection } from "../components/home/SpecialistsSection";
 import { FAQSection } from "../components/home/FAQSection";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { landingService } from "../services/landingService";
-import type { LandingPageData } from "../types/api";
+import type { Data as LandingPageData } from "../types/landingApi";
 import { PartnersSection } from "../components/home/PartnersSection";
 
 const Home: React.FC = () => {

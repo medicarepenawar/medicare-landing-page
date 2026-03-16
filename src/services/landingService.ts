@@ -1,17 +1,18 @@
 import axios, { AxiosError } from "axios";
-import { BASE_API_URL } from "../constants/constant";
-import type { ApiError, LandingPageResponse } from "../types/api";
+import type { ApiError } from "../types/api";
+import type { Root } from "../types/landingApi";
+
+const LANDING_PAGE_ENDPOINT = "/api/landing-page";
 
 class LandingService {
-  private baseURL: string;
-
-  constructor() {
-    this.baseURL = BASE_API_URL;
-  }
-
-  async getLandingPageData(): Promise<LandingPageResponse> {
+  async getLandingPageData(): Promise<Root> {
     try {
-      const response = await axios.get<LandingPageResponse>(`${this.baseURL}/landing-page`);
+      const response = await axios.get<Root>(LANDING_PAGE_ENDPOINT);
+
+      if (typeof response.data !== "object" || response.data === null || !("success" in response.data)) {
+        throw new Error("Invalid API response format from landing page endpoint.");
+      }
+
       return response.data;
     } catch (error) {
       throw this.handleError(error);
