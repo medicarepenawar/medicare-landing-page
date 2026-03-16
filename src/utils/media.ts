@@ -1,7 +1,3 @@
-import { BASE_API_URL } from "../constants/constant";
-
-const API_BASE = BASE_API_URL.replace(/\/api\/?$/, "");
-
 export const resolveMediaUrl = (path?: string): string => {
   if (!path) {
     return "";
@@ -12,5 +8,5 @@ export const resolveMediaUrl = (path?: string): string => {
   }
 
   const normalizedPath = path.replace(/^\/+/, "");
-  return `${API_BASE}/storage/${normalizedPath}`;
+  return `/storage/${normalizedPath}`;
 };
