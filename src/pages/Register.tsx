@@ -3,13 +3,22 @@ import { useNavigate } from "react-router-dom";
 import doctorIcon from "../assets/img/icon-doctor.svg";
 import nurseIcon from "../assets/img/icon-nurse.svg";
 import hospitalIcon from "../assets/img/icon-hospital.svg";
-import { DOCTOR_REGISTER_URL, VENDOR_REGISTER_URL, NURSE_REGISTER_URL } from "../constants/constant";
+import {
+  DOCTOR_REGISTER_URL,
+  VENDOR_REGISTER_URL,
+  NURSE_REGISTER_URL,
+  DOCTOR_REGISTRATION_SUCCESS_URL,
+  VENDOR_REGISTRATION_SUCCESS_URL,
+} from "../constants/constant";
 import { usePageTitle } from "../hooks/usePageTitle";
+
+type UserRole = "" | "doctor" | "nurse" | "vendor";
 
 const Register: React.FC = () => {
   usePageTitle("Select Role");
   const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState<string>("");
+  const [selectedRole, setSelectedRole] = useState<UserRole>("");
+  const [showNurseLoginModal, setShowNurseLoginModal] = useState(false);
 
   const handleContinue = () => {
     if (selectedRole === "doctor") {
@@ -18,6 +27,30 @@ const Register: React.FC = () => {
       navigate(NURSE_REGISTER_URL);
     } else if (selectedRole === "vendor") {
       navigate(VENDOR_REGISTER_URL);
+    }
+  };
+
+  const getLoginHref = () => {
+    if (selectedRole === "doctor") {
+      return DOCTOR_REGISTRATION_SUCCESS_URL;
+    }
+
+    if (selectedRole === "vendor") {
+      return VENDOR_REGISTRATION_SUCCESS_URL;
+    }
+
+    return "#";
+  };
+
+  const handleLoginClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!selectedRole) {
+      event.preventDefault();
+      return;
+    }
+
+    if (selectedRole === "nurse") {
+      event.preventDefault();
+      setShowNurseLoginModal(true);
     }
   };
 
@@ -257,14 +290,39 @@ const Register: React.FC = () => {
           <p className="text-gray-600 text-sm">
             Already have an account?{" "}
             <a
-              href="/login"
-              className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+              href={getLoginHref()}
+              onClick={handleLoginClick}
+              aria-disabled={!selectedRole}
+              className={`font-medium transition-colors ${
+                selectedRole
+                  ? "text-blue-600 hover:text-blue-700 hover:underline"
+                  : "text-gray-400 cursor-not-allowed pointer-events-none"
+              }`}
             >
               Login here
             </a>
           </p>
         </div>
       </div>
+
+      {showNurseLoginModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Nurse Login Information
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Nurse login is via mobile app only in app Medicare One.
+            </p>
+            <button
+              onClick={() => setShowNurseLoginModal(false)}
+              className="px-6 py-2.5 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
