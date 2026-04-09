@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="labCoat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="flask" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d9488;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="liquid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#5eead4;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fde68a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Body / Lab Coat -->
+  <ellipse cx="256" cy="460" rx="140" ry="50" fill="#e0f2fe" opacity="0.5"/>
+  <path d="M160 340 C160 310, 180 290, 200 280 L200 400 C200 420, 312 420, 312 400 L312 280 C332 290, 352 310, 352 340 L352 430 C352 450, 160 450, 160 430 Z" fill="url(#labCoat)" stroke="#94a3b8" stroke-width="3"/>
+  
+  <!-- Collar -->
+  <path d="M220 280 L256 310 L292 280" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Coat pocket -->
+  <rect x="215" y="350" width="35" height="25" rx="4" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Pen in pocket -->
+  <line x1="225" y1="345" x2="225" y2="355" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Head -->
+  <circle cx="256" cy="200" r="80" fill="url(#skin)" stroke="#f59e0b" stroke-width="2"/>
+  
+  <!-- Hair -->
+  <path d="M176 190 C176 140, 210 115, 256 115 C302 115, 336 140, 336 190 C336 170, 310 145, 256 145 C202 145, 176 170, 176 190 Z" fill="#78350f"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="232" cy="205" rx="8" ry="9" fill="#1e293b"/>
+  <ellipse cx="280" cy="205" rx="8" ry="9" fill="#1e293b"/>
+  <circle cx="234" cy="202" r="3" fill="white" opacity="0.8"/>
+  <circle cx="282" cy="202" r="3" fill="white" opacity="0.8"/>
+  
+  <!-- Glasses -->
+  <rect x="215" y="192" width="35" height="28" rx="8" fill="none" stroke="#475569" stroke-width="3"/>
+  <rect x="262" y="192" width="35" height="28" rx="8" fill="none" stroke="#475569" stroke-width="3"/>
+  <line x1="250" y1="206" x2="262" y2="206" stroke="#475569" stroke-width="3"/>
+  <line x1="215" y1="206" x2="200" y2="200" stroke="#475569" stroke-width="2.5"/>
+  <line x1="297" y1="206" x2="312" y2="200" stroke="#475569" stroke-width="2.5"/>
+  
+  <!-- Smile -->
+  <path d="M240 230 Q256 245, 272 230" fill="none" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Left Arm holding flask -->
+  <path d="M200 300 C170 310, 120 300, 105 270" fill="none" stroke="url(#labCoat)" stroke-width="30" stroke-linecap="round"/>
+  <path d="M200 300 C170 310, 120 300, 105 270" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Hand -->
+  <circle cx="105" cy="265" r="15" fill="#fbbf24"/>
+  
+  <!-- Flask (Erlenmeyer) -->
+  <path d="M80 170 L80 220 L55 265 C50 275, 55 285, 65 285 L145 285 C155 285, 160 275, 155 265 L130 220 L130 170 Z" fill="white" stroke="url(#flask)" stroke-width="3" opacity="0.9"/>
+  
+  <!-- Flask opening rim -->
+  <rect x="76" y="165" width="58" height="10" rx="3" fill="url(#flask)"/>
+  
+  <!-- Liquid in flask -->
+  <path d="M68 260 L60 275 C57 280, 60 285, 65 285 L145 285 C150 285, 153 280, 150 275 L142 260 Z" fill="url(#liquid)" opacity="0.7"/>
+  
+  <!-- Bubbles in liquid -->
+  <circle cx="90" cy="272" r="4" fill="white" opacity="0.5"/>
+  <circle cx="110" cy="268" r="3" fill="white" opacity="0.4"/>
+  <circle cx="125" cy="275" r="5" fill="white" opacity="0.3"/>
+  <circle cx="100" cy="260" r="3" fill="white" opacity="0.4"/>
+  
+  <!-- Right arm -->
+  <path d="M312 300 C342 310, 370 330, 380 350" fill="none" stroke="url(#labCoat)" stroke-width="30" stroke-linecap="round"/>
+  <path d="M312 300 C342 310, 370 330, 380 350" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Right hand holding clipboard -->
+  <circle cx="380" cy="355" r="15" fill="#fbbf24"/>
+  
+  <!-- Clipboard -->
+  <rect x="360" y="340" width="55" height="70" rx="5" fill="#f1f5f9" stroke="#64748b" stroke-width="2.5"/>
+  <rect x="378" y="335" width="20" height="12" rx="4" fill="#64748b"/>
+  
+  <!-- Clipboard lines (data) -->
+  <line x1="370" y1="358" x2="405" y2="358" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="370" y1="368" x2="400" y2="368" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="370" y1="378" x2="395" y2="378" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="370" y1="388" x2="398" y2="388" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Checkmarks on clipboard -->
+  <path d="M370 357 l3 3 l6 -6" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+  <path d="M370 367 l3 3 l6 -6" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Name badge -->
+  <rect x="265" y="310" width="40" height="25" rx="4" fill="white" stroke="#0d9488" stroke-width="2"/>
+  <line x1="272" y1="320" x2="298" y2="320" stroke="#0d9488" stroke-width="2" stroke-linecap="round"/>
+  <line x1="275" y1="328" x2="295" y2="328" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

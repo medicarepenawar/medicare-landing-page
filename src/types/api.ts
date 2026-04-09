@@ -1,4 +1,4 @@
-export type UserRole = "Customer" | "Doctor" | "Nurse" | "Vendor";
+export type UserRole = "Customer" | "Doctor" | "Nurse" | "Vendor" | "OlLabAssistant";
 
 // Base Register Request
 export interface RegisterRequest {

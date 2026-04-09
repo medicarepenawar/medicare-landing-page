@@ -14,8 +14,8 @@ const RegistrationSuccess: React.FC = () => {
   const role = (location.state as { role?: string })?.role || 'vendor';
 
   useEffect(() => {
-    // Don't redirect for nurses as they need to use mobile app
-    if (role.toLowerCase() === 'nurse') {
+    // Don't redirect for nurses and lab assistants as they need to use mobile app
+    if (role.toLowerCase() === 'nurse' || role.toLowerCase() === 'labassistant') {
       return;
     }
 
@@ -54,6 +54,8 @@ const RegistrationSuccess: React.FC = () => {
         return 'Doctor';
       case 'vendor':
         return 'Vendor';
+      case 'labassistant':
+        return 'Onsite Lab Assistant';
       default:
         return 'User';
     }
@@ -91,7 +93,7 @@ const RegistrationSuccess: React.FC = () => {
             Your <span className="font-semibold text-blue-600">{getRoleDisplayName()}</span> account has been created successfully.
           </p>
 
-          {role.toLowerCase() === 'nurse' ? (
+          {(role.toLowerCase() === 'nurse' || role.toLowerCase() === 'labassistant') ? (
             // Mobile app banner for nurses
             <>
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 mb-6 mt-6">
