@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function UnderConstruction() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100">
