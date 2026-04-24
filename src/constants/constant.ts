@@ -8,6 +8,8 @@ export const REGISTRATION_SUCCESS_URL = "/registration-success";
 export const ABOUT_US_URL = "/about";
 export const CONTACT_US_URL = "/contact";
 
+export const DEV_URL = "hidden-dev";
+
 // Register Routes
 export const DOCTOR_REGISTER_URL = "/register/doctor";
 export const VENDOR_REGISTER_URL = "/register/vendor";

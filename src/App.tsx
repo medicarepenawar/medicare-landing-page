@@ -19,8 +19,10 @@ import {
   ABOUT_US_URL,
   CONTACT_US_URL,
   PRIVACY_POLICY_URL,
+  DEV_URL,
 } from "./constants/constant";
 import Home from "./pages/Home";
+import UnderConstruction from "./pages/UnderConstruction";
 
 import DoctorTermsAndConditions from "./components/terms/DoctorTermsAndConditions";
 import NurseTermsAndConditions from "./components/terms/NurseTermsAndConditions";
@@ -32,7 +34,8 @@ function App() {
   return (
     <ToastProvider>
       <Routes>
-        <Route path={HOME_PAGE_URL} element={<Home />} />
+        <Route path={DEV_URL} element={<Home />} />
+        <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
