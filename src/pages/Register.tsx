@@ -3,13 +3,24 @@ import { useNavigate } from "react-router-dom";
 import doctorIcon from "../assets/img/icon-doctor.svg";
 import nurseIcon from "../assets/img/icon-nurse.svg";
 import hospitalIcon from "../assets/img/icon-hospital.svg";
-import { DOCTOR_REGISTER_URL, VENDOR_REGISTER_URL, NURSE_REGISTER_URL } from "../constants/constant";
+import labAssistantIcon from "../assets/img/icon-lab-assistant.png";
+import {
+  DOCTOR_REGISTER_URL,
+  VENDOR_REGISTER_URL,
+  NURSE_REGISTER_URL,
+  LAB_ASSISTANT_REGISTER_URL,
+  DOCTOR_REGISTRATION_SUCCESS_URL,
+  VENDOR_REGISTRATION_SUCCESS_URL,
+} from "../constants/constant";
 import { usePageTitle } from "../hooks/usePageTitle";
+
+type UserRole = "" | "doctor" | "nurse" | "vendor" | "labassistant";
 
 const Register: React.FC = () => {
   usePageTitle("Select Role");
   const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState<string>("");
+  const [selectedRole, setSelectedRole] = useState<UserRole>("");
+  const [showNurseLoginModal, setShowNurseLoginModal] = useState(false);
 
   const handleContinue = () => {
     if (selectedRole === "doctor") {
@@ -18,6 +29,32 @@ const Register: React.FC = () => {
       navigate(NURSE_REGISTER_URL);
     } else if (selectedRole === "vendor") {
       navigate(VENDOR_REGISTER_URL);
+    } else if (selectedRole === "labassistant") {
+      navigate(LAB_ASSISTANT_REGISTER_URL);
+    }
+  };
+
+  const getLoginHref = () => {
+    if (selectedRole === "doctor") {
+      return DOCTOR_REGISTRATION_SUCCESS_URL;
+    }
+
+    if (selectedRole === "vendor") {
+      return VENDOR_REGISTRATION_SUCCESS_URL;
+    }
+
+    return "#";
+  };
+
+  const handleLoginClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!selectedRole) {
+      event.preventDefault();
+      return;
+    }
+
+    if (selectedRole === "nurse" || selectedRole === "labassistant") {
+      event.preventDefault();
+      setShowNurseLoginModal(true);
     }
   };
 
@@ -43,7 +80,7 @@ const Register: React.FC = () => {
         </div>
 
         {/* Role Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-5xl mx-auto">
           {/* Doctor Card */}
           <button
             onClick={() => setSelectedRole("doctor")}
@@ -223,6 +260,66 @@ const Register: React.FC = () => {
               Vendor
             </h3>
           </button>
+
+          {/* Lab Assistant Card */}
+          <button
+            onClick={() => setSelectedRole("labassistant")}
+            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${selectedRole === "labassistant"
+                ? "border-blue-500 bg-blue-50/30 shadow-lg"
+                : "border-gray-200 bg-white hover:border-gray-300"
+              }`}
+          >
+            {/* Selection Indicator */}
+            <div className="absolute top-5 left-5">
+              <div
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedRole === "labassistant"
+                    ? "border-blue-500 bg-blue-500"
+                    : "border-gray-300 bg-white"
+                  }`}
+              >
+                {selectedRole === "labassistant" && (
+                  <svg
+                    className="w-3.5 h-3.5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </div>
+            </div>
+
+            {/* Icon */}
+            <div className="mb-6 mt-4">
+              <div
+                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${selectedRole === "" || selectedRole === "labassistant"
+                    ? "bg-teal-50"
+                    : "bg-gray-100"
+                  }`}
+              >
+                <img
+                  src={labAssistantIcon}
+                  alt="Lab Assistant"
+                  className={`w-full h-full object-contain transition-all duration-300 ${selectedRole !== "" && selectedRole !== "labassistant"
+                      ? "grayscale opacity-30 brightness-150"
+                      : ""
+                    }`}
+                />
+              </div>
+            </div>
+
+            {/* Label */}
+            <h3 className={`text-xl font-semibold transition-colors ${selectedRole !== "" && selectedRole !== "labassistant"
+                ? "text-gray-400"
+                : "text-gray-900"
+              }`}>
+              Lab Assistant
+            </h3>
+          </button>
         </div>
 
         {/* Continue Button */}
@@ -257,14 +354,39 @@ const Register: React.FC = () => {
           <p className="text-gray-600 text-sm">
             Already have an account?{" "}
             <a
-              href="/login"
-              className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+              href={getLoginHref()}
+              onClick={handleLoginClick}
+              aria-disabled={!selectedRole}
+              className={`font-medium transition-colors ${
+                selectedRole
+                  ? "text-blue-600 hover:text-blue-700 hover:underline"
+                  : "text-gray-400 cursor-not-allowed pointer-events-none"
+              }`}
             >
               Login here
             </a>
           </p>
         </div>
       </div>
+
+      {showNurseLoginModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Login Information
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Login is via mobile app only in app Medicare One.
+            </p>
+            <button
+              onClick={() => setShowNurseLoginModal(false)}
+              className="px-6 py-2.5 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
