@@ -32,6 +32,23 @@ class AuthService {
     role: UserRole
   ): Promise<RegisterResponse> {
     try {
+      // Therapist uses a dedicated endpoint and does NOT send a role field
+      if (role === "Therapist") {
+        const therapistData = {
+          email,
+          password,
+          name,
+          phone_number: phoneNumber,
+        };
+
+        const response = await axios.post<RegisterResponse>(
+          `${this.baseURL}/auth/register/therapist`,
+          therapistData
+        );
+
+        return response.data;
+      }
+
       const data: RegisterRequest = {
         email,
         password,
