@@ -7,6 +7,10 @@ export const REGISTER_URL = "/register";
 export const REGISTRATION_SUCCESS_URL = "/registration-success";
 export const ABOUT_US_URL = "/about";
 export const CONTACT_US_URL = "/contact";
+export const MARKETPLACE_URL = "/pharmacy/mukminpharmacy";
+export const MARKETPLACE_PRODUCT_URL = "/pharmacy/mukminpharmacy/product/:id";
+export const MARKETPLACE_CART_URL = "/pharmacy/mukminpharmacy/cart";
+export const MARKETPLACE_CHECKOUT_URL = "/pharmacy/mukminpharmacy/checkout";
 
 export const DEV_URL = "hidden-dev";
 
