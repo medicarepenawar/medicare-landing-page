@@ -1,8 +1,8 @@
 import React from "react";
-import heroAppImage from "../../assets/img/home/mockup.png";
-import westMalaysiaMap from "../../assets/img/home/westm.png";
-import eastMalaysiaMap from "../../assets/img/home/eastm.png";
-import type { LandingHero } from "../../types/api";
+import heroAppImage from "../../../../assets/img/home/mockup.png";
+import westMalaysiaMap from "../../../../assets/img/home/westm.png";
+import eastMalaysiaMap from "../../../../assets/img/home/eastm.png";
+import type { LandingHero } from "../../../../types/api";
 
 interface HeroSectionProps {
   hero?: LandingHero;

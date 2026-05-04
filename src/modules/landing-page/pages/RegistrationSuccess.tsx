@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import {
   VENDOR_REGISTRATION_SUCCESS_URL,
   DOCTOR_REGISTRATION_SUCCESS_URL
-} from '../constants/constant';
-import { usePageTitle } from '../hooks/usePageTitle';
+} from '../../../constants/constant';
+import { usePageTitle } from "../../../hooks/usePageTitle";
 
 const RegistrationSuccess: React.FC = () => {
   usePageTitle('Registration Success');

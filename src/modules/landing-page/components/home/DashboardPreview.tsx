@@ -1,5 +1,5 @@
 import React from 'react';
-import visitClinicImg from '../../assets/img/home/visitclinic.png';
+import visitClinicImg from "../../../../assets/img/home/visitclinic.png";
 
 interface MenuItem {
     icon: string;

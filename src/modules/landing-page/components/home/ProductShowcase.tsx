@@ -1,6 +1,6 @@
 import React from 'react';
-import mobileAppImg from '../../assets/img/home/mobileApp.png';
-import webAppImg from '../../assets/img/home/webApp.png';
+import mobileAppImg from "../../../../assets/img/home/mobileApp.png";
+import webAppImg from "../../../../assets/img/home/webApp.png";
 
 export const ProductShowcase: React.FC = () => {
     return (

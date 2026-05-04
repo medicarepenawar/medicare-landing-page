@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Header } from "./Header";
-import doctor1Img from "../../assets/img/doctors/doctor1.png";
-import doctor2Img from "../../assets/img/doctors/doctor2.png";
-import doctor3Img from "../../assets/img/doctors/doctor3.png";
-import { usePageTitle } from "../../hooks/usePageTitle";
-import { landingService } from "../../services/landingService";
-import type { Data as LandingPageData } from "../../types/landingApi";
+import doctor1Img from "../../../../assets/img/doctors/doctor1.png";
+import doctor2Img from "../../../../assets/img/doctors/doctor2.png";
+import doctor3Img from "../../../../assets/img/doctors/doctor3.png";
+import { usePageTitle } from "../../../../hooks/usePageTitle";
+import { landingService } from "../../../../services/landingService";
+import type { Data as LandingPageData } from "../../../../types/landingApi";
 
 // --- Types ---
 interface TeamMember {
