@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import Register from "./pages/Register";
+import Register from "./modules/landing-page/pages/Register";
 import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
 import NurseRegisterPage from "./pages/nurse/NurseRegisterPage";
 import LabAssistantRegisterPage from "./pages/labassistant/LabAssistantRegisterPage";
 import TherapistRegisterPage from "./pages/therapist/TherapistRegisterPage";
-import RegistrationSuccess from "./pages/RegistrationSuccess";
+import RegistrationSuccess from "./modules/landing-page/pages/RegistrationSuccess";
 import DoctorRegisterPage from "./pages/doctor/DoctorRegisterPage";
-import { AboutUsPage } from "./components/home/AboutUs";
-import { ContactUsPage } from "./components/home/ContactUs";
+import { AboutUsPage } from "./modules/landing-page/components/home/AboutUs";
+import { ContactUsPage } from "./modules/landing-page/components/home/ContactUs";
 import {
   REGISTER_URL,
   DOCTOR_REGISTER_URL,
@@ -24,13 +24,13 @@ import {
   PRIVACY_POLICY_URL,
   DEV_URL,
 } from "./constants/constant";
-import Home from "./pages/Home";
-import UnderConstruction from "./pages/UnderConstruction";
+import Home from "./modules/landing-page/pages/Home";
+import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
 
-import DoctorTermsAndConditions from "./components/terms/DoctorTermsAndConditions";
-import NurseTermsAndConditions from "./components/terms/NurseTermsAndConditions";
-import VendorTermsAndConditions from "./components/terms/VendorTermsAndConditions";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
+import DoctorTermsAndConditions from "./modules/landing-page/components/terms/DoctorTermsAndConditions";
+import NurseTermsAndConditions from "./modules/landing-page/components/terms/NurseTermsAndConditions";
+import VendorTermsAndConditions from "./modules/landing-page/components/terms/VendorTermsAndConditions";
+import PrivacyPolicy from "./modules/landing-page/pages/PrivacyPolicy";
 import { ToastProvider } from "./components/common/ToastContainer";
 
 function App() {
