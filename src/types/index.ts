@@ -44,6 +44,15 @@ export interface LabAssistantRegisterForm {
   agreementAccepted: boolean;
 }
 
+export interface TherapistRegisterForm {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  agreementAccepted: boolean;
+}
+
 export interface NursePostRegisterForm {
   fullName: string;
   dob: string;

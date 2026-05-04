@@ -15,7 +15,7 @@ const RegistrationSuccess: React.FC = () => {
 
   useEffect(() => {
     // Don't redirect for nurses and lab assistants as they need to use mobile app
-    if (role.toLowerCase() === 'nurse' || role.toLowerCase() === 'labassistant') {
+    if (role.toLowerCase() === 'nurse' || role.toLowerCase() === 'labassistant' || role.toLowerCase() === 'therapist') {
       return;
     }
 
@@ -56,6 +56,8 @@ const RegistrationSuccess: React.FC = () => {
         return 'Vendor';
       case 'labassistant':
         return 'Onsite Lab Assistant';
+      case 'therapist':
+        return 'Therapist';
       default:
         return 'User';
     }
@@ -93,7 +95,7 @@ const RegistrationSuccess: React.FC = () => {
             Your <span className="font-semibold text-blue-600">{getRoleDisplayName()}</span> account has been created successfully.
           </p>
 
-          {(role.toLowerCase() === 'nurse' || role.toLowerCase() === 'labassistant') ? (
+          {(role.toLowerCase() === 'nurse' || role.toLowerCase() === 'labassistant' || role.toLowerCase() === 'therapist') ? (
             // Mobile app banner for nurses
             <>
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 mb-6 mt-6">

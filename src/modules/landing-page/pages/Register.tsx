@@ -9,12 +9,13 @@ import {
   VENDOR_REGISTER_URL,
   NURSE_REGISTER_URL,
   LAB_ASSISTANT_REGISTER_URL,
+  THERAPIST_REGISTER_URL,
   DOCTOR_REGISTRATION_SUCCESS_URL,
   VENDOR_REGISTRATION_SUCCESS_URL,
 } from "../constants/constant";
 import { usePageTitle } from "../hooks/usePageTitle";
 
-type UserRole = "" | "doctor" | "nurse" | "vendor" | "labassistant";
+type UserRole = "" | "doctor" | "nurse" | "vendor" | "labassistant" | "therapist";
 
 const Register: React.FC = () => {
   usePageTitle("Select Role");
@@ -31,6 +32,8 @@ const Register: React.FC = () => {
       navigate(VENDOR_REGISTER_URL);
     } else if (selectedRole === "labassistant") {
       navigate(LAB_ASSISTANT_REGISTER_URL);
+    } else if (selectedRole === "therapist") {
+      navigate(THERAPIST_REGISTER_URL);
     }
   };
 
@@ -52,7 +55,7 @@ const Register: React.FC = () => {
       return;
     }
 
-    if (selectedRole === "nurse" || selectedRole === "labassistant") {
+    if (selectedRole === "nurse" || selectedRole === "labassistant" || selectedRole === "therapist") {
       event.preventDefault();
       setShowNurseLoginModal(true);
     }
@@ -80,7 +83,7 @@ const Register: React.FC = () => {
         </div>
 
         {/* Role Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12 max-w-6xl mx-auto">
           {/* Doctor Card */}
           <button
             onClick={() => setSelectedRole("doctor")}
@@ -318,6 +321,66 @@ const Register: React.FC = () => {
                 : "text-gray-900"
               }`}>
               Lab Assistant
+            </h3>
+          </button>
+
+          {/* Therapist Card */}
+          <button
+            onClick={() => setSelectedRole("therapist")}
+            className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${selectedRole === "therapist"
+                ? "border-blue-500 bg-blue-50/30 shadow-lg"
+                : "border-gray-200 bg-white hover:border-gray-300"
+              }`}
+          >
+            {/* Selection Indicator */}
+            <div className="absolute top-5 left-5">
+              <div
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${selectedRole === "therapist"
+                    ? "border-blue-500 bg-blue-500"
+                    : "border-gray-300 bg-white"
+                  }`}
+              >
+                {selectedRole === "therapist" && (
+                  <svg
+                    className="w-3.5 h-3.5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </div>
+            </div>
+
+            {/* Icon */}
+            <div className="mb-6 mt-4">
+              <div
+                className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center p-6 transition-all duration-300 ${selectedRole === "" || selectedRole === "therapist"
+                    ? "bg-purple-50"
+                    : "bg-gray-100"
+                  }`}
+              >
+                <img
+                  src={nurseIcon}
+                  alt="Therapist"
+                  className={`w-full h-full object-contain transition-all duration-300 ${selectedRole !== "" && selectedRole !== "therapist"
+                      ? "grayscale opacity-30 brightness-150"
+                      : ""
+                    }`}
+                />
+              </div>
+            </div>
+
+            {/* Label */}
+            <h3 className={`text-xl font-semibold transition-colors ${selectedRole !== "" && selectedRole !== "therapist"
+                ? "text-gray-400"
+                : "text-gray-900"
+              }`}>
+              Therapist
             </h3>
           </button>
         </div>
