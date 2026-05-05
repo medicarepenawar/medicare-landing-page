@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { LandingFaqItem } from "../../types/api";
+import type { LandingFaqItem } from "../../../types/api";
 
 interface FAQSectionProps {
   faqsData?: LandingFaqItem[];

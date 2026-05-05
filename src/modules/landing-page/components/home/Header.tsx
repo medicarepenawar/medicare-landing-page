@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 
 // --- Import Logo ---
 // Sesuaikan jumlah '../' dengan struktur folder project Anda
-import logoImg from "../../assets/img/home/logo.png";
+import logoImg from "../../../../assets/img/home/logo.png";
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();

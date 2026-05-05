@@ -1,5 +1,5 @@
 import React from "react";
-import type { LandingMission } from "../../types/api";
+import type { LandingMission } from "../../../types/api";
 
 interface CTASectionProps {
   mission?: LandingMission;

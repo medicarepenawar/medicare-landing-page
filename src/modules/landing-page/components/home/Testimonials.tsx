@@ -1,5 +1,5 @@
 import React from "react";
-import type { LandingTestimonialItem } from "../../types/api";
+import type { LandingTestimonialItem } from "../../../types/api";
 
 interface Testimonial {
   name: string;

@@ -1,4 +1,4 @@
-import { usePageTitle } from "../../hooks/usePageTitle";
+import { usePageTitle } from "../../../../hooks/usePageTitle";
 
 const VendorTermsAndConditions = () => {
   usePageTitle("Vendor Terms & Conditions");
