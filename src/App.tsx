@@ -23,6 +23,11 @@ import {
   CONTACT_US_URL,
   PRIVACY_POLICY_URL,
   DEV_URL,
+  MARKETPLACE_URL,
+  MARKETPLACE_PRODUCT_URL,
+  MARKETPLACE_CART_URL,
+  MARKETPLACE_CHECKOUT_URL,
+  MARKETPLACE_PRESCRIPTION_URL,
 } from "./constants/constant";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
@@ -32,6 +37,11 @@ import NurseTermsAndConditions from "./modules/landing-page/components/terms/Nur
 import VendorTermsAndConditions from "./modules/landing-page/components/terms/VendorTermsAndConditions";
 import PrivacyPolicy from "./modules/landing-page/pages/PrivacyPolicy";
 import { ToastProvider } from "./components/common/ToastContainer";
+import MarketplaceLanding from "./pages/marketplace_pharmacy/MarketplaceLanding";
+import ProductDetail from "./pages/marketplace_pharmacy/ProductDetail";
+import CartPage from "./pages/marketplace_pharmacy/CartPage";
+import CheckoutPage from "./pages/marketplace_pharmacy/CheckoutPage";
+import UploadPrescriptionPage from "./pages/marketplace_pharmacy/UploadPrescriptionPage";
 
 function App() {
   return (
@@ -39,6 +49,11 @@ function App() {
       <Routes>
         <Route path={DEV_URL} element={<Home />} />
         <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
+        <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
+        <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
+        <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
+        <Route path={MARKETPLACE_CHECKOUT_URL} element={<CheckoutPage />} />
+        <Route path={MARKETPLACE_PRESCRIPTION_URL} element={<UploadPrescriptionPage />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
