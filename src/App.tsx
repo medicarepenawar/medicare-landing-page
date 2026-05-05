@@ -27,6 +27,7 @@ import {
   MARKETPLACE_PRODUCT_URL,
   MARKETPLACE_CART_URL,
   MARKETPLACE_CHECKOUT_URL,
+  MARKETPLACE_PRESCRIPTION_URL,
 } from "./constants/constant";
 import Home from "./pages/Home";
 import UnderConstruction from "./pages/UnderConstruction";
@@ -40,6 +41,7 @@ import MarketplaceLanding from "./pages/marketplace_pharmacy/MarketplaceLanding"
 import ProductDetail from "./pages/marketplace_pharmacy/ProductDetail";
 import CartPage from "./pages/marketplace_pharmacy/CartPage";
 import CheckoutPage from "./pages/marketplace_pharmacy/CheckoutPage";
+import UploadPrescriptionPage from "./pages/marketplace_pharmacy/UploadPrescriptionPage";
 
 function App() {
   return (
@@ -51,6 +53,7 @@ function App() {
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
         <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
         <Route path={MARKETPLACE_CHECKOUT_URL} element={<CheckoutPage />} />
+        <Route path={MARKETPLACE_PRESCRIPTION_URL} element={<UploadPrescriptionPage />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />

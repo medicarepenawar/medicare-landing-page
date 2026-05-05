@@ -1,6 +1,9 @@
 import { Shield, Truck, Lock, Upload, CheckCircle2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { MARKETPLACE_PRESCRIPTION_URL } from "../../../constants/constant";
 
 export function HeroSection() {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#f4f9fc] py-12 px-6 lg:px-16 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
       {/* Background shape */}
@@ -39,7 +42,10 @@ export function HeroSection() {
           <button className="bg-[#0b5f8c] text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl">
             Shop Medicines
           </button>
-          <button className="bg-white border border-gray-300 text-[#0b5f8c] px-8 py-3 rounded-md font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <button 
+            onClick={() => navigate(MARKETPLACE_PRESCRIPTION_URL)}
+            className="bg-white border border-gray-300 text-[#0b5f8c] px-8 py-3 rounded-md font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
+          >
             <Upload className="w-5 h-5" />
             <div className="text-left flex flex-col leading-tight">
               <span>Upload Prescription</span>
