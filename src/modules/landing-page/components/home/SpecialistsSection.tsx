@@ -1,5 +1,5 @@
 import React from "react";
-import type { LandingSpecialistItem } from "../../../types/api";
+import type { LandingSpecialistItem } from "../../../../types/api";
 import { resolveMediaUrl } from "../../../../utils/media";
 
 interface SpecialistsSectionProps {

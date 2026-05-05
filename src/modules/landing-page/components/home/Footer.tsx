@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PRIVACY_POLICY_URL, TERMS_AND_CONDITIONS_URL, ABOUT_US_URL } from "../../../../constants/constant";
-import type { LandingCompanyProfile, LandingServiceItem } from "../../../types/api";
+import type { LandingCompanyProfile, LandingServiceItem } from "../../../../types/api";
 
 interface FooterProps {
   companyProfile?: LandingCompanyProfile;

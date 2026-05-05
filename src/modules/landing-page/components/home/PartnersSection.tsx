@@ -1,5 +1,5 @@
 import React from "react";
-import type { LandingPartnerItem } from "../../../types/api";
+import type { LandingPartnerItem } from "../../../../types/api";
 import { resolveMediaUrl } from "../../../../utils/media";
 
 interface PartnersSectionProps {

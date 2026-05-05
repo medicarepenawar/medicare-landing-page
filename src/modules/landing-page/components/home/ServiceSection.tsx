@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import onsiteLabImg from "../../../../assets/img/home/lab.jpeg";
-import type { LandingServiceItem } from "../../../types/api";
+import type { LandingServiceItem } from "../../../../types/api";
 
 interface Service {
   icon: string;
