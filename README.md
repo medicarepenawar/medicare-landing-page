@@ -16,31 +16,15 @@ A modern, user-friendly registration portal for Medicare healthcare platform bui
 ```
 my-app/
 ├── src/
-│   ├── assets/
-│   │   └── img/              # Images and icons
-│   ├── components/
-│   │   ├── common/           # Reusable components (Toast, etc.)
-│   │   ├── doctor/           # Doctor-specific components
-│   │   ├── nurse/            # Nurse-specific components
-│   │   ├── vendor/           # Vendor-specific components
-│   │   └── terms/            # Terms and conditions components
-│   ├── hooks/                # Custom React hooks
-│   │   ├── useDoctorRegistration.ts
-│   │   ├── useNurseRegistration.ts
-│   │   └── useVendorRegistration.ts
-│   ├── pages/                # Page components
-│   │   ├── doctor/
-│   │   ├── nurse/
-│   │   ├── vendor/
-│   │   ├── Home.tsx
-│   │   ├── Register.tsx
-│   │   └── RegistrationSuccess.tsx
-│   ├── services/             # API services
-│   ├── types/                # TypeScript type definitions
-│   ├── utils/                # Utility functions
-│   │   └── errorHandler.ts  # Error message formatting
-│   ├── constants/
-│   │   └── constant.ts       # App constants and URLs
+│   ├── assets/               # Static assets (images, icons)
+│   ├── core/                 # Shared functionality (utils, hooks, constants)
+│   ├── shared/               # Shared UI components (common buttons, layout)
+│   ├── modules/              # Feature-based modules
+│   │   ├── landing-page/     # Landing Page module (components, pages)
+│   │   ├── home-nursing/     # Home Nursing module (nurse, therapist)
+│   │   ├── specialist/       # Specialist module (doctor)
+│   │   ├── clinic/           # Clinic module (lab assistant)
+│   │   └── pharmacy/         # Pharmacy module (vendor)
 │   ├── App.tsx
 │   └── main.tsx
 ├── public/
@@ -50,6 +34,8 @@ my-app/
 ├── vite.config.ts
 └── README.md
 ```
+
+> **Note:** The project is currently transitioning to this modular architecture. Some features might still reside in the legacy `src/pages` or `src/components` folders during the migration process.
 
 ## 🛠️ Tech Stack
 
@@ -227,6 +213,10 @@ This project is proprietary and confidential.
 For support, email support@medicare.com or open an issue in the repository.
 
 ## 🔄 Recent Updates
+
+### v1.2.0 (May 2026)
+- ✅ Introduced Modular Architecture (`src/modules/*`)
+- ✅ Migrated Landing Page to `src/modules/landing-page`
 
 ### v1.1.0 (December 2024)
 - ✅ Added Toast notification system

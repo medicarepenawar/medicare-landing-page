@@ -1,5 +1,5 @@
 import React from "react";
-import type { LandingIndustries, LandingIndustryItem } from "../../types/api";
+import type { LandingIndustries, LandingIndustryItem } from "../../../../types/api";
 
 interface Industry {
   title: string;

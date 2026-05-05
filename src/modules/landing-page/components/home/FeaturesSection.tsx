@@ -1,6 +1,6 @@
 import React from "react";
-import doctorImg from "../../assets/img/home/doctor.png";
-import type { LandingFeatureItem } from "../../types/api";
+import doctorImg from "../../../../assets/img/home/doctor.png";
+import type { LandingFeatureItem } from "../../../../types/api";
 
 interface Feature {
   icon: string;
