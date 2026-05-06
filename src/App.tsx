@@ -31,6 +31,7 @@ import {
   MARKETPLACE_PRESCRIPTION_URL,
   NURSE_DETAIL_URL,
 } from "./constants/constant";
+import MainPage from "./modules/main/pages/MainPage";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
 
@@ -50,6 +51,7 @@ function App() {
     <ToastProvider>
       <Routes>
         <Route path={HOME_PAGE_URL} element={<Home />} />
+        <Route path="/main" element={<MainPage />} />
         <Route path={DEV_URL} element={<UnderConstruction />} />
         <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
