@@ -52,7 +52,7 @@ export default function UploadPrescriptionPage() {
       <main className="px-6 lg:px-16 py-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-2">
-          <Link to={MARKETPLACE_URL} className="hover:text-[#0b5f8c]">Home</Link>
+          <Link to={MARKETPLACE_URL} className="hover:text-[#2563EB]">Home</Link>
           <ChevronRight className="w-4 h-4" />
           <span className="font-semibold text-gray-800">Upload Prescription</span>
         </div>
@@ -79,12 +79,12 @@ export default function UploadPrescriptionPage() {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               className={`bg-white rounded-xl shadow-sm border-2 border-dashed transition-all p-12 flex flex-col items-center justify-center cursor-pointer min-h-[400px] ${
-                isDragging ? 'border-[#0b5f8c] bg-blue-50' : 'border-gray-300 hover:border-[#0b5f8c]'
+                isDragging ? 'border-[#2563EB] bg-blue-50' : 'border-gray-300 hover:border-[#2563EB]'
               }`}
             >
               {!selectedFile ? (
                 <>
-                  <div className="bg-blue-50 text-[#0b5f8c] p-4 rounded-full mb-6 relative hover:scale-110 transition-transform">
+                  <div className="bg-blue-50 text-[#2563EB] p-4 rounded-full mb-6 relative hover:scale-110 transition-transform">
                     <UploadCloud className="w-12 h-12" />
                     <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-sm">
                        <FileText className="w-4 h-4 text-green-500" />
@@ -95,7 +95,7 @@ export default function UploadPrescriptionPage() {
                     SVG, PNG, JPG or PDF (max. 10MB)
                   </p>
                   
-                  <button className="bg-[#0b5f8c] text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-800 transition-colors shadow-md pointer-events-none">
+                  <button className="bg-[#2563EB] text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-800 transition-colors shadow-md pointer-events-none">
                     Select File
                   </button>
                 </>
@@ -114,7 +114,7 @@ export default function UploadPrescriptionPage() {
                         alert("Prescription Submitted Successfully!");
                         setSelectedFile(null);
                       }}
-                      className="bg-[#2ebc78] text-white px-8 py-3 rounded-md font-semibold hover:bg-green-600 transition-colors shadow-md hover:shadow-lg"
+                      className="bg-[#2563EB] text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
                     >
                       Submit Now
                     </button>
@@ -174,10 +174,10 @@ export default function UploadPrescriptionPage() {
               </div>
             </div>
 
-            <div className="bg-[#e9f6f2] rounded-xl p-6 text-[#1a2f44]">
+            <div className="bg-[#EFF6FF] rounded-xl p-6 text-[#111827]">
               <h3 className="font-bold mb-2">Need help?</h3>
               <p className="text-sm mb-4 text-gray-700">If you are having trouble uploading, you can send it directly to our pharmacist via WhatsApp.</p>
-              <button className="w-full bg-[#21b764] text-white py-3 rounded-md font-bold hover:bg-green-700 transition-colors shadow-md">
+              <button className="w-full bg-green-500 text-white py-3 rounded-md font-bold hover:bg-green-600 transition-colors shadow-md">
                 Chat on WhatsApp
               </button>
             </div>

@@ -1,5 +1,5 @@
 import { MARKETPLACE_BESTSELLERS } from "../../../constants/marketplaceDummyData";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { MARKETPLACE_CART_URL } from "../../../constants/constant";
 
@@ -8,9 +8,9 @@ export function BestsellersSection() {
   return (
     <div className="px-6 lg:px-16 py-8 pb-20">
       <div className="flex justify-between items-end mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Bestsellers</h2>
-        <a href="#" className="text-[#0b5f8c] font-semibold text-sm hover:underline flex items-center gap-1">
-          View all <span className="text-lg leading-none">→</span>
+        <h2 className="text-2xl font-bold text-gray-800">Produk Terlaris</h2>
+        <a href="#" className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1">
+          Lihat Semua <span className="text-lg leading-none">→</span>
         </a>
       </div>
 
@@ -21,13 +21,18 @@ export function BestsellersSection() {
         
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
           {MARKETPLACE_BESTSELLERS.map((item) => (
-            <Link to={`/pharmacy/mukminpharmacy/product/${item.id}`} key={item.id} className="min-w-[200px] w-[220px] bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col snap-start">
+            <Link to={`/pharmacy/mukminpharmacy/product/${item.id}`} key={item.id} className="min-w-[200px] w-[220px] bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col snap-start relative">
+              
+              <button className="absolute top-4 right-4 text-gray-300 hover:text-red-500 z-10 transition-colors">
+                  <Heart className="w-5 h-5" />
+              </button>
+
               {/* Image Container */}
-              <div className="bg-[#f8fbff] w-full aspect-square rounded-xl mb-4 p-4 flex items-center justify-center relative">
+              <div className="w-full aspect-square mb-4 flex items-center justify-center relative">
                 <img 
                   src={item.image} 
                   alt={item.name} 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain mix-blend-multiply"
                 />
               </div>
               
@@ -38,16 +43,16 @@ export function BestsellersSection() {
                 
                 <div className="mt-auto">
                   <div className="flex items-center gap-2 mb-1">
+                    <span className="font-bold text-[#111827] text-lg">{item.discountedPrice}</span>
                     <span className="text-xs text-gray-400 line-through">{item.originalPrice}</span>
                     <span className="text-[10px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded-sm">{item.discountBadge}</span>
                   </div>
-                  <div className="font-bold text-[#1a2f44] text-lg mb-3">{item.discountedPrice}</div>
                   
                   <button 
                     onClick={(e) => { e.preventDefault(); navigate(MARKETPLACE_CART_URL); }}
-                    className="w-full bg-white border border-gray-300 text-[#0b5f8c] py-2 rounded-md font-semibold text-sm hover:bg-blue-50 transition-colors"
+                    className="w-full bg-white border border-gray-300 text-[#2563EB] py-2 mt-3 rounded-md font-semibold text-sm hover:bg-blue-50 transition-colors"
                   >
-                    Add to Cart
+                    Tambah ke Keranjang
                   </button>
                 </div>
               </div>
