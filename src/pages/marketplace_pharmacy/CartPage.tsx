@@ -27,7 +27,7 @@ export default function CartPage() {
       
       <main className="px-6 lg:px-16 py-8">
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-2">
-          <Link to={MARKETPLACE_URL} className="hover:text-[#0b5f8c]">Home</Link>
+          <Link to={MARKETPLACE_URL} className="hover:text-[#2563EB]">Home</Link>
           <ChevronRight className="w-4 h-4" />
           <span className="font-semibold text-gray-800">Shopping Cart</span>
         </div>
@@ -47,13 +47,13 @@ export default function CartPage() {
             {items.map((item) => (
               <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border-b border-gray-100 items-center">
                 <div className="col-span-1 md:col-span-6 flex gap-4 items-center">
-                  <div className="w-20 h-20 bg-[#f8fbff] rounded-lg border border-gray-100 flex items-center justify-center p-2 flex-shrink-0">
+                  <div className="w-20 h-20 bg-[#F8FAFC] rounded-lg border border-gray-100 flex items-center justify-center p-2 flex-shrink-0">
                     <img src={item.image} alt={item.name} className="w-full h-full object-contain mix-blend-multiply" />
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-800">{item.name}</h3>
                     <p className="text-xs text-gray-500 mb-1">{item.variant}</p>
-                    <p className="text-sm font-semibold text-[#1a2f44] md:hidden">RM{item.price.toFixed(2)}</p>
+                    <p className="text-sm font-semibold text-[#111827] md:hidden">RM{item.price.toFixed(2)}</p>
                   </div>
                 </div>
 
@@ -69,7 +69,7 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <div className="hidden md:block col-span-2 text-right font-bold text-[#1a2f44]">
+                <div className="hidden md:block col-span-2 text-right font-bold text-[#111827]">
                   RM{(item.price * item.quantity).toFixed(2)}
                 </div>
 
@@ -101,18 +101,18 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between items-center pt-2">
                 <span className="text-lg font-bold text-gray-800">Total</span>
-                <span className="text-2xl font-black text-[#0b5f8c]">RM{total.toFixed(2)}</span>
+                <span className="text-2xl font-black text-[#2563EB]">RM{total.toFixed(2)}</span>
               </div>
             </div>
 
             <button 
               onClick={handleCheckout}
-              className="w-full bg-[#2ebc78] text-white py-4 rounded-md font-bold text-lg hover:bg-green-600 transition-colors shadow-md hover:shadow-lg"
+              className="w-full bg-[#2563EB] text-white py-4 rounded-md font-bold text-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
             >
               Proceed to Checkout
             </button>
             <div className="mt-4 text-center">
-              <Link to={MARKETPLACE_URL} className="text-[#0b5f8c] font-medium text-sm hover:underline">
+              <Link to={MARKETPLACE_URL} className="text-[#2563EB] font-medium text-sm hover:underline">
                 Continue Shopping
               </Link>
             </div>

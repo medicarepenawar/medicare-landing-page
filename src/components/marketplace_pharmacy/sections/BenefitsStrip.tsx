@@ -4,11 +4,11 @@ import { FileText, UserPlus, Truck, RefreshCcw } from "lucide-react";
 export function BenefitsStrip() {
   const getIcon = (id: number) => {
     switch(id) {
-      case 1: return <FileText className="w-6 h-6 text-[#0b5f8c]" />;
-      case 2: return <UserPlus className="w-6 h-6 text-[#0b5f8c]" />;
-      case 3: return <Truck className="w-6 h-6 text-[#0b5f8c]" />;
-      case 4: return <RefreshCcw className="w-6 h-6 text-[#0b5f8c]" />;
-      default: return <FileText className="w-6 h-6 text-[#0b5f8c]" />;
+      case 1: return <FileText className="w-6 h-6 text-[#2563EB]" />;
+      case 2: return <UserPlus className="w-6 h-6 text-[#2563EB]" />;
+      case 3: return <Truck className="w-6 h-6 text-[#2563EB]" />;
+      case 4: return <RefreshCcw className="w-6 h-6 text-[#2563EB]" />;
+      default: return <FileText className="w-6 h-6 text-[#2563EB]" />;
     }
   };
 
