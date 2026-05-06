@@ -21,9 +21,9 @@ export default function CheckoutPage() {
       
       <main className="px-6 lg:px-16 py-8">
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-2">
-          <Link to={MARKETPLACE_URL} className="hover:text-[#0b5f8c]">Home</Link>
+          <Link to={MARKETPLACE_URL} className="hover:text-[#2563EB]">Home</Link>
           <ChevronRight className="w-4 h-4" />
-          <Link to={MARKETPLACE_CART_URL} className="hover:text-[#0b5f8c]">Cart</Link>
+          <Link to={MARKETPLACE_CART_URL} className="hover:text-[#2563EB]">Cart</Link>
           <ChevronRight className="w-4 h-4" />
           <span className="font-semibold text-gray-800">Checkout</span>
         </div>
@@ -37,7 +37,7 @@ export default function CheckoutPage() {
             {/* Delivery Address */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                <MapPin className="text-[#0b5f8c]" />
+                <MapPin className="text-[#2563EB]" />
                 <h2 className="text-xl font-bold text-gray-800">Delivery Address</h2>
               </div>
 
@@ -45,29 +45,29 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input type="text" defaultValue="Ahmad Firdaus" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#0b5f8c] outline-none" />
+                    <input type="text" defaultValue="Ahmad Firdaus" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#2563EB] outline-none" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <input type="text" defaultValue="+60 12-345 6789" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#0b5f8c] outline-none" />
+                    <input type="text" defaultValue="+60 12-345 6789" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#2563EB] outline-none" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Address Line 1</label>
-                  <input type="text" defaultValue="No 12, Jalan Ampang" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#0b5f8c] outline-none" />
+                  <input type="text" defaultValue="No 12, Jalan Ampang" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#2563EB] outline-none" />
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                    <input type="text" defaultValue="Kuala Lumpur" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#0b5f8c] outline-none" />
+                    <input type="text" defaultValue="Kuala Lumpur" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#2563EB] outline-none" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
-                    <input type="text" defaultValue="Wilayah Persekutuan" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#0b5f8c] outline-none" />
+                    <input type="text" defaultValue="Wilayah Persekutuan" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#2563EB] outline-none" />
                   </div>
                   <div className="col-span-2 md:col-span-1">
                     <label className="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
-                    <input type="text" defaultValue="50450" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#0b5f8c] outline-none" />
+                    <input type="text" defaultValue="50450" className="w-full border border-gray-300 rounded-md px-4 py-2 bg-gray-50 focus:ring-1 focus:ring-[#2563EB] outline-none" />
                   </div>
                 </div>
               </div>
@@ -76,29 +76,29 @@ export default function CheckoutPage() {
             {/* Payment Method */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                <CreditCard className="text-[#0b5f8c]" />
+                <CreditCard className="text-[#2563EB]" />
                 <h2 className="text-xl font-bold text-gray-800">Payment Method</h2>
               </div>
 
               <div className="space-y-4">
-                <label className="flex items-center justify-between p-4 border-2 border-[#0b5f8c] rounded-lg bg-blue-50 cursor-pointer transition-all">
+                <label className="flex items-center justify-between p-4 border-2 border-[#2563EB] rounded-lg bg-blue-50 cursor-pointer transition-all">
                   <div className="flex items-center gap-3">
-                    <input type="radio" name="payment" defaultChecked className="w-4 h-4 text-[#0b5f8c] accent-[#0b5f8c]" />
+                    <input type="radio" name="payment" defaultChecked className="w-4 h-4 text-[#2563EB] accent-[#2563EB]" />
                     <span className="font-semibold text-gray-800 flex items-center gap-2"><CreditCard className="w-5 h-5"/> Credit / Debit Card</span>
                   </div>
-                  <CheckCircle2 className="text-[#0b5f8c] w-5 h-5" />
+                  <CheckCircle2 className="text-[#2563EB] w-5 h-5" />
                 </label>
                 
                 <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
                   <div className="flex items-center gap-3">
-                    <input type="radio" name="payment" className="w-4 h-4 accent-[#0b5f8c]" />
+                    <input type="radio" name="payment" className="w-4 h-4 accent-[#2563EB]" />
                     <span className="font-semibold text-gray-800 flex items-center gap-2"><Wallet className="w-5 h-5"/> E-Wallet (TNG / GrabPay)</span>
                   </div>
                 </label>
                 
                 <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
                   <div className="flex items-center gap-3">
-                    <input type="radio" name="payment" className="w-4 h-4 accent-[#0b5f8c]" />
+                    <input type="radio" name="payment" className="w-4 h-4 accent-[#2563EB]" />
                     <span className="font-semibold text-gray-800">Online Banking (FPX)</span>
                   </div>
                 </label>
@@ -147,13 +147,13 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                   <span className="text-base font-bold text-gray-800">Total to Pay</span>
-                  <span className="text-2xl font-black text-[#0b5f8c]">RM{total.toFixed(2)}</span>
+                  <span className="text-2xl font-black text-[#2563EB]">RM{total.toFixed(2)}</span>
                 </div>
               </div>
 
               <button 
                 onClick={() => alert("Order Placed Successfully!")}
-                className="w-full bg-[#0b5f8c] text-white py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-colors shadow-md hover:shadow-xl flex items-center justify-center gap-2"
+                className="w-full bg-[#2563EB] text-white py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-colors shadow-md hover:shadow-xl flex items-center justify-center gap-2"
               >
                  Place Order
               </button>
