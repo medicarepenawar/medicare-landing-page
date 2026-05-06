@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Register from "./modules/landing-page/pages/Register";
 import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
 import NurseRegisterPage from "./pages/nurse/NurseRegisterPage";
+import NurseDetailPage from "./pages/nurse/NurseDetailPage";
 import LabAssistantRegisterPage from "./pages/labassistant/LabAssistantRegisterPage";
 import TherapistRegisterPage from "./pages/therapist/TherapistRegisterPage";
 import RegistrationSuccess from "./modules/landing-page/pages/RegistrationSuccess";
@@ -28,6 +29,7 @@ import {
   MARKETPLACE_CART_URL,
   MARKETPLACE_CHECKOUT_URL,
   MARKETPLACE_PRESCRIPTION_URL,
+  NURSE_DETAIL_URL,
 } from "./constants/constant";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
@@ -47,13 +49,14 @@ function App() {
   return (
     <ToastProvider>
       <Routes>
-        <Route path={DEV_URL} element={<Home />} />
-        <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
+        <Route path={HOME_PAGE_URL} element={<Home />} />
+        <Route path={DEV_URL} element={<UnderConstruction />} />
         <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
         <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
         <Route path={MARKETPLACE_CHECKOUT_URL} element={<CheckoutPage />} />
         <Route path={MARKETPLACE_PRESCRIPTION_URL} element={<UploadPrescriptionPage />} />
+        <Route path={NURSE_DETAIL_URL} element={<NurseDetailPage />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
