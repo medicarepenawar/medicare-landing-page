@@ -28,6 +28,7 @@ import {
   MARKETPLACE_CART_URL,
   MARKETPLACE_CHECKOUT_URL,
   MARKETPLACE_PRESCRIPTION_URL,
+  DOCTOR_SPECIALIST_URL,
 } from "./constants/constant";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
@@ -42,6 +43,8 @@ import ProductDetail from "./pages/marketplace_pharmacy/ProductDetail";
 import CartPage from "./pages/marketplace_pharmacy/CartPage";
 import CheckoutPage from "./pages/marketplace_pharmacy/CheckoutPage";
 import UploadPrescriptionPage from "./pages/marketplace_pharmacy/UploadPrescriptionPage";
+import DoctorSpecialist from "./pages/doctor_specialist/DoctorSpecialistPage";
+import DoctorSpecialistPage from "./pages/doctor_specialist/Specialist";
 
 function App() {
   return (
@@ -68,6 +71,8 @@ function App() {
         <Route path={VENDOR_TERMS_AND_CONDITIONS_URL} element={<VendorTermsAndConditions />} />
         <Route path={PRIVACY_POLICY_URL} element={<PrivacyPolicy />} />
         <Route path="/registration-success" element={<RegistrationSuccess />} />
+
+        <Route path={DOCTOR_SPECIALIST_URL} element={<DoctorSpecialist />} />
       </Routes>
     </ToastProvider>
   );
