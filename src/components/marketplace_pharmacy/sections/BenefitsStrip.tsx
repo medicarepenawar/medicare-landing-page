@@ -4,11 +4,11 @@ import { FileText, UserPlus, Truck, RefreshCcw } from "lucide-react";
 export function BenefitsStrip() {
   const getIcon = (id: number) => {
     switch(id) {
-      case 1: return <FileText className="w-6 h-6 text-[#0b5f8c]" />;
-      case 2: return <UserPlus className="w-6 h-6 text-[#0b5f8c]" />;
-      case 3: return <Truck className="w-6 h-6 text-[#0b5f8c]" />;
-      case 4: return <RefreshCcw className="w-6 h-6 text-[#0b5f8c]" />;
-      default: return <FileText className="w-6 h-6 text-[#0b5f8c]" />;
+      case 1: return <FileText className="w-6 h-6 text-[#2563EB]" />;
+      case 2: return <UserPlus className="w-6 h-6 text-[#2563EB]" />;
+      case 3: return <Truck className="w-6 h-6 text-[#2563EB]" />;
+      case 4: return <RefreshCcw className="w-6 h-6 text-[#2563EB]" />;
+      default: return <FileText className="w-6 h-6 text-[#2563EB]" />;
     }
   };
 
@@ -16,8 +16,12 @@ export function BenefitsStrip() {
     <div className="relative -mt-8 z-20 px-6 lg:px-16 mb-12">
       <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 flex flex-wrap lg:flex-nowrap justify-between gap-6">
         {MARKETPLACE_BENEFITS.map((benefit, idx) => (
-          <div key={benefit.id} className={`flex items-center gap-4 flex-1 ${idx !== MARKETPLACE_BENEFITS.length - 1 ? 'border-r border-gray-100' : ''}`}>
-            <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
+          <div 
+            key={benefit.id} 
+            className={`flex items-center gap-4 flex-1 animate-slide-in opacity-0 ${idx !== MARKETPLACE_BENEFITS.length - 1 ? 'border-r border-gray-100' : ''}`}
+            style={{ animationDelay: `${0.2 + idx * 0.1}s`, animationFillMode: "forwards" }}
+          >
+            <div className="bg-blue-50 p-3 rounded-xl border border-blue-100 hover:-translate-y-1 transition-transform cursor-pointer">
               {getIcon(benefit.id)}
             </div>
             <div>
