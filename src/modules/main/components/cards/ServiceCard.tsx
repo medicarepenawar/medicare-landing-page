@@ -16,7 +16,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   index = 0,
 }) => {
-  const IconComponent = (LucideIcons as Record<string, React.FC<{ className?: string }>>)[icon] || LucideIcons.Activity;
+  const IconComponent = (LucideIcons as unknown as Record<string, React.FC<{ className?: string }>>)[icon] || LucideIcons.Activity;
 
   return (
     <motion.div
@@ -29,19 +29,19 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         ease: [0.25, 0.4, 0.25, 1],
       }}
       className={cn(
-        "group relative p-8 rounded-[28px] bg-white border border-[rgba(0,0,0,0.04)]",
-        "hover:shadow-[0_16px_48px_rgba(0,0,0,0.06)]",
+        "group relative p-8 rounded-2xl bg-white border border-gray-100/50",
+        "hover:shadow-xl hover:shadow-[#2563EB]/10",
         "transition-all duration-500 ease-out"
       )}
     >
-      <div className="w-12 h-12 rounded-2xl bg-[#DBEAFE] flex items-center justify-center mb-6 group-hover:bg-[#1D4ED8] transition-colors duration-500">
-        <IconComponent className="w-5 h-5 text-[#1D4ED8] group-hover:text-white transition-colors duration-500" />
+      <div className="w-12 h-12 rounded-xl bg-[#2563EB]/10 flex items-center justify-center mb-6 group-hover:bg-[#2563EB] transition-colors duration-500">
+        <IconComponent className="w-5 h-5 text-[#2563EB] group-hover:text-white transition-colors duration-500" />
       </div>
 
-      <h3 className="text-lg font-semibold text-[#111111] tracking-tight mb-2">
+      <h3 className="text-lg font-semibold text-gray-900 tracking-tight mb-2">
         {title}
       </h3>
-      <p className="text-sm text-[#666666] leading-relaxed">
+      <p className="text-sm text-gray-500 leading-relaxed">
         {description}
       </p>
     </motion.div>

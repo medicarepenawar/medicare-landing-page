@@ -20,10 +20,10 @@ export const StatCard: React.FC<StatCardProps> = ({ item, index = 0 }) => {
       }}
       className="relative p-8 text-center"
     >
-      <p className="text-4xl md:text-5xl font-semibold text-[#111111] tracking-tight">
+      <p className="text-4xl md:text-5xl font-semibold text-gray-900 tracking-tight">
         {item.value}
       </p>
-      <p className="mt-2 text-sm text-[#666666] font-medium">
+      <p className="mt-2 text-sm text-gray-500 font-medium">
         {item.label}
       </p>
     </motion.div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Star, MapPin } from "lucide-react";
-import { Badge } from "../ui/Badge";
+import { Star, MapPin, ArrowUpRight } from "lucide-react";
 import { cn } from "../../utils/cn";
 import type { DirectoryItem } from "../../types";
 
@@ -10,26 +9,38 @@ interface DirectoryCardProps {
   index?: number;
 }
 
-export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 }) => {
+export const DirectoryCard: React.FC<DirectoryCardProps> = ({
+  item,
+  index = 0,
+}) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{
-        duration: 0.7,
-        delay: index * 0.1,
+        duration: 0.5,
+        delay: index * 0.08,
         ease: [0.25, 0.4, 0.25, 1],
       }}
       className="group relative"
     >
+      {/* Decorative glow layer for depth */}
       <div
         className={cn(
-          "relative bg-white rounded-[32px] overflow-hidden border border-[rgba(0,0,0,0.04)]",
-          "shadow-[0_4px_24px_rgba(0,0,0,0.03)]",
-          "hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]",
-          "transition-all duration-700 ease-out",
-          "hover:-translate-y-2"
+          "absolute -inset-px rounded-2xl bg-gradient-to-br from-[#2563EB]/20 via-transparent to-[#EF4444]/10",
+          "opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10",
+          "blur-xl scale-95"
+        )}
+      />
+
+      <div
+        className={cn(
+          "relative bg-white rounded-2xl overflow-hidden border border-gray-100",
+          "hover:border-[#2563EB]/20",
+          "shadow-sm hover:shadow-lg hover:shadow-[#2563EB]/8",
+          "transition-all duration-500 ease-out",
+          "hover:-translate-y-1"
         )}
       >
         {/* Image Container */}
@@ -37,52 +48,85 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
           <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             loading="lazy"
           />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          {/* Minimal gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
           {/* Badge */}
           {item.badge && (
-            <div className="absolute top-5 left-5">
-              <Badge
-                variant={item.badge === "Premium" ? "premium" : item.badge === "Top Rated" ? "default" : "success"}
+            <div className="absolute top-4 left-4 z-10">
+              <span
+                className={cn(
+                  "inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-semibold tracking-wide uppercase backdrop-blur-md",
+                  item.badge === "Premium"
+                    ? "bg-amber-500/90 text-white"
+                    : item.badge === "Top Rated"
+                    ? "bg-[#2563EB]/90 text-white"
+                    : item.badge === "Specialist"
+                    ? "bg-purple-500/90 text-white"
+                    : "bg-emerald-500/90 text-white"
+                )}
               >
                 {item.badge}
-              </Badge>
+              </span>
             </div>
           )}
 
-          {/* Availability */}
-          <div className="absolute bottom-5 left-5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-xs font-medium text-[#111111]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          {/* Availability — overlaps image bottom edge for z-depth */}
+          <div className="absolute -bottom-3 left-4 z-20">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white shadow-md border border-gray-100 text-[11px] font-medium text-gray-700">
+              <span
+                className={cn(
+                  "w-1.5 h-1.5 rounded-full",
+                  item.availability.includes("Now") ||
+                    item.availability.includes("Today") ||
+                    item.availability.includes("24/7")
+                    ? "bg-emerald-500 animate-pulse"
+                    : "bg-amber-400"
+                )}
+              />
               {item.availability}
             </span>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-3">
-          <div className="flex items-start justify-between">
+        <div className="p-5 pt-6 flex flex-col justify-between">
+          <div className="space-y-3">
             <div>
-              <h3 className="text-base font-semibold text-[#111111] tracking-tight">
+              <h3 className="text-[15px] font-semibold text-gray-900 tracking-tight leading-snug">
                 {item.name}
               </h3>
-              <p className="text-sm text-[#666666] mt-0.5">
-                {item.specialty || item.role}
-              </p>
+              {item.specialty && (
+                <p className="text-[13px] text-[#2563EB] font-medium mt-0.5">
+                  {item.specialty}
+                </p>
+              )}
             </div>
-            <div className="flex items-center gap-1">
-              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-              <span className="text-sm font-medium text-[#111111]">{item.rating}</span>
+
+            {/* Meta row */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1 text-gray-400">
+                <MapPin className="w-3.5 h-3.5" />
+                <span className="text-[12px]">{item.location}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span className="text-[13px] font-semibold text-gray-900">
+                  {item.rating}
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 text-[#999999]">
-            <MapPin className="w-3.5 h-3.5" />
-            <span className="text-xs">{item.location}</span>
+          {/* Action CTA */}
+          <div className="mt-4 pt-3 border-t border-gray-50">
+            <button className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-[13px] font-medium text-gray-500 hover:text-[#2563EB] hover:bg-[#2563EB]/5 transition-all duration-300">
+              View Profile
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </button>
           </div>
         </div>
       </div>

@@ -38,9 +38,9 @@ export const Navbar: React.FC = () => {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-white/80 backdrop-blur-2xl border-b border-[rgba(0,0,0,0.04)] shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+            ? "bg-white/80 backdrop-blur-lg shadow-sm border-b border-gray-200/50"
             : "bg-transparent"
         )}
       >
@@ -66,10 +66,10 @@ export const Navbar: React.FC = () => {
                   to={link.href}
                   className={({ isActive }) =>
                     cn(
-                      "px-5 py-2 rounded-full text-[13px] font-medium transition-all duration-300",
+                      "px-5 py-2 rounded-xl text-[13px] font-medium transition-all duration-300",
                       isActive
-                        ? "bg-[#111111] text-white"
-                        : "text-[#666666] hover:text-[#111111] hover:bg-black/[0.03]"
+                        ? "bg-[#2563EB]/10 text-[#2563EB] shadow-sm"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     )
                   }
                 >
@@ -81,20 +81,20 @@ export const Navbar: React.FC = () => {
             {/* Desktop Actions */}
             <div className="hidden lg:flex items-center gap-3">
               <button
-                className="p-2.5 rounded-full text-[#666666] hover:text-[#111111] hover:bg-black/[0.03] transition-all duration-300"
+                className="p-2.5 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-300"
                 aria-label="Search"
               >
                 <Search className="w-[18px] h-[18px]" />
               </button>
               <button
-                className="p-2.5 rounded-full text-[#666666] hover:text-[#111111] hover:bg-black/[0.03] transition-all duration-300"
+                className="p-2.5 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-300"
                 aria-label="Profile"
               >
                 <User className="w-[18px] h-[18px]" />
               </button>
               <button
                 onClick={() => navigate("/register")}
-                className="ml-2 px-6 py-2.5 rounded-full bg-[#111111] text-white text-[13px] font-medium hover:bg-[#1D4ED8] hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                className="ml-2 px-6 py-2.5 rounded-xl bg-gray-900 text-white text-[13px] font-medium hover:bg-[#2563EB] hover:shadow-lg hover:shadow-[#2563EB]/30 transition-all duration-300"
               >
                 Get Started
               </button>
@@ -102,7 +102,7 @@ export const Navbar: React.FC = () => {
 
             {/* Mobile Toggle */}
             <button
-              className="lg:hidden p-2 rounded-full text-[#666666] hover:bg-black/[0.03] transition-colors"
+              className="lg:hidden p-2 rounded-xl text-gray-600 hover:bg-gray-100 transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -143,10 +143,10 @@ export const Navbar: React.FC = () => {
                   to={link.href}
                   className={({ isActive }) =>
                     cn(
-                      "px-5 py-3.5 rounded-2xl text-base font-medium transition-all duration-300",
+                      "px-5 py-3.5 rounded-xl text-base font-medium transition-all duration-300",
                       isActive
-                        ? "bg-[#111111] text-white"
-                        : "text-[#666666] hover:text-[#111111] hover:bg-black/[0.03]"
+                        ? "bg-[#2563EB]/10 text-[#2563EB]"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     )
                   }
                 >
@@ -156,10 +156,10 @@ export const Navbar: React.FC = () => {
             </nav>
 
             <div className="mt-auto flex flex-col gap-3">
-              <hr className="border-[rgba(0,0,0,0.06)]" />
+              <hr className="border-gray-100" />
               <button
                 onClick={() => navigate("/register")}
-                className="w-full py-3.5 rounded-2xl bg-[#111111] text-white text-sm font-medium hover:bg-[#1D4ED8] transition-all duration-300"
+                className="w-full py-3.5 rounded-xl bg-gray-900 text-white text-sm font-medium hover:bg-[#2563EB] transition-all duration-300"
               >
                 Get Started
               </button>

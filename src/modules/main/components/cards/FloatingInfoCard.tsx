@@ -27,18 +27,18 @@ export const FloatingInfoCard: React.FC<FloatingInfoCardProps> = ({
         ease: [0.25, 0.4, 0.25, 1],
       }}
       className={cn(
-        "absolute px-4 py-3 rounded-2xl bg-white/90 backdrop-blur-xl border border-white/50",
-        "shadow-[0_8px_32px_rgba(0,0,0,0.08)]",
+        "absolute px-4 py-3 rounded-xl bg-white/90 backdrop-blur-xl border border-white/50",
+        "shadow-lg shadow-[#2563EB]/10",
         className
       )}
     >
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-[#DBEAFE] flex items-center justify-center shrink-0">
+        <div className="w-9 h-9 rounded-lg bg-[#2563EB]/10 flex items-center justify-center shrink-0">
           {icon}
         </div>
         <div>
-          <p className="text-xs font-semibold text-[#111111] leading-tight">{title}</p>
-          <p className="text-[11px] text-[#999999]">{subtitle}</p>
+          <p className="text-xs font-semibold text-gray-900 leading-tight">{title}</p>
+          <p className="text-[11px] text-gray-400">{subtitle}</p>
         </div>
       </div>
     </motion.div>
