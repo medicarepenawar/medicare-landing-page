@@ -1,4 +1,4 @@
-import { ShieldCheck, HelpCircle, Truck, MapPin } from "lucide-react";
+import { ShieldCheck, HelpCircle } from "lucide-react";
 
 export function TopBar() {
   return (

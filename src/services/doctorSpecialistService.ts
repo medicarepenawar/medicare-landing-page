@@ -68,7 +68,7 @@ const doctorData: Doctor = {
     "https://lh3.googleusercontent.com/aida-public/AB6AXuD3evB2KFAuXphZ5q32s49G0OoRpUHaZrmb6yH7PML3lTK79wvQruS0BWJXlV_ijsVsy6bc50dla9HyNjEOmB3j1QB6FV27Pifr1WphvrInhpWQNYke5rQfWOeYBNjWgikQV3HNnbT5tOuEp6vncUETTMDulZTTMj1XP3JRheexTKEzW1L2RTxWsLZ1Jn6ZcOngWGHYaB3Sk_YWAc49K7QvzQ00WiYti2Zq89jhnZU19Wee8UK2IqKYoB50d6yD9KPCaxDrAmQ-O8Yt",
 };
 
-export const getDoctorById = async (id: string): Promise<Doctor> => {
+export const getDoctorById = async (_id: string): Promise<Doctor> => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(doctorData), 500);
   });

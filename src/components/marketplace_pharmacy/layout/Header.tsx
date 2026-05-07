@@ -1,6 +1,4 @@
-import { UserCircle, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
-import { MARKETPLACE_CART_URL } from "../../../constants/constant";
+import { ShoppingCart } from "lucide-react";
 import Logo_medicare from "../../../assets/img/home/logo.png";
 
 export function Header() {
