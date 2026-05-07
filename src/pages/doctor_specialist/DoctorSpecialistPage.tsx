@@ -1,0 +1,130 @@
+import { useParams } from "react-router-dom";
+import ServiceCard from "../../components/doctor_specialist/ServiceCard";
+import EducationCard from "../../components/doctor_specialist/EducationCard";
+import ProfileSidebar from "../../components/doctor_specialist/ProfileSidebar";
+import CredentialCard from "../../components/doctor_specialist/CredentialCard";
+import type { Doctor } from "../../types/doctor_specialist";
+import { useEffect, useState } from "react";
+import { getDoctorById } from "../../services/doctorSpecialistService";
+
+const DoctorSpecialist = () => {
+    const { id } = useParams();
+
+  const [doctor, setDoctor] = useState<Doctor | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!id) return;
+
+    getDoctorById(id)
+      .then(setDoctor)
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (!doctor) return <div>Not found</div>;
+
+  return (
+    // <div className="grid md:grid-cols-12 gap-6 p-6">
+    //   <ProfileSidebar doctor={doctor} />
+
+    //   <div className="md:col-span-8 space-y-6">
+    //     <p>{doctor.bio}</p>
+
+    //     <CredentialCard doctor={doctor} />
+    //     <EducationCard data={doctor.education} />
+
+    //     {doctor.services.map((s) => (
+    //       <ServiceCard key={s.id} service={s} />
+    //     ))}
+    //   </div>
+    // </div>
+
+    <div className="bg-gray-50 min-h-screen flex flex-col font-sans">
+      
+
+      {/* ── MAIN CONTENT ── */}
+      <main className="flex-grow max-w-7xl mx-auto px-5 md:px-16 py-8 w-full">
+        {/* Tombol Kembali */}
+        <button className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors mb-6 text-sm font-sans">
+          <span className="material-symbols-outlined text-lg">arrow_back</span>
+          Back to Medical Directory
+        </button>
+
+        {/* ── GRID LAYOUT UTAMA ──
+            Layout ini memisahkan sidebar (kiri) dan konten (kanan).
+            md:grid-cols-12 = 12 kolom di layar medium ke atas.
+            Sidebar: 4 kolom, Konten: 8 kolom.
+        */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+          {/* ── SIDEBAR ── */}
+          {/* Props dikirim seperti atribut HTML: doctor={doctor} */}
+          <ProfileSidebar doctor={doctor} />
+
+          {/* ── KONTEN KANAN ── */}
+          <div className="md:col-span-8 space-y-6">
+
+            {/* Professional Overview */}
+            <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Professional Overview
+              </h2>
+              <p className="text-gray-500 leading-relaxed">{doctor.bio}</p>
+            </section>
+
+            {/* Credentials & Education — dua kolom berdampingan */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CredentialCard doctor={doctor}
+              />
+              <EducationCard data={doctor.education} />
+            </div>
+
+            {/* Services & Pricing */}
+            <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-blue-600">payments</span>
+                  <h2 className="text-xl font-semibold text-gray-900">Services & Pricing</h2>
+                </div>
+                <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">
+                  Consultation Packages
+                </span>
+              </div>
+
+              {/* Render daftar layanan menggunakan .map() */}
+              <div className="space-y-3">
+                {doctor.services.map((service) => (
+                  // key wajib ada saat render list!
+                  <ServiceCard key={service.id} service={service} />
+                ))}
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </main>
+
+      {/* ── FOOTER ── */}
+      <footer className="bg-white border-t border-gray-100 mt-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center py-8 px-6 md:px-16 max-w-7xl mx-auto gap-4">
+          <div>
+            <p className="font-bold text-gray-900 text-lg">ClinicalConnect</p>
+            <p className="text-xs text-gray-400">© 2024 ClinicalConnect. All rights reserved.</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-6">
+            {["Terms of Service", "Privacy Policy", "Support Contact", "HIPAA Compliance"].map(
+              (link) => (
+                <a key={link} href="#" className="text-xs text-gray-400 hover:text-blue-600 transition-colors">
+                  {link}
+                </a>
+              )
+            )}
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default DoctorSpecialist;
