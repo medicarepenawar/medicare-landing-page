@@ -24,10 +24,10 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
         ease: [0.25, 0.4, 0.25, 1],
       }}
       className={cn(
-        "group relative p-8 rounded-[28px]",
-        "bg-white/70 backdrop-blur-xl border border-[rgba(0,0,0,0.04)]",
-        "shadow-[0_4px_24px_rgba(0,0,0,0.03)]",
-        "hover:shadow-[0_16px_48px_rgba(0,0,0,0.06)]",
+        "group relative p-8 rounded-2xl",
+        "bg-white/70 backdrop-blur-xl border border-gray-100/50",
+        "shadow-sm",
+        "hover:shadow-xl hover:shadow-[#2563EB]/10",
         "hover:-translate-y-1 transition-all duration-500 ease-out"
       )}
     >
@@ -42,20 +42,20 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </div>
 
       {/* Quote */}
-      <p className="text-[15px] text-[#444444] leading-relaxed mb-8">
+      <p className="text-[15px] text-gray-600 leading-relaxed mb-8">
         "{item.content}"
       </p>
 
       {/* Author */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#DBEAFE] to-[#1D4ED8]/20 flex items-center justify-center">
-          <span className="text-sm font-semibold text-[#1D4ED8]">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#2563EB]/10 flex items-center justify-center">
+          <span className="text-sm font-semibold text-[#2563EB]">
             {item.name.charAt(0)}
           </span>
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#111111]">{item.name}</p>
-          <p className="text-xs text-[#999999]">{item.role}</p>
+          <p className="text-sm font-semibold text-gray-900">{item.name}</p>
+          <p className="text-xs text-gray-400">{item.role}</p>
         </div>
       </div>
     </motion.div>

@@ -5,6 +5,20 @@ import nurseImg from "../../../assets/img/main/nurse.png";
 import pharmacyImg from "../../../assets/img/main/pharmacy.png";
 import clinicImg from "../../../assets/img/main/clinic.png";
 
+export const doctorSpecialties = [
+  "All Specialties",
+  "Cardiologist",
+  "Neurologist",
+  "Pediatrician",
+  "Orthopedic Surgeon",
+  "Dermatologist",
+  "General Practitioner",
+  "Ophthalmologist",
+  "Psychiatrist",
+] as const;
+
+export type DoctorSpecialty = (typeof doctorSpecialties)[number];
+
 export const directoryItems: DirectoryItem[] = [
   {
     id: "dir-1",
@@ -132,5 +146,47 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Accepting Patients",
     image: clinicImg,
     badge: "Premium",
+  },
+  {
+    id: "dir-13",
+    name: "Dr. Nurul Aisyah",
+    role: "Doctor",
+    specialty: "Dermatologist",
+    location: "Bangsar",
+    rating: 4.8,
+    availability: "Available Today",
+    image: doctorImg,
+    badge: "Premium",
+  },
+  {
+    id: "dir-14",
+    name: "Dr. James Tan",
+    role: "Doctor",
+    specialty: "General Practitioner",
+    location: "Damansara",
+    rating: 4.6,
+    availability: "Available Now",
+    image: doctorImg,
+  },
+  {
+    id: "dir-15",
+    name: "Dr. Priya Nair",
+    role: "Doctor",
+    specialty: "Ophthalmologist",
+    location: "Kuala Lumpur",
+    rating: 4.9,
+    availability: "Available Tomorrow",
+    image: doctorImg,
+    badge: "Specialist",
+  },
+  {
+    id: "dir-16",
+    name: "Dr. Lim Wei Jie",
+    role: "Doctor",
+    specialty: "Psychiatrist",
+    location: "Petaling Jaya",
+    rating: 4.7,
+    availability: "Available This Week",
+    image: doctorImg,
   },
 ];

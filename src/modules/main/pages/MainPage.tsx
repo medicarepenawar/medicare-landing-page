@@ -5,7 +5,7 @@ import { DirectorySearchSection } from "../components/sections/DirectorySearchSe
 
 const MainPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#F5F5F2] flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex flex-col">
       <Navbar />
       <main className="flex-grow">
         <DirectorySearchSection />

@@ -43,17 +43,17 @@ const footerSections = [
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#FAFAF8] border-t border-[rgba(0,0,0,0.04)]">
+    <footer className="bg-gray-50/50 border-t border-gray-200/50">
       <Container>
         {/* Main Footer */}
         <div className="py-20 md:py-24">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 lg:gap-16">
             {/* Brand */}
             <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
-              <h3 className="text-xl font-semibold text-[#111111] tracking-tight">
+              <h3 className="text-xl font-semibold text-gray-900 tracking-tight">
                 Medicare
               </h3>
-              <p className="mt-4 text-sm text-[#666666] leading-relaxed max-w-xs">
+              <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-xs">
                 A premium healthcare ecosystem connecting patients with trusted
                 professionals, clinics, and emergency services.
               </p>
@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
                   <a
                     key={social}
                     href="#"
-                    className="text-xs text-[#999999] hover:text-[#111111] transition-colors duration-300"
+                    className="text-xs text-gray-400 hover:text-[#2563EB] transition-colors duration-300"
                   >
                     {social}
                   </a>
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
             {/* Link Sections */}
             {footerSections.map((section) => (
               <div key={section.title}>
-                <h4 className="text-xs font-semibold text-[#111111] tracking-[0.15em] uppercase mb-5">
+                <h4 className="text-xs font-semibold text-gray-900 tracking-[0.15em] uppercase mb-5">
                   {section.title}
                 </h4>
                 <ul className="space-y-3.5">
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
                     <li key={link.label}>
                       <a
                         href={link.href}
-                        className="text-sm text-[#666666] hover:text-[#111111] transition-colors duration-300"
+                        className="text-sm text-gray-500 hover:text-[#2563EB] transition-colors duration-300"
                       >
                         {link.label}
                       </a>
@@ -96,11 +96,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-8 border-t border-[rgba(0,0,0,0.04)] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[#999999]">
+        <div className="py-8 border-t border-gray-200/50 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-gray-400">
             © {new Date().getFullYear()} Medicare. All rights reserved.
           </p>
-          <p className="text-xs text-[#999999]">
+          <p className="text-xs text-gray-400">
             Designed with care for a healthier tomorrow.
           </p>
         </div>
