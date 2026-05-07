@@ -25,9 +25,9 @@ export default function ProductDetail() {
       <main className="px-6 lg:px-16 py-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-2">
-          <Link autoFocus to={MARKETPLACE_URL} className="hover:text-[#0b5f8c]">Home</Link>
+          <Link autoFocus to={MARKETPLACE_URL} className="hover:text-[#2563EB]">Home</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="hover:text-[#0b5f8c] cursor-pointer">Medicines</span>
+          <span className="hover:text-[#2563EB] cursor-pointer">Medicines</span>
           <ChevronRight className="w-4 h-4" />
           <span className="font-semibold text-gray-800">{product.name}</span>
         </div>
@@ -35,7 +35,7 @@ export default function ProductDetail() {
         <div className="flex flex-col md:flex-row gap-12">
           {/* Image Section */}
           <div className="md:w-5/12 flex-shrink-0">
-            <div className="bg-[#f8fbff] rounded-2xl p-8 border border-gray-100 aspect-square flex items-center justify-center">
+            <div className="bg-[#F8FAFC] rounded-2xl p-8 border border-gray-100 aspect-square flex items-center justify-center">
               <img src={product.image} alt={product.name} className="w-full h-full object-contain drop-shadow-md mix-blend-multiply" />
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function ProductDetail() {
             <p className="text-gray-500 font-medium mb-6">{product.variant} • By {product.manufacturer}</p>
             
             <div className="flex items-end gap-4 mb-6 pb-6 border-b border-gray-100">
-              <div className="text-4xl font-black text-[#1a2f44]">RM{product.discountedPrice}</div>
+              <div className="text-4xl font-black text-[#111827]">RM{product.discountedPrice}</div>
               <div className="bg-green-100 text-green-700 font-bold px-2 py-1 rounded text-sm mb-1">{product.discountBadge}</div>
               <div className="text-gray-400 line-through text-lg font-medium mb-1 pl-2">RM{product.originalPrice}</div>
             </div>
@@ -76,7 +76,7 @@ export default function ProductDetail() {
                 <div className="w-12 text-center font-bold text-lg text-gray-800">{qty}</div>
                 <button 
                   onClick={() => setQty(qty + 1)}
-                  className="p-3 hover:bg-gray-50 text-[#0b5f8c] transition-colors"
+                  className="p-3 hover:bg-gray-50 text-[#2563EB] transition-colors"
                 >
                   <Plus className="w-5 h-5" />
                 </button>
@@ -85,7 +85,7 @@ export default function ProductDetail() {
               {/* Add to Cart */}
               <button 
                 onClick={handleAddToCart}
-                className="flex-1 bg-[#0b5f8c] text-white py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                className="flex-1 bg-[#2563EB] text-white py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
               >
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
