@@ -13,7 +13,7 @@ export const MARKETPLACE_CART_URL = "/pharmacy/mukminpharmacy/cart";
 export const MARKETPLACE_CHECKOUT_URL = "/pharmacy/mukminpharmacy/checkout";
 export const MARKETPLACE_PRESCRIPTION_URL = "/pharmacy/mukminpharmacy/upload-prescription";
 export const DOCTOR_SPECIALIST_URL = "/doctor-specialist/:id";
-export const NURSE_DETAIL_URL = "/nurse/:id";
+export const NURSE_DETAIL_URL = "/nurse/:slug";
 
 export const DEV_URL = "hidden-dev";
 

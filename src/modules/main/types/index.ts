@@ -10,6 +10,7 @@ export interface DirectoryItem {
   availability: string;
   image: string;
   badge?: string;
+  slug?: string;
 }
 
 export interface ServiceItem {
