@@ -109,6 +109,7 @@ export const MARKETPLACE_CART_ITEMS = [
 export const NURSES_DATA = [
   {
     id: 1,
+    slug: "srn-mary",
     name: "SRN Mary",
     title: "State Registered Nurse (SRN)",
     specialization: "Professional Home Nursing Care",
@@ -210,6 +211,7 @@ export const NURSES_DATA = [
   },
   {
     id: 2,
+    slug: "srn-ahmed",
     name: "SRN Ahmed",
     title: "State Registered Nurse (SRN)",
     specialization: "General & Specialized Nursing",
@@ -306,6 +308,7 @@ export const NURSES_DATA = [
   },
   {
     id: 3,
+    slug: "srn-sarah",
     name: "SRN Sarah",
     title: "State Registered Nurse (SRN)",
     specialization: "Pediatric & Family Nursing",
@@ -407,6 +410,6 @@ export const NURSES_DATA = [
   },
 ];
 
-export const getNurseById = (id: string | number) => {
-  return NURSES_DATA.find((nurse) => nurse.id === Number(id));
+export const getNurseBySlug = (slug: string) => {
+  return NURSES_DATA.find((nurse) => nurse.slug === slug);
 };
