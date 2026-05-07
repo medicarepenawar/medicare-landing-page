@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { ChevronRight, MessageCircle, Calendar, MapPin, Award, Users, Heart } from "lucide-react";
 import { Header } from "../../modules/landing-page/components/home/Header";
 import { Footer } from "../../modules/landing-page/components/home/Footer";
-import { getNurseBySlug } from "../../constants/marketplaceDummyData";
+import { getNurseBySlug } from "../../modules/constants/nurses";
 import Toast from "../../components/common/Toast";
 
 export default function NurseDetailPage() {
