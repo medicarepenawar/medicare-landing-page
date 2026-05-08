@@ -7,7 +7,7 @@ export function BestsellersSection() {
   const navigate = useNavigate();
   return (
     <div className="px-6 lg:px-16 py-8 pb-20">
-      <div className="flex justify-between items-end mb-6">
+      <div className="flex justify-between items-end mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>
         <h2 className="text-2xl font-bold text-gray-800">Produk Terlaris</h2>
         <a href="#" className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1">
           Lihat Semua <span className="text-lg leading-none">→</span>
@@ -20,15 +20,20 @@ export function BestsellersSection() {
         </button>
         
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
-          {MARKETPLACE_BESTSELLERS.map((item) => (
-            <Link to={`/pharmacy/mukminpharmacy/product/${item.id}`} key={item.id} className="min-w-[200px] w-[220px] bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col snap-start relative">
+          {MARKETPLACE_BESTSELLERS.map((item, idx) => (
+            <Link 
+              to={`/pharmacy/mukminpharmacy/product/${item.id}`} 
+              key={item.id} 
+              className="min-w-[200px] w-[220px] bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col snap-start relative animate-card-entry opacity-0"
+              style={{ animationDelay: `${0.3 + idx * 0.1}s` }}
+            >
               
               <button className="absolute top-4 right-4 text-gray-300 hover:text-red-500 z-10 transition-colors">
                   <Heart className="w-5 h-5" />
               </button>
 
               {/* Image Container */}
-              <div className="w-full aspect-square mb-4 flex items-center justify-center relative">
+              <div className="w-full aspect-square mb-4 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-300">
                 <img 
                   src={item.image} 
                   alt={item.name} 

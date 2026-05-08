@@ -26,12 +26,16 @@ export function FeaturesSection() {
 
   return (
     <div className="px-6 lg:px-16 py-12 bg-gray-50 border-t border-gray-100">
-      <h2 className="text-xl font-bold text-gray-800 mb-8">Kenapa Belanja di Medicare?</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>Kenapa Belanja di Medicare?</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {features.map((feature, index) => (
-          <div key={index} className="flex gap-4 items-start">
-            <div className="bg-white p-3 rounded-xl shadow-sm border border-red-50">
+          <div 
+            key={index} 
+            className="flex gap-4 items-start animate-slide-in opacity-0 group cursor-pointer"
+            style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+          >
+            <div className="bg-white p-3 rounded-xl shadow-sm border border-red-50 group-hover:-translate-y-1 transition-transform">
               {feature.icon}
             </div>
             <div>

@@ -1,4 +1,4 @@
-import { ShieldCheck, HelpCircle, Truck, MapPin } from "lucide-react";
+import { ShieldCheck, HelpCircle } from "lucide-react";
 
 export function TopBar() {
   return (
@@ -9,8 +9,7 @@ export function TopBar() {
       </div>
       <div className="flex items-center gap-6">
         <a href="#" className="flex items-center gap-2 hover:text-[#1D4ED8] transition-colors"><HelpCircle className="w-4 h-4" /> Bantuan</a>
-        <a href="#" className="flex items-center gap-2 hover:text-[#1D4ED8] transition-colors"><Truck className="w-4 h-4" /> Lacak Pesanan</a>
-        <a href="#" className="flex items-center gap-2 hover:text-[#1D4ED8] transition-colors"><MapPin className="w-4 h-4" /> Temukan Apotek</a>
+        
       </div>
     </div>
   );
