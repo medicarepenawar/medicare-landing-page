@@ -1,0 +1,563 @@
+[
+  {
+    "slug": "klinikfamili",
+    "name": "Klinik Famili",
+    "subtitle": "GP Clinic",
+    "tagline": "YOUR FAMILY DOCTOR, ANYTIME. ANYWHERE.",
+    "taglineDescription": "We provide comprehensive primary healthcare for you and your loved ones.",
+    "footerText": "Medicare GP Clinic - Trusted Care For You & Your Family",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikfamili",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Stutong Parade Commercial Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Easy Access & Parking Available"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Family Healthcare For All Ages"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "General Consultation" },
+      { "icon": "family", "title": "Family Healthcare" },
+      { "icon": "heart", "title": "Chronic Disease Follow-Up" },
+      { "icon": "briefcase", "title": "Minor Illness Treatment" },
+      { "icon": "pill", "title": "Prescription & Medication" },
+      { "icon": "referral", "title": "Referral to Specialists" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK FAMILI (GP CLINIC)",
+      "lines": ["Sublot 97, Ground Floor,", "Stutong Parade,", "Jalan Setia Raja,", "93350 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-366 632",
+      "hours": [
+        { "day": "Mon - Fri", "time": "8.00am - 12.00pm | 2.00pm - 4.00pm | 6.30pm - 8.30pm" },
+        { "day": "Sat", "time": "8.00am - 12.00pm | 2.00pm - 4.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["General Consultation", "Family Healthcare", "Chronic Disease Follow-Up", "Minor Illness Treatment", "Basic Health Screening", "Medical Certificates"]
+    }
+  },
+  {
+    "slug": "kliniksejahtera",
+    "name": "Klinik Sejahtera",
+    "subtitle": "Family Medicine Clinic",
+    "tagline": "CARING FOR GENERATIONS, BUILDING HEALTHIER COMMUNITIES.",
+    "taglineDescription": "Dedicated to providing quality family medicine services in a warm and welcoming environment.",
+    "footerText": "Medicare GP Clinic - Your Health, Our Priority",
+    "clinicUrl": "www.medicare.com.my/gpclinic/kliniksejahtera",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Tabuan Jaya Commercial Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Spacious & Comfortable Clinic"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Experienced Family Physicians"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "General Consultation" },
+      { "icon": "vaccine", "title": "Vaccinations & Immunisations" },
+      { "icon": "heart", "title": "Health Screening" },
+      { "icon": "baby", "title": "Paediatric Care" },
+      { "icon": "pill", "title": "Pharmacy Services" },
+      { "icon": "wound", "title": "Wound Dressing & Minor Procedures" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK SEJAHTERA (FAMILY MEDICINE)",
+      "lines": ["No. 48, Ground Floor,", "Tabuan Jaya Commercial Centre,", "Jalan Tun Jugah,", "93350 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-378 998",
+      "hours": [
+        { "day": "Mon - Fri", "time": "8.30am - 12.30pm | 2.00pm - 5.00pm | 7.00pm - 9.00pm" },
+        { "day": "Sat", "time": "8.30am - 12.30pm | 2.00pm - 4.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["General Consultation", "Vaccinations & Immunisations", "Health Screening", "Paediatric Care", "Pharmacy Services", "Minor Surgical Procedures"]
+    }
+  },
+  {
+    "slug": "klinikcahaya",
+    "name": "Klinik Cahaya",
+    "subtitle": "Wellness & Aesthetic Clinic",
+    "tagline": "YOUR WELLNESS JOURNEY BEGINS HERE.",
+    "taglineDescription": "Offering holistic wellness and aesthetic treatments to help you look and feel your best.",
+    "footerText": "Medicare GP Clinic - Illuminate Your Health",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikcahaya",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "The Spring Shopping Mall"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Modern & Luxurious Facilities"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Certified Aesthetic Practitioners"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "General Consultation" },
+      { "icon": "sparkles", "title": "Facial & Skin Treatments" },
+      { "icon": "heart", "title": "Wellness Programs" },
+      { "icon": "weight", "title": "Weight Management" },
+      { "icon": "droplet", "title": "IV Therapy & Supplements" },
+      { "icon": "laser", "title": "Laser & Light Therapies" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK CAHAYA (WELLNESS & AESTHETIC)",
+      "lines": ["Lot 231, Level 2,", "The Spring Shopping Mall,", "Jalan Simpang Tiga,", "93350 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-255 663",
+      "hours": [
+        { "day": "Mon - Fri", "time": "9.00am - 6.00pm" },
+        { "day": "Sat", "time": "9.00am - 3.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["General Consultation", "Facial & Skin Treatments", "Wellness Programs", "Weight Management", "IV Therapy", "Hormonal Health Consultations"]
+    }
+  },
+  {
+    "slug": "klinikpuri",
+    "name": "Klinik Puri",
+    "subtitle": "Women & Children's Clinic",
+    "tagline": "DEDICATED CARE FOR WOMEN AND CHILDREN.",
+    "taglineDescription": "Specialised healthcare services tailored for women and children in a nurturing environment.",
+    "footerText": "Medicare GP Clinic - Caring for Mothers & Little Ones",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikpuri",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1581595219315-a187dd40c322?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Matang Jaya Commercial Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Child-Friendly Environment"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Specialised Women's Health Services"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "General Consultation" },
+      { "icon": "baby", "title": "Paediatric Consultation" },
+      { "icon": "female", "title": "Women's Health Screening" },
+      { "icon": "vaccine", "title": "Childhood Vaccinations" },
+      { "icon": "heart", "title": "Prenatal & Postnatal Care" },
+      { "icon": "pill", "title": "Family Planning" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK PURI (WOMEN & CHILDREN)",
+      "lines": ["No. 12, Ground Floor,", "Matang Jaya Commercial Centre,", "Jalan Matang,", "93050 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-641 223",
+      "hours": [
+        { "day": "Mon - Fri", "time": "8.30am - 12.30pm | 2.00pm - 5.00pm | 6.30pm - 8.30pm" },
+        { "day": "Sat", "time": "8.30am - 12.30pm | 2.00pm - 4.00pm" },
+        { "day": "Sun", "time": "9.00am - 12.00pm" },
+        { "day": "Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["General Consultation", "Paediatric Care", "Women's Health Screening", "Childhood Vaccinations", "Prenatal & Postnatal Care", "Family Planning Services"]
+    }
+  },
+  {
+    "slug": "kliniksetia",
+    "name": "Klinik Setia",
+    "subtitle": "Geriatric & Chronic Care Clinic",
+    "tagline": "COMPASSIONATE CARE FOR YOUR GOLDEN YEARS.",
+    "taglineDescription": "Specialised geriatric care and chronic disease management for seniors and those with long-term health conditions.",
+    "footerText": "Medicare GP Clinic - Honouring Age with Dignity",
+    "clinicUrl": "www.medicare.com.my/gpclinic/kliniksetia",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Batu Kawa Commercial Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Wheelchair-Accessible Facilities"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Dedicated Geriatric Specialists"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "General Consultation" },
+      { "icon": "heart", "title": "Chronic Disease Management" },
+      { "icon": "brain", "title": "Dementia & Memory Care" },
+      { "icon": "pill", "title": "Medication Management" },
+      { "icon": "walk", "title": "Mobility & Physiotherapy" },
+      { "icon": "home", "title": "Home Visit Services" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK SETIA (GERIATRIC & CHRONIC CARE)",
+      "lines": ["No. 88, Ground Floor,", "Batu Kawa Commercial Centre,", "Jalan Batu Kawa,", "93250 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-451 778",
+      "hours": [
+        { "day": "Mon - Fri", "time": "8.00am - 12.00pm | 2.00pm - 5.00pm" },
+        { "day": "Sat", "time": "8.00am - 12.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["General Consultation", "Chronic Disease Management", "Dementia & Memory Care", "Medication Reviews", "Physiotherapy", "Home Visit Services"]
+    }
+  },
+  {
+    "slug": "klinikmurni",
+    "name": "Klinik Murni",
+    "subtitle": "Sports & Physiotherapy Clinic",
+    "tagline": "MOVE BETTER, LIVE STRONGER.",
+    "taglineDescription": "Expert sports medicine and physiotherapy services to keep you active and injury-free.",
+    "footerText": "Medicare GP Clinic - Your Partner in Movement & Recovery",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikmurni",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Kuching City Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Full Physio Gym On-Site"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Accredited Sports Physiotherapists"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "Sports Injury Consultation" },
+      { "icon": "walk", "title": "Physiotherapy" },
+      { "icon": "massage", "title": "Sports Massage" },
+      { "icon": "heart", "title": "Injury Rehabilitation" },
+      { "icon": "run", "title": "Fitness Assessment" },
+      { "icon": "needle", "title": "Acupuncture & Dry Needling" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK MURNI (SPORTS & PHYSIOTHERAPY)",
+      "lines": ["Lot 456, Ground Floor,", "Jalan Padungan,", "93100 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-412 556",
+      "hours": [
+        { "day": "Mon - Fri", "time": "8.00am - 6.00pm" },
+        { "day": "Sat", "time": "8.00am - 2.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["Sports Injury Consultation", "Physiotherapy", "Sports Massage", "Injury Rehabilitation", "Fitness Assessment", "Acupuncture & Dry Needling"]
+    }
+  },
+  {
+    "slug": "klinikinsan",
+    "name": "Klinik Insan",
+    "subtitle": "Mental Health & Wellness Clinic",
+    "tagline": "YOUR MIND MATTERS. WE'RE HERE TO LISTEN.",
+    "taglineDescription": "Providing compassionate mental health support and counselling services in a safe, judgement-free space.",
+    "footerText": "Medicare GP Clinic - Nurturing Mental Wellness",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikinsan",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Samarahan Commercial Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Private & Confidential Setting"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Licensed Psychologists & Counsellors"
+      }
+    ],
+    "services": [
+      { "icon": "heart", "title": "Mental Health Consultation" },
+      { "icon": "brain", "title": "Counselling & Therapy" },
+      { "icon": "users", "title": "Couples & Family Counselling" },
+      { "icon": "stress", "title": "Stress & Anxiety Management" },
+      { "icon": "pill", "title": "Psychiatric Medication Management" },
+      { "icon": "sleep", "title": "Sleep Disorder Therapy" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK INSAN (MENTAL HEALTH & WELLNESS)",
+      "lines": ["No. 7, Ground Floor,", "Samarahan Commercial Centre,", "Jalan Datuk Mohammad Musa,", "94300 Kota Samarahan, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-673 332",
+      "hours": [
+        { "day": "Mon - Fri", "time": "9.00am - 5.00pm" },
+        { "day": "Sat", "time": "9.00am - 1.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["Mental Health Consultation", "Individual Counselling", "Couples & Family Therapy", "Stress & Anxiety Management", "Psychiatric Medication Management", "Sleep Disorder Therapy"]
+    }
+  },
+  {
+    "slug": "kliniknadi",
+    "name": "Klinik Nadi",
+    "subtitle": "Heart & Diabetes Centre",
+    "tagline": "YOUR HEART HEALTH, OUR MISSION.",
+    "taglineDescription": "Comprehensive cardiac and diabetes care with advanced diagnostic tools and personalised treatment plans.",
+    "footerText": "Medicare GP Clinic - Keeping Hearts Beating Strong",
+    "clinicUrl": "www.medicare.com.my/gpclinic/kliniknadi",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Petra Jaya Commercial Centre"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "On-Site ECG & Echo Diagnostics"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Cardiologist-Led Care Team"
+      }
+    ],
+    "services": [
+      { "icon": "heart", "title": "Cardiac Consultation" },
+      { "icon": "monitor", "title": "ECG & Heart Monitoring" },
+      { "icon": "droplet", "title": "Diabetes Management" },
+      { "icon": "blood", "title": "Blood Pressure Management" },
+      { "icon": "lab", "title": "Blood Tests & Lab Work" },
+      { "icon": "pill", "title": "Medication & Dietary Counselling" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK NADI (HEART & DIABETES CENTRE)",
+      "lines": ["No. 33, Ground Floor,", "Petra Jaya Commercial Centre,", "Jalan Tun Razak,", "93050 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-445 667",
+      "hours": [
+        { "day": "Mon - Fri", "time": "7.30am - 12.30pm | 2.00pm - 5.00pm" },
+        { "day": "Sat", "time": "7.30am - 12.30pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["Cardiac Consultation", "ECG & Holter Monitoring", "Diabetes Management Programme", "Blood Pressure Monitoring", "Comprehensive Blood Tests", "Dietary & Lifestyle Counselling"]
+    }
+  },
+  {
+    "slug": "klinikrestu",
+    "name": "Klinik Restu",
+    "subtitle": "Traditional & Complementary Medicine Clinic",
+    "tagline": "WHERE TRADITION MEETS MODERN HEALTHCARE.",
+    "taglineDescription": "Integrating traditional Malay, Chinese, and modern medical practices for holistic healing.",
+    "footerText": "Medicare GP Clinic - Healing Through Harmony",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikrestu",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Sitiawan, Perak"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "Herbal Garden & Therapy Rooms"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Certified TCM & Traditional Practitioners"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "General Consultation" },
+      { "icon": "leaf", "title": "Herbal Medicine" },
+      { "icon": "needle", "title": "Acupuncture" },
+      { "icon": "massage", "title": "Traditional Massage Therapy" },
+      { "icon": "cupping", "title": "Cupping Therapy" },
+      { "icon": "sparkles", "title": "Dietary & Lifestyle Coaching" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK RESTU (TRADITIONAL & COMPLEMENTARY MEDICINE)",
+      "lines": ["No. 15, Jalan Desa,", "Taman Desa Indah,", "32000 Sitiawan, Perak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-512 334",
+      "hours": [
+        { "day": "Mon - Sat", "time": "8.30am - 5.30pm" },
+        { "day": "Sun", "time": "9.00am - 1.00pm" },
+        { "day": "Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["General Consultation", "Herbal Medicine Prescriptions", "Acupuncture", "Traditional Massage Therapy", "Cupping Therapy", "Dietary & Lifestyle Coaching"]
+    }
+  },
+  {
+    "slug": "klinikdelima",
+    "name": "Klinik Delima",
+    "subtitle": "Travel Health & Vaccination Centre",
+    "tagline": "TRAVEL SAFELY, STAY HEALTHY.",
+    "taglineDescription": "Comprehensive travel health consultations, vaccinations, and preventive care for global travellers.",
+    "footerText": "Medicare GP Clinic - Healthy Journeys Start Here",
+    "clinicUrl": "www.medicare.com.my/gpclinic/klinikdelima",
+    "streetViewUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1920&auto=format&fit=crop",
+    "keyFeatures": [
+      {
+        "icon": "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
+        "icon2": "M15 11a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Kuching International Airport Area"
+      },
+      {
+        "icon": "M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z",
+        "text": "WHO-Certified Vaccination Centre"
+      },
+      {
+        "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+        "text": "Travel Medicine Specialists"
+      }
+    ],
+    "services": [
+      { "icon": "stethoscope", "title": "Travel Health Consultation" },
+      { "icon": "vaccine", "title": "Travel Vaccinations" },
+      { "icon": "pill", "title": "Malaria Prophylaxis" },
+      { "icon": "heart", "title": "Pre-Travel Assessment" },
+      { "icon": "briefcase", "title": "Corporate Travel Health" },
+      { "icon": "globe", "title": "Post-Travel Screening" }
+    ],
+    "address": {
+      "title": "ADDRESS",
+      "name": "KLINIK DELIMA (TRAVEL HEALTH & VACCINATION CENTRE)",
+      "lines": ["Lot 789, Ground Floor,", "Airport Commercial Centre,", "Jalan Lapangan Terbang,", "93250 Kuching, Sarawak,", "Malaysia."]
+    },
+    "location": {
+      "title": "LOCATION MAP",
+      "mapPlaceholder": "/assets/img/clinic/location-map.png"
+    },
+    "details": {
+      "title": "CLINIC DETAILS",
+      "phone": "082-488 991",
+      "hours": [
+        { "day": "Mon - Fri", "time": "8.00am - 5.00pm" },
+        { "day": "Sat", "time": "8.00am - 12.00pm" },
+        { "day": "Sun & Public Holiday", "time": "Closed" }
+      ]
+    },
+    "ourServices": {
+      "title": "OUR SERVICES",
+      "items": ["Travel Health Consultation", "Travel Vaccinations", "Malaria Prophylaxis", "Pre-Travel Risk Assessment", "Corporate Travel Health Programmes", "Post-Travel Screening & Care"]
+    }
+  }
+]

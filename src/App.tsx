@@ -30,6 +30,7 @@ import {
   MARKETPLACE_CHECKOUT_URL,
   MARKETPLACE_PRESCRIPTION_URL,
   NURSE_DETAIL_URL,
+  CLINIC_LANDING_URL,
 } from "./constants/constant";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
@@ -44,6 +45,7 @@ import ProductDetail from "./pages/marketplace_pharmacy/ProductDetail";
 import CartPage from "./pages/marketplace_pharmacy/CartPage";
 import CheckoutPage from "./pages/marketplace_pharmacy/CheckoutPage";
 import UploadPrescriptionPage from "./pages/marketplace_pharmacy/UploadPrescriptionPage";
+import ClinicPage from "./pages/clinic/ClinicPage";
 
 function App() {
   return (
@@ -70,6 +72,7 @@ function App() {
         <Route path={NURSE_TERMS_AND_CONDITIONS_URL} element={<NurseTermsAndConditions />} />
         <Route path={VENDOR_TERMS_AND_CONDITIONS_URL} element={<VendorTermsAndConditions />} />
         <Route path={PRIVACY_POLICY_URL} element={<PrivacyPolicy />} />
+        <Route path={CLINIC_LANDING_URL} element={<ClinicPage />} />
         <Route path="/registration-success" element={<RegistrationSuccess />} />
       </Routes>
     </ToastProvider>
