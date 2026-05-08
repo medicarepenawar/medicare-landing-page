@@ -31,6 +31,7 @@ import {
   MARKETPLACE_PRESCRIPTION_URL,
   DOCTOR_SPECIALIST_URL,
   NURSE_DETAIL_URL,
+  CLINIC_LANDING_URL,
 } from "./constants/constant";
 import MainPage from "./modules/main/pages/MainPage";
 import Home from "./modules/landing-page/pages/Home";
@@ -46,7 +47,9 @@ import ProductDetail from "./pages/marketplace_pharmacy/ProductDetail";
 import CartPage from "./pages/marketplace_pharmacy/CartPage";
 import CheckoutPage from "./pages/marketplace_pharmacy/CheckoutPage";
 import UploadPrescriptionPage from "./pages/marketplace_pharmacy/UploadPrescriptionPage";
+import ClinicPage from "./pages/clinic/ClinicPage";
 import DoctorSpecialist from "./pages/doctor_specialist/DoctorSpecialistPage";
+
 
 function App() {
   return (
@@ -74,6 +77,7 @@ function App() {
         <Route path={NURSE_TERMS_AND_CONDITIONS_URL} element={<NurseTermsAndConditions />} />
         <Route path={VENDOR_TERMS_AND_CONDITIONS_URL} element={<VendorTermsAndConditions />} />
         <Route path={PRIVACY_POLICY_URL} element={<PrivacyPolicy />} />
+        <Route path={CLINIC_LANDING_URL} element={<ClinicPage />} />
         <Route path="/registration-success" element={<RegistrationSuccess />} />
 
         <Route path={DOCTOR_SPECIALIST_URL} element={<DoctorSpecialist />} />

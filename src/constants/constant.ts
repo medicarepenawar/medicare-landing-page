@@ -33,6 +33,9 @@ export const LAB_ASSISTANT_TERMS_AND_CONDITIONS_URL = "/terms/nurse";
 export const THERAPIST_TERMS_AND_CONDITIONS_URL = "/terms/nurse";
 export const PRIVACY_POLICY_URL = "/policy";
 
+// Clinic Landing Page
+export const CLINIC_LANDING_URL = "/clinic/:slug";
+
 // External Login URLs (after successful registration)
 export const DOCTOR_REGISTRATION_SUCCESS_URL = "https://dms.medicarebackend.com/login";
 export const VENDOR_REGISTRATION_SUCCESS_URL = "https://vendor.medicarebackend.com/vendor/login";
