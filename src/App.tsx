@@ -55,9 +55,9 @@ function App() {
   return (
     <ToastProvider>
       <Routes>
-        <Route path={HOME_PAGE_URL} element={<Home />} />
+        <Route path={DEV_URL} element={<Home />} />
         <Route path="/main" element={<MainPage />} />
-        <Route path={DEV_URL} element={<UnderConstruction />} />
+        <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
         <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
         <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
