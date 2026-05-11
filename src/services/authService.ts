@@ -162,6 +162,11 @@ class AuthService {
         // Try to get the main error message
         const errorMessage = responseData?.message || '';
         const errors = responseData?.errors;
+        const dataMessage = typeof responseData?.data === 'string'
+          ? responseData.data
+          : typeof responseData?.data?.message === 'string'
+            ? responseData.data.message
+            : '';
 
         // Handle validation errors (object format from Laravel)
         if (errors && typeof errors === 'object') {
@@ -189,13 +194,15 @@ class AuthService {
           'conflict',
         ];
 
-        // Check if the message is too generic
-        const isGenericMessage = genericMessages.some(generic =>
-          errorMessage.toLowerCase().includes(generic)
-        );
+        const isGenericMessage = (message: string) =>
+          genericMessages.some(generic => message.toLowerCase().includes(generic));
 
         // If we have a specific error message, use it
-        if (errorMessage && !isGenericMessage) {
+        if (dataMessage && !isGenericMessage(dataMessage)) {
+          return new Error(dataMessage);
+        }
+
+        if (errorMessage && !isGenericMessage(errorMessage)) {
           return new Error(errorMessage);
         }
 
@@ -210,7 +217,7 @@ class AuthService {
           case 404:
             return new Error('The requested resource was not found.');
           case 409:
-            return new Error('This email or name is already registered. Please use different credentials.');
+            return new Error('This email or phone number is already registered. Please use different credentials.');
           case 422:
             return new Error('Validation failed. Please check your input.');
           case 429:
