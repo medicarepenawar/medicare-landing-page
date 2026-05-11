@@ -8,6 +8,7 @@ import type {
   ApiError,
   CompleteRegistrationResponse,
   UserRole,
+  VendorType,
 } from '../types/api';
 
 /**
@@ -29,7 +30,8 @@ class AuthService {
     password: string,
     name: string,
     phoneNumber: string,
-    role: UserRole
+    role: UserRole,
+    vendorType?: VendorType
   ): Promise<RegisterResponse> {
     try {
       // Therapist uses a dedicated endpoint and does NOT send a role field
@@ -56,6 +58,10 @@ class AuthService {
         phone_number: phoneNumber,
         role,
       };
+
+      if (role === "Vendor" && vendorType) {
+        data.vendor_type = vendorType;
+      }
 
       const response = await axios.post<RegisterResponse>(
         `${this.baseURL}/auth/register`,

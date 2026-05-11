@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { authService } from "../services/authService";
-import type { UserRole } from "../types/api";
+import type { UserRole, VendorType } from "../types/api";
 import type { OTPVerification } from "../types";
 
 type Step = "register" | "otp" | "success";
@@ -9,6 +9,7 @@ interface RegistrationData {
   email: string;
   name: string;
   phone: string;
+  vendorType?: VendorType | "";
 }
 
 interface UseRegistrationReturn<T extends RegistrationData> {
@@ -45,7 +46,14 @@ export const useRegistration = <T extends RegistrationData>(role: UserRole): Use
 
     try {
       // Call register API
-      const response = await authService.register(data.email, password, data.name, data.phone, role);
+      const response = await authService.register(
+        data.email,
+        password,
+        data.name,
+        data.phone,
+        role,
+        data.vendorType || undefined
+      );
 
       // Save token and data
       setToken(response.data.token);

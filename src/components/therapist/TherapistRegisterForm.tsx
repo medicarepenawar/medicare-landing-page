@@ -87,7 +87,7 @@ const TherapistRegisterForm: React.FC<TherapistRegisterFormProps> = ({ onSubmit 
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-6 sm:py-8 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC] overflow-auto">
-      <div className="w-full max-w-[1200px] min-h-[500px] md:h-auto lg:h-[85vh] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
+      <div className="w-full max-w-[1200px] min-h-[500px] lg:min-h-[85vh] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
         <div className="flex flex-col lg:flex-row h-full">
           {/* Left Side - Illustration (hidden on mobile, visible on lg+) */}
           <div className="hidden lg:flex lg:w-1/2 px-6 py-8 flex-col items-center justify-center bg-white">
@@ -121,7 +121,7 @@ const TherapistRegisterForm: React.FC<TherapistRegisterFormProps> = ({ onSubmit 
           </div>
 
           {/* Right Side - Form */}
-          <div className="w-full lg:w-1/2 px-5 sm:px-8 lg:px-10 py-6 sm:py-8 bg-white flex items-center overflow-y-auto">
+          <div className="w-full lg:w-1/2 px-5 sm:px-8 lg:px-10 py-6 sm:py-8 bg-white flex items-start lg:items-center overflow-y-auto">
             <div className="w-full max-w-[450px] mx-auto">
               {/* Mobile Header - Only visible on mobile */}
               <div className="lg:hidden mb-6 text-center">

@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { VendorRegisterForm as VendorRegisterFormType } from "../../types";
+import type { VendorType } from "../../types/api";
 import hospitalIcon from "../../assets/img/icon-hospital.svg";
 import { REGISTER_URL, VENDOR_TERMS_AND_CONDITIONS_URL } from "../../constants/constant";
 import { useToast } from "../common/ToastContainer";
 import PhoneInput, { formatPhoneForAPI } from "../common/PhoneInput";
+
+const vendorTypeOptions: Array<{ label: string; value: VendorType }> = [
+  { label: "Hospital", value: "hospital" },
+  { label: "Clinic", value: "clinic" },
+  { label: "Pharmacy", value: "pharmacy" },
+  { label: "Onsite Lab", value: "laboratory" },
+  { label: "Ambulance Provider", value: "ambulance_provider" },
+];
+
+const isVendorType = (value: string): value is VendorType =>
+  vendorTypeOptions.some((option) => option.value === value);
 
 // Eye icons for password visibility toggle
 const EyeIcon = () => (
@@ -31,6 +43,7 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState<VendorRegisterFormType>({
     vendorName: "",
+    vendorType: "",
     email: "",
     phone: "",
     password: "",
@@ -43,6 +56,13 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleVendorTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      vendorType: e.target.value as VendorRegisterFormType["vendorType"],
     }));
   };
 
@@ -67,6 +87,16 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
       return;
     }
 
+    if (!formData.vendorType) {
+      showError("Please select a business type");
+      return;
+    }
+
+    if (!isVendorType(formData.vendorType)) {
+      showError("Please select a valid business type");
+      return;
+    }
+
     if (!formData.agreementAccepted) {
       showWarning("Please accept the Terms of Service");
       return;
@@ -87,7 +117,7 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-6 sm:py-8 bg-gradient-to-br from-[#E3F2FD] via-[#F5F5F5] to-[#FCE4EC] overflow-auto">
-      <div className="w-full max-w-[1200px] min-h-[500px] md:h-auto lg:h-[85vh] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
+      <div className="w-full max-w-[1200px] min-h-[500px] lg:min-h-[85vh] bg-white rounded-[24px] md:rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden">
         <div className="flex flex-col lg:flex-row h-full">
           {/* Left Side - Illustration (hidden on mobile, visible on lg+) */}
           <div className="hidden lg:flex lg:w-1/2 px-6 py-8 flex-col items-center justify-center bg-white">
@@ -121,7 +151,7 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
           </div>
 
           {/* Right Side - Form */}
-          <div className="w-full lg:w-1/2 px-5 sm:px-8 lg:px-10 py-6 sm:py-8 bg-white flex items-center overflow-y-auto">
+          <div className="w-full lg:w-1/2 px-5 sm:px-8 lg:px-10 py-6 sm:py-8 bg-white flex items-start lg:items-center overflow-y-auto">
             <div className="w-full max-w-[450px] mx-auto">
               {/* Mobile Header - Only visible on mobile */}
               <div className="lg:hidden mb-6 text-center">
@@ -151,6 +181,27 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm"
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="vendorType" className="block text-xs font-semibold text-gray-700 mb-1.5">
+                    Business Type <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="vendorType"
+                    name="vendorType"
+                    value={formData.vendorType}
+                    onChange={handleVendorTypeChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none text-sm bg-white"
+                  >
+                    <option value="">Select business type</option>
+                    {vendorTypeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
