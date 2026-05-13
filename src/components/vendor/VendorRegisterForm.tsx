@@ -6,6 +6,7 @@ import hospitalIcon from "../../assets/img/icon-hospital.svg";
 import { REGISTER_URL, VENDOR_TERMS_AND_CONDITIONS_URL } from "../../constants/constant";
 import { useToast } from "../common/ToastContainer";
 import PhoneInput, { formatPhoneForAPI } from "../common/PhoneInput";
+import { validatePhoneNumber } from "../../utils/phoneValidation";
 
 const vendorTypeOptions: Array<{ label: string; value: VendorType }> = [
   { label: "Hospital", value: "hospital" },
@@ -84,6 +85,12 @@ const VendorRegisterForm: React.FC<VendorRegisterFormProps> = ({ onSubmit }) => 
 
     if (formData.password.length < 8) {
       showError("Password must be at least 8 characters long");
+      return;
+    }
+
+    const phoneError = validatePhoneNumber(formData.phone);
+    if (phoneError) {
+      showError(phoneError);
       return;
     }
 

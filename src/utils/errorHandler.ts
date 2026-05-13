@@ -10,7 +10,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   'email_taken': 'This email is already registered. Please use a different email or login',
   'email.unique': 'This email is already registered. Please use a different email or login',
   'Email already exists': 'This email is already registered. Please use a different email or login',
-  'phone_invalid': 'Please enter a valid phone number',
+  'phone_invalid': 'Please enter a valid phone number.',
   'phone_exists': 'This phone number is already registered',
   'phone_taken': 'This phone number is already registered',
   'phone_number.unique': 'This phone number is already registered',

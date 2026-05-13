@@ -5,6 +5,7 @@ import { DOCTOR_TERMS_AND_CONDITIONS_URL, REGISTER_URL } from "../../constants/c
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../common/ToastContainer";
 import PhoneInput, { formatPhoneForAPI } from "../common/PhoneInput";
+import { validatePhoneNumber } from "../../utils/phoneValidation";
 
 // Eye icons for password visibility toggle
 const EyeIcon = () => (
@@ -64,6 +65,12 @@ const DoctorRegisterForm: React.FC<DoctorRegisterFormProps> = ({ onSubmit }) => 
 
     if (formData.password.length < 8) {
       showError("Password must be at least 8 characters long");
+      return;
+    }
+
+    const phoneError = validatePhoneNumber(formData.phone);
+    if (phoneError) {
+      showError(phoneError);
       return;
     }
 

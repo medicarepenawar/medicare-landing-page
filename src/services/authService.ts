@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { BASE_API_URL } from '../constants/constant';
+import { formatPhoneForAPI, validatePhoneNumber } from '../utils/phoneValidation';
 import type {
   RegisterRequest,
   RegisterResponse,
@@ -33,6 +34,13 @@ class AuthService {
     role: UserRole,
     vendorType?: VendorType
   ): Promise<RegisterResponse> {
+    const phoneError = validatePhoneNumber(phoneNumber);
+    if (phoneError) {
+      throw new Error(phoneError);
+    }
+
+    const normalizedPhoneNumber = formatPhoneForAPI(phoneNumber);
+
     try {
       // Therapist uses a dedicated endpoint and does NOT send a role field
       if (role === "Therapist") {
@@ -40,7 +48,7 @@ class AuthService {
           email,
           password,
           name,
-          phone_number: phoneNumber,
+          phone_number: normalizedPhoneNumber,
         };
 
         const response = await axios.post<RegisterResponse>(
@@ -55,7 +63,7 @@ class AuthService {
         email,
         password,
         name,
-        phone_number: phoneNumber,
+        phone_number: normalizedPhoneNumber,
         role,
       };
 

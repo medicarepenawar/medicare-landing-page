@@ -35,7 +35,8 @@ export interface VerifyEmailResponse {
 // API Error Response
 export interface ApiError {
   message: string;
-  errors?: Record<string, string[]>;
+  data?: string | { message?: string };
+  errors?: Record<string, string[] | string>;
 }
 
 // Complete Registration Response

@@ -5,6 +5,7 @@ import nurseIcon from "../../assets/img/icon-nurse.svg";
 import { NURSE_TERMS_AND_CONDITIONS_URL, REGISTER_URL } from "../../constants/constant";
 import { useToast } from "../common/ToastContainer";
 import PhoneInput, { formatPhoneForAPI } from "../common/PhoneInput";
+import { validatePhoneNumber } from "../../utils/phoneValidation";
 
 // Eye icons for password visibility toggle
 const EyeIcon = () => (
@@ -64,6 +65,12 @@ const NurseRegisterForm: React.FC<NurseRegisterFormProps> = ({ onSubmit }) => {
 
     if (formData.password.length < 8) {
       showError("Password must be at least 8 characters long");
+      return;
+    }
+
+    const phoneError = validatePhoneNumber(formData.phone);
+    if (phoneError) {
+      showError(phoneError);
       return;
     }
 
