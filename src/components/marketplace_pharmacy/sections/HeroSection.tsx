@@ -11,34 +11,46 @@ export function HeroSection() {
 
       <div className="md:w-1/2 z-10 mb-10 md:mb-0 space-y-6">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-tight animate-fade-in-up opacity-0" style={{ animationDelay: "0.1s" }}>
-          Kesehatan Anda,<br />
+          Kesehatan Anda,
+          <br />
           <span className="text-[#2563EB]">Prioritas</span> <span className="text-red-500">Kami</span>
         </h1>
-        
+
         <p className="text-gray-600 text-lg max-w-md animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>
           Belanja obat, vitamin, dan kebutuhan kesehatan dengan mudah dan aman di Medicare.
         </p>
 
-        <div className="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-700 py-4 animate-fade-in-up opacity-0" style={{ animationDelay: "0.3s" }}>
+        <div
+          className="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-700 py-4 animate-fade-in-up opacity-0"
+          style={{ animationDelay: "0.3s" }}
+        >
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-[#2563EB]" />
-            100% Produk<br/>Asli
+            100% Produk
+            <br />
+            Asli
           </div>
           <div className="flex items-center gap-2">
             <Truck className="w-5 h-5 text-[#2563EB]" />
-            Pengiriman<br/>Cepat
+            Pengiriman
+            <br />
+            Cepat
           </div>
           <div className="flex items-center gap-2">
             <Lock className="w-5 h-5 text-[#2563EB]" />
-            Pembayaran<br/>Aman
+            Pembayaran
+            <br />
+            Aman
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-[#2563EB]" />
-            Konsultasi<br/>Apoteker
+            Konsultasi
+            <br />
+            Apoteker
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: "0.4s" }}>
+        {/* <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: "0.4s" }}>
           <button className="bg-[#2563EB] text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl">
             Belanja Sekarang
           </button>
@@ -52,13 +64,13 @@ export function HeroSection() {
               <span className="text-xs font-normal text-gray-500">Dapatkan obat lebih mudah</span>
             </div>
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="md:w-1/2 z-10 relative flex justify-end animate-fade-in-up opacity-0" style={{ animationDelay: "0.5s" }}>
-        <img 
-          src="/images/marketplace/pharmacy_store.png" 
-          alt="Pharmacy Store" 
+        <img
+          src="/images/marketplace/pharmacy_store.png"
+          alt="Pharmacy Store"
           className="w-[90%] max-w-[600px] h-auto object-cover rounded-2xl shadow-2xl border-4 border-white animate-float-3d"
         />
       </div>
