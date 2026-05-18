@@ -30,6 +30,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Available Today",
     image: doctorImg,
     badge: "Top Rated",
+    slug: "dr-sarah-mitchell",
   },
   {
     id: "dir-2",
@@ -40,6 +41,7 @@ export const directoryItems: DirectoryItem[] = [
     rating: 4.8,
     availability: "Available Tomorrow",
     image: doctorImg,
+    slug: "dr-ahmad-ridho",
   },
   {
     id: "dir-3",
@@ -51,6 +53,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Available Today",
     image: doctorImg,
     badge: "Top Rated",
+    slug: "dr-emily-chen",
   },
   {
     id: "dir-4",
@@ -138,6 +141,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Available This Week",
     image: doctorImg,
     badge: "Specialist",
+    slug: "dr-rajesh-kumar",
   },
   {
     id: "dir-12",
@@ -160,6 +164,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Available Today",
     image: doctorImg,
     badge: "Premium",
+    slug: "dr-nurul-aisyah",
   },
   {
     id: "dir-14",
@@ -170,6 +175,7 @@ export const directoryItems: DirectoryItem[] = [
     rating: 4.6,
     availability: "Available Now",
     image: doctorImg,
+    slug: "dr-james-tan",
   },
   {
     id: "dir-15",
@@ -181,6 +187,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Available Tomorrow",
     image: doctorImg,
     badge: "Specialist",
+    slug: "dr-priya-nair",
   },
   {
     id: "dir-16",
@@ -191,5 +198,6 @@ export const directoryItems: DirectoryItem[] = [
     rating: 4.7,
     availability: "Available This Week",
     image: doctorImg,
+    slug: "dr-lim-wei-jie",
   },
 ];
