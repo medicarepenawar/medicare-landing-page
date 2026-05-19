@@ -99,6 +99,7 @@ export const directoryItems: DirectoryItem[] = [
     rating: 4.7,
     availability: "Open 24/7",
     image: pharmacyImg,
+    slug: "medplus-pharmacy",
   },
   {
     id: "dir-8",
@@ -109,6 +110,7 @@ export const directoryItems: DirectoryItem[] = [
     rating: 4.6,
     availability: "Open until 10 PM",
     image: pharmacyImg,
+    slug: "caring-health-pharmacy",
   },
   {
     id: "dir-9",

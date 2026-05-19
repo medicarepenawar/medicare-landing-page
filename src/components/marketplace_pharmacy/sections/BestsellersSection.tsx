@@ -1,8 +1,14 @@
-import { MARKETPLACE_BESTSELLERS } from "../../../constants/marketplaceDummyData";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useMarketplaceBestsellers } from "../../../hooks/useMarketplace";
 
 export function BestsellersSection() {
+  const bestsellers = useMarketplaceBestsellers();
+
+  const formatPrice = (price: number) => {
+    return `Rp${price.toLocaleString("id-ID")}`;
+  };
+
   return (
     <div className="px-6 lg:px-16 py-8 pb-20">
       <div className="flex justify-between items-end mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>
@@ -18,7 +24,7 @@ export function BestsellersSection() {
         </button>
 
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
-          {MARKETPLACE_BESTSELLERS.map((item, idx) => (
+          {bestsellers.map((item, idx) => (
             <Link
               to={`/pharmacy/mukminpharmacy/product/${item.id}`}
               key={item.id}
@@ -41,9 +47,9 @@ export function BestsellersSection() {
 
                 <div className="mt-auto">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-[#111827] text-lg">{item.discountedPrice}</span>
-                    <span className="text-xs text-gray-400 line-through">{item.originalPrice}</span>
-                    <span className="text-[10px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded-sm">{item.discountBadge}</span>
+                    <span className="font-bold text-[#111827] text-lg">{formatPrice(item.discountedPrice)}</span>
+                    <span className="text-xs text-gray-400 line-through">{formatPrice(item.originalPrice)}</span>
+                    <span className="text-[10px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded-sm">-{item.discountPercentage}%</span>
                   </div>
 
                   <button
