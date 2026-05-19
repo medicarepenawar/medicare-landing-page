@@ -85,21 +85,6 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
               </span>
             </div>
           )}
-
-          {/* Availability — overlaps image bottom edge for z-depth */}
-          <div className="absolute -bottom-3 left-4 z-20">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white shadow-md border border-gray-100 text-[11px] font-medium text-gray-700">
-              <span
-                className={cn(
-                  "w-1.5 h-1.5 rounded-full",
-                  item.availability.includes("Now") || item.availability.includes("Today") || item.availability.includes("24/7")
-                    ? "bg-emerald-500 animate-pulse"
-                    : "bg-amber-400",
-                )}
-              />
-              {item.availability}
-            </span>
-          </div>
         </div>
 
         {/* Content */}
