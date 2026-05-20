@@ -2,7 +2,8 @@ import axios, { AxiosError } from "axios";
 import type { ApiError } from "../types/api";
 import type { Root } from "../types/landingApi";
 
-const LANDING_PAGE_ENDPOINT = "/api/landing-page";
+
+const LANDING_PAGE_ENDPOINT = "https://cms.medicare.com.my/api/landing-page";
 
 class LandingService {
   async getLandingPageData(): Promise<Root> {
