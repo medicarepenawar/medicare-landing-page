@@ -1,4 +1,5 @@
 export type UserRole = "Customer" | "Doctor" | "Nurse" | "Vendor" | "OlLabAssistant" | "Therapist";
+export type VendorType = "hospital" | "clinic" | "pharmacy" | "laboratory" | "ambulance_provider";
 
 // Base Register Request
 export interface RegisterRequest {
@@ -7,6 +8,7 @@ export interface RegisterRequest {
   name: string;
   phone_number: string;
   role: UserRole;
+  vendor_type?: VendorType;
 }
 
 // Register Response
@@ -33,7 +35,8 @@ export interface VerifyEmailResponse {
 // API Error Response
 export interface ApiError {
   message: string;
-  errors?: Record<string, string[]>;
+  data?: string | { message?: string };
+  errors?: Record<string, string[] | string>;
 }
 
 // Complete Registration Response

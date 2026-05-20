@@ -1,5 +1,8 @@
+import type { VendorType } from "./api";
+
 export interface VendorRegisterForm {
   vendorName: string;
+  vendorType: VendorType | "";
   email: string;
   phone: string;
   password: string;
