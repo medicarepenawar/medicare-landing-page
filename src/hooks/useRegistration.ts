@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { authService } from "../services/authService";
-import type { UserRole } from "../types/api";
+import type { UserRole, VendorType } from "../types/api";
 import type { OTPVerification } from "../types";
+import { formatPhoneForAPI, validatePhoneNumber } from "../utils/phoneValidation";
 
 type Step = "register" | "otp" | "success";
 
@@ -9,6 +10,7 @@ interface RegistrationData {
   email: string;
   name: string;
   phone: string;
+  vendorType?: VendorType | "";
 }
 
 interface UseRegistrationReturn<T extends RegistrationData> {
@@ -40,16 +42,34 @@ export const useRegistration = <T extends RegistrationData>(role: UserRole): Use
       return;
     }
 
+    const phoneError = validatePhoneNumber(data.phone);
+    if (phoneError) {
+      setError(phoneError);
+      return;
+    }
+
+    const normalizedPhone = formatPhoneForAPI(data.phone);
+
     setLoading(true);
     setError(null);
 
     try {
       // Call register API
-      const response = await authService.register(data.email, password, data.name, data.phone, role);
+      const response = await authService.register(
+        data.email,
+        password,
+        data.name,
+        normalizedPhone,
+        role,
+        data.vendorType || undefined
+      );
 
       // Save token and data
       setToken(response.data.token);
-      setRegisterData(data);
+      setRegisterData({
+        ...data,
+        phone: normalizedPhone,
+      });
 
       // Move to OTP step
       setCurrentStep("otp");

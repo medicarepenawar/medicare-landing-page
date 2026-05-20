@@ -1,11 +1,13 @@
 import { useRegistration } from './useRegistration';
 import type { VendorRegisterForm } from '../types';
+import type { VendorType } from '../types/api';
 
 interface VendorRegistrationData {
   email: string;
   name: string;
   phone: string;
   vendorName: string;
+  vendorType: VendorType | "";
 }
 
 export const useVendorRegistration = () => {
@@ -28,6 +30,7 @@ export const useVendorRegistration = () => {
       name: data.vendorName,
       phone: data.phone,
       vendorName: data.vendorName,
+      vendorType: data.vendorType,
     };
 
     await baseHandleRegisterSubmit(vendorData, data.password, data.confirmPassword);

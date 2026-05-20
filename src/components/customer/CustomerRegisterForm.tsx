@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../common/InputField";
 import type { CustomerRegisterForm as CustomerRegisterFormType } from "../../types";
+import { formatPhoneForAPI, validatePhoneNumber } from "../../utils/phoneValidation";
 
 interface CustomerRegisterFormProps {
   onSubmit: (data: CustomerRegisterFormType) => void;
@@ -15,6 +16,7 @@ const CustomerRegisterForm: React.FC<CustomerRegisterFormProps> = ({ onSubmit })
     confirmPassword: "",
     agreementAccepted: false,
   });
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -22,15 +24,33 @@ const CustomerRegisterForm: React.FC<CustomerRegisterFormProps> = ({ onSubmit })
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    if (name === "phone" && phoneError) {
+      setPhoneError(null);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const phoneValidationError = validatePhoneNumber(formData.phone);
+    if (phoneValidationError) {
+      setPhoneError(phoneValidationError);
+      return;
+    }
+    setPhoneError(null);
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-    onSubmit(formData);
+
+    const submitData = {
+      ...formData,
+      phone: formatPhoneForAPI(formData.phone),
+    };
+
+    onSubmit(submitData);
   };
 
   return (
@@ -55,7 +75,16 @@ const CustomerRegisterForm: React.FC<CustomerRegisterFormProps> = ({ onSubmit })
 
               <InputField label="Email" type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter email address" required />
 
-              <InputField label="Phone" type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter phone number" required />
+              <InputField
+                label="Phone"
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Enter phone number"
+                required
+                error={phoneError || undefined}
+              />
 
               <InputField
                 label="Password"
