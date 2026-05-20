@@ -79,7 +79,7 @@ const DoctorSpecialist = () => {
             </div>
 
             {/* Services & Pricing */}
-            <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+            {/* <section className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-blue-600">payments</span>
@@ -88,14 +88,13 @@ const DoctorSpecialist = () => {
                 <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold">Consultation Packages</span>
               </div>
 
-              {/* Render daftar layanan menggunakan .map() */}
               <div className="space-y-3">
                 {doctor.services.map((service) => (
                   // key wajib ada saat render list!
                   <ServiceCard key={service.id} service={service} />
                 ))}
               </div>
-            </section>
+            </section> */}
           </div>
         </div>
       </main>
