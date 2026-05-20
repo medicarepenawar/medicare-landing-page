@@ -1,25 +1,70 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Search, SlidersHorizontal, X, Stethoscope } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "../layout/Container";
 import { SectionWrapper } from "../layout/SectionWrapper";
 import { DirectoryCard } from "../cards/DirectoryCard";
-import { directoryItems, doctorSpecialties } from "../../constants/directory";
-import type { DoctorSpecialty } from "../../constants/directory";
+import { directoryItems } from "../../constants/directory";
+import { fetchAllDoctors } from "../../../../services/doctorSpecialistService";
+import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
 type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab";
 
 export const DirectorySearchSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<FilterTab>("All");
-  const [activeSpecialty, setActiveSpecialty] =
-    useState<DoctorSpecialty>("All Specialties");
+  const [activeSpecialty, setActiveSpecialty] = useState<string>("All Specialties");
   const [searchQuery, setSearchQuery] = useState("");
+  const [doctors, setDoctors] = useState<DirectoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Vendor", "Clinic", "Lab"];
 
+  useEffect(() => {
+    fetchAllDoctors()
+      .then((apiDocs) => {
+        const mappedDocs: DirectoryItem[] = apiDocs.map((doc) => {
+          return {
+            id: `doc-${doc.id}`,
+            name: doc.name,
+            role: "Doctor",
+            specialty: doc.specialist || "General Practitioner",
+            location: doc.place_of_practice || doc.city || "Malaysia",
+            rating: 4.9,
+            availability: "Available Today",
+            image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+            badge: doc.verified ? "Verified" : undefined,
+            slug: doc.id.toString(),
+          };
+        });
+        setDoctors(mappedDocs);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch doctors:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const combinedItems = useMemo(() => {
+    // Exclude static doctors and use fetched doctors instead
+    const nonDoctorItems = directoryItems.filter((item) => item.role !== "Doctor");
+    return [...doctors, ...nonDoctorItems];
+  }, [doctors]);
+
+  const doctorSpecialties = useMemo(() => {
+    const specialtiesSet = new Set<string>();
+    doctors.forEach((doc) => {
+      if (doc.specialty) {
+        specialtiesSet.add(doc.specialty);
+      }
+    });
+    return ["All Specialties", ...Array.from(specialtiesSet)];
+  }, [doctors]);
+
   const filteredItems = useMemo(() => {
-    return directoryItems.filter((item) => {
+    return combinedItems.filter((item) => {
       const matchesTab = activeTab === "All" || item.role === activeTab;
       const matchesSpecialty =
         activeTab !== "Doctor" ||
@@ -32,25 +77,25 @@ export const DirectorySearchSection: React.FC = () => {
         item.location.toLowerCase().includes(query);
       return matchesTab && matchesSpecialty && matchesSearch;
     });
-  }, [activeTab, activeSpecialty, searchQuery]);
+  }, [combinedItems, activeTab, activeSpecialty, searchQuery]);
 
   // Count items per tab
   const tabCounts = useMemo(() => {
     const counts: Record<FilterTab, number> = {
-      All: directoryItems.length,
+      All: combinedItems.length,
       Doctor: 0,
       Nurse: 0,
       Vendor: 0,
       Clinic: 0,
       Lab: 0,
     };
-    directoryItems.forEach((item) => {
+    combinedItems.forEach((item) => {
       if (item.role in counts) {
         counts[item.role as FilterTab]++;
       }
     });
     return counts;
-  }, []);
+  }, [combinedItems]);
 
   return (
     <SectionWrapper className="bg-gradient-to-br from-purple-50/50 via-white to-purple-50/50 min-h-screen pt-28 md:pt-36">
@@ -229,7 +274,25 @@ export const DirectorySearchSection: React.FC = () => {
         </div>
 
         {/* ─── Results Grid with z-index stacking ─── */}
-        {filteredItems.length > 0 ? (
+        {loading ? (
+          <div className="relative max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6">
+              {Array.from({ length: 8 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white/40 backdrop-blur-md rounded-2xl p-5 border border-white/20 shadow-sm animate-pulse space-y-4"
+                >
+                  <div className="aspect-[4/3] w-full bg-gray-200/60 rounded-xl" />
+                  <div className="space-y-3">
+                    <div className="h-4 bg-gray-200/60 rounded w-2/3" />
+                    <div className="h-3 bg-gray-200/60 rounded w-1/2" />
+                    <div className="h-8 bg-gray-200/60 rounded-lg w-full mt-4" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : filteredItems.length > 0 ? (
           <div className="relative">
             {/* Decorative background elements for depth */}
             <div className="absolute -top-10 left-1/3 w-64 h-64 bg-[#2563EB]/3 rounded-full blur-3xl pointer-events-none -z-10" />

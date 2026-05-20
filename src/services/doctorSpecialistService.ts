@@ -1,10 +1,175 @@
-import type { Doctor } from "../types/doctor_specialist";
+import axios from "axios";
+import { BASE_API_URL } from "../constants/constant";
+import type { Doctor, Education } from "../types/doctor_specialist";
 import { directoryItems } from "../modules/main/constants/directory";
 import type { DirectoryItem } from "../modules/main/types";
 
+export interface ApiDoctor {
+  id: number;
+  name: string;
+  specialist: string;
+  gender: string;
+  nric: string | null;
+  passport_number: string | null;
+  experience: string;
+  medical_degree_university: string;
+  phone_number: string | null;
+  mmc_number: string;
+  apc_number: string;
+  apc_expired: string | null;
+  photo: string | null;
+  front_nric_photo: string | null;
+  back_nric_photo: string | null;
+  apc_certificate_file: string | null;
+  mmc_certificate_file: string | null;
+  verified: boolean;
+  type: string | null;
+  verification_status: string;
+  verification_notes: string | null;
+  birth_date: string | null;
+  nationality: string | null;
+  address: string | null;
+  postcode: string | null;
+  state: string | null;
+  city: string | null;
+  place_of_practice: string | null;
+  first_graduate_from: string | null;
+  first_graduate_year: number | null;
+  specialist_graduate_from: string | null;
+  specialist_graduate_year: number | null;
+  deleted_at: string | null;
+  specialities: any[];
+  doctor_specialists: any[];
+}
+
+export interface DoctorsApiResponse {
+  message: string;
+  data: {
+    current_page: number;
+    data: ApiDoctor[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number;
+    total: number;
+  };
+}
+
+export const fetchAllDoctors = async (): Promise<ApiDoctor[]> => {
+  let allDoctors: ApiDoctor[] = [];
+  let currentPage = 1;
+  let hasMore = true;
+
+  try {
+    while (hasMore) {
+      const response = await axios.get<DoctorsApiResponse>(
+        `${BASE_API_URL}/landing-page/specialist-doctors?page=${currentPage}`
+      );
+      const data = response.data.data;
+      if (data && data.data) {
+        allDoctors = [...allDoctors, ...data.data];
+      }
+      if (data && data.next_page_url && currentPage < data.last_page) {
+        currentPage++;
+      } else {
+        hasMore = false;
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching doctors from API:", error);
+    // If the API fails, we return an empty array gracefully rather than crashing the whole page
+  }
+
+  return allDoctors;
+};
+
+export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
+  const education: Education[] = [];
+
+  if (apiDoc.specialist_graduate_from) {
+    education.push({
+      year: apiDoc.specialist_graduate_year ? apiDoc.specialist_graduate_year.toString() : "N/A",
+      degree: "Specialist Graduate",
+      university: apiDoc.specialist_graduate_from,
+      major: apiDoc.specialist || "Specialist",
+      isLatest: true,
+    });
+  }
+
+  if (apiDoc.first_graduate_from) {
+    education.push({
+      year: apiDoc.first_graduate_year ? apiDoc.first_graduate_year.toString() : "N/A",
+      degree: "Medical Degree",
+      university: apiDoc.first_graduate_from,
+      major: "Bachelor of Medicine",
+      isLatest: education.length === 0,
+    });
+  }
+
+  const tags = ["Verified"];
+  if (apiDoc.specialist) {
+    tags.unshift(apiDoc.specialist);
+  }
+  if (apiDoc.experience) {
+    tags.push(`${apiDoc.experience} Years Exp.`);
+  }
+
+  let isApcExpired = false;
+  if (apiDoc.apc_expired) {
+    const expiryDate = new Date(apiDoc.apc_expired);
+    isApcExpired = expiryDate < new Date();
+  }
+
+  return {
+    name: apiDoc.name,
+    specialty: apiDoc.specialist || "General Practitioner",
+    hospital: apiDoc.place_of_practice || "Premier Healthcare Center",
+    gender: apiDoc.gender ? apiDoc.gender.charAt(0).toUpperCase() + apiDoc.gender.slice(1) : "Male",
+    nationality: apiDoc.nationality || "Malaysian",
+    phone: apiDoc.phone_number || "+60 3-2000-0000",
+    tags: tags,
+    bio: `${apiDoc.name} is a highly skilled and dedicated medical professional specializing in ${apiDoc.specialist || "healthcare"}. With over ${apiDoc.experience || "3"} years of clinical experience, they are committed to providing the highest quality of patient-centric care at ${apiDoc.place_of_practice || "Premier Healthcare Center"}.`,
+    mmcNumber: apiDoc.mmc_number || "N/A",
+    apcNumber: apiDoc.apc_number || "N/A",
+    apcExpiry: apiDoc.apc_expired
+      ? new Date(apiDoc.apc_expired).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+      : "N/A",
+    isApcExpired: isApcExpired,
+    address: {
+      hospitalName: apiDoc.place_of_practice || "Premier Healthcare Center",
+      street: apiDoc.address || "123 Medical Avenue",
+      city: apiDoc.city ? `${apiDoc.city}, ${apiDoc.state || ""}`.trim() : "Kuala Lumpur",
+    },
+    education: education,
+    services: [
+      {
+        id: 1,
+        name: "Specialist Consultation",
+        description: "Comprehensive medical assessment and consultation.",
+        duration: "30 - 45 mins",
+        price: "RM 150",
+        priceLabel: "Starting Price",
+      },
+      {
+        id: 2,
+        name: "Follow-up Consultation",
+        description: "Follow-up appointment for ongoing treatment and monitoring.",
+        duration: "20 - 30 mins",
+        price: "RM 100",
+        priceLabel: "Standard Rate",
+      },
+    ],
+    imageUrl: apiDoc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+  };
+};
+
 // Transform DirectoryItem to Doctor type
 const transformDirectoryItemToDoctor = (item: DirectoryItem): Doctor => {
-  // Default doctor data structure
   const doctor: Doctor = {
     name: item.name,
     specialty: item.specialty || "General Practitioner",
@@ -141,6 +306,15 @@ export const getDoctorById = async (_id: string): Promise<Doctor> => {
 };
 
 export const getDoctorBySlug = async (slug: string): Promise<Doctor> => {
+  const idNum = parseInt(slug, 10);
+  if (!isNaN(idNum)) {
+    const allDocs = await fetchAllDoctors();
+    const foundDoc = allDocs.find((doc) => doc.id === idNum);
+    if (foundDoc) {
+      return transformApiDoctorToDoctor(foundDoc);
+    }
+  }
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const doctorItem = directoryItems.find((item) => item.slug === slug && item.role === "Doctor");
@@ -154,3 +328,4 @@ export const getDoctorBySlug = async (slug: string): Promise<Doctor> => {
     }, 500);
   });
 };
+
