@@ -20,9 +20,10 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
       navigate(`/doctor-specialist/${item.slug}`);
     } else if (item.role === "Vendor" && item.slug) {
       navigate(`/marketplace/pharmacy/${item.slug}`);
-    } else if (item.role === "Clinic") {
-      // TODO: Wire to clinic page when available
-      console.log("Clinic detail page not yet implemented");
+    } else if (item.role === "Clinic" && item.slug) {
+      navigate(`/clinic/${item.slug}`);
+    } else if (item.role === "Lab" && item.slug) {
+      navigate(`/lab/${item.slug}`);
     }
   };
   return (

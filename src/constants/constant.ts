@@ -14,6 +14,8 @@ export const MARKETPLACE_CHECKOUT_URL = "/pharmacy/mukminpharmacy/checkout";
 export const MARKETPLACE_PRESCRIPTION_URL = "/pharmacy/mukminpharmacy/upload-prescription";
 export const DOCTOR_SPECIALIST_URL = "/doctor-specialist/:id";
 export const NURSE_DETAIL_URL = "/nurse/:slug";
+export const LAB_DETAIL_URL = "/lab/:slug";
+export const CLINIC_DETAIL_URL = "/clinic/:slug";
 
 export const DEV_URL = "hidden-dev";
 

@@ -4,6 +4,7 @@ import doctorImg from "../../../assets/img/main/doctor.png";
 import nurseImg from "../../../assets/img/main/nurse.png";
 import pharmacyImg from "../../../assets/img/main/pharmacy.png";
 import clinicImg from "../../../assets/img/main/clinic.png";
+import labImg from "../../../assets/img/main/lab.png";
 
 export const doctorSpecialties = [
   "All Specialties",
@@ -122,6 +123,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Accepting Patients",
     image: clinicImg,
     badge: "Premium",
+    slug: "pristine-health-clinic",
   },
   {
     id: "dir-10",
@@ -132,6 +134,7 @@ export const directoryItems: DirectoryItem[] = [
     rating: 4.5,
     availability: "Accepting Patients",
     image: clinicImg,
+    slug: "klinik-kesihatan-jaya",
   },
   {
     id: "dir-11",
@@ -155,6 +158,7 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Accepting Patients",
     image: clinicImg,
     badge: "Premium",
+    slug: "sunrise-specialist-clinic",
   },
   {
     id: "dir-13",
@@ -201,5 +205,52 @@ export const directoryItems: DirectoryItem[] = [
     availability: "Available This Week",
     image: doctorImg,
     slug: "dr-lim-wei-jie",
+  },
+  {
+    id: "dir-17",
+    name: "PathLab Diagnostics",
+    role: "Lab",
+    specialty: "Blood Test & Pathology",
+    location: "Kuala Lumpur",
+    rating: 4.9,
+    availability: "Open Today",
+    image: labImg,
+    badge: "Accredited",
+    slug: "pathlab-diagnostics",
+  },
+  {
+    id: "dir-18",
+    name: "BioMed Labs",
+    role: "Lab",
+    specialty: "Radiology & Imaging",
+    location: "Petaling Jaya",
+    rating: 4.7,
+    availability: "Open 24/7",
+    image: labImg,
+    slug: "biomed-labs",
+  },
+  {
+    id: "dir-19",
+    name: "CityLab Clinical",
+    role: "Lab",
+    specialty: "Clinical Microbiology",
+    location: "Johor Bahru",
+    rating: 4.8,
+    availability: "Open Today",
+    image: labImg,
+    badge: "Premium",
+    slug: "citylab-clinical",
+  },
+  {
+    id: "dir-20",
+    name: "GeneScan Diagnostics",
+    role: "Lab",
+    specialty: "Genetic Testing & Screening",
+    location: "Bangsar",
+    rating: 5.0,
+    availability: "Appointment Only",
+    image: labImg,
+    badge: "Top Rated",
+    slug: "genescan-diagnostics",
   },
 ];

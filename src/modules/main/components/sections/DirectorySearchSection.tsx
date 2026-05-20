@@ -8,7 +8,7 @@ import { directoryItems, doctorSpecialties } from "../../constants/directory";
 import type { DoctorSpecialty } from "../../constants/directory";
 import { cn } from "../../utils/cn";
 
-type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic";
+type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab";
 
 export const DirectorySearchSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<FilterTab>("All");
@@ -16,7 +16,7 @@ export const DirectorySearchSection: React.FC = () => {
     useState<DoctorSpecialty>("All Specialties");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Vendor", "Clinic"];
+  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Vendor", "Clinic", "Lab"];
 
   const filteredItems = useMemo(() => {
     return directoryItems.filter((item) => {
@@ -42,6 +42,7 @@ export const DirectorySearchSection: React.FC = () => {
       Nurse: 0,
       Vendor: 0,
       Clinic: 0,
+      Lab: 0,
     };
     directoryItems.forEach((item) => {
       if (item.role in counts) {
