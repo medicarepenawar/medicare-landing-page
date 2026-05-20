@@ -6,15 +6,15 @@ export function BestsellersSection() {
   const bestsellers = useMarketplaceBestsellers();
 
   const formatPrice = (price: number) => {
-    return `Rp${price.toLocaleString("id-ID")}`;
+    return `RM${price.toLocaleString("en-MY")}`;
   };
 
   return (
     <div className="px-6 lg:px-16 py-8 pb-20">
       <div className="flex justify-between items-end mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>
-        <h2 className="text-2xl font-bold text-gray-800">Produk Terlaris</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Bestsellers</h2>
         <a href="#" className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1">
-          Lihat Semua <span className="text-lg leading-none">→</span>
+          View All <span className="text-lg leading-none">→</span>
         </a>
       </div>
 
@@ -59,7 +59,7 @@ export function BestsellersSection() {
                     }}
                     className="w-full bg-[#2563EB] text-white py-2 mt-3 rounded-md font-semibold text-sm hover:bg-blue-700 transition-colors"
                   >
-                    Beli di App
+                    Buy on App
                   </button>
                 </div>
               </div>

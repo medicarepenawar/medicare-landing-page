@@ -15,10 +15,10 @@ export function Header() {
       <div className="flex-1 w-full md:max-w-2xl md:mx-6 lg:mx-12 flex">
         <input
           type="text"
-          placeholder="Cari obat, vitamin, atau kebutuhan kesehatan..."
+          placeholder="Search medicines, vitamins, or health essentials..."
           className="flex-1 border border-gray-300 rounded-l-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
-        <button className="bg-[#2563EB] text-white px-4 md:px-8 py-2 rounded-r-md hover:bg-blue-800 transition-colors font-medium">Cari</button>
+        <button className="bg-[#2563EB] text-white px-4 md:px-8 py-2 rounded-r-md hover:bg-blue-800 transition-colors font-medium">Search</button>
       </div>
     </div>
   );

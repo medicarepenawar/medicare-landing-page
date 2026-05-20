@@ -18,7 +18,7 @@ export function Footer() {
       
           </div>
           <p className="text-sm text-gray-500 mb-6">
-            Medicare adalah marketplace kesehatan terpercaya untuk kebutuhan obat, vitamin, dan produk kesehatan lainnya.
+            Medicare is a trusted health marketplace for all your medicine, vitamin, and healthcare product needs.
           </p>
           <div className="flex items-center gap-4 text-gray-400">
             <a href="#" className="hover:text-[#2563EB] transition-colors"><Instagram className="w-5 h-5" /></a>
@@ -30,54 +30,54 @@ export function Footer() {
 
         {/* Links Column 1 */}
         <div>
-          <h4 className="font-bold text-gray-800 mb-4">Belanja</h4>
+          <h4 className="font-bold text-gray-800 mb-4">Shop</h4>
           <ul className="space-y-3 text-sm text-gray-500">
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Obat</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Kesehatan</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Perawatan Diri</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Vitamin & Suplemen</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Ibu & Anak</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Alat Kesehatan</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Medicine</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Health</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Personal Care</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Vitamins & Supplements</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Mother & Child</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Medical Devices</a></li>
           </ul>
         </div>
 
         {/* Links Column 2 */}
         <div>
-          <h4 className="font-bold text-gray-800 mb-4">Informasi</h4>
+          <h4 className="font-bold text-gray-800 mb-4">Information</h4>
           <ul className="space-y-3 text-sm text-gray-500">
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Tentang Kami</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Cara Belanja</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Pengiriman</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Pembayaran</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Kebijakan Retur</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Syarat & Ketentuan</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">About Us</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">How to Shop</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Delivery</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Payment</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Return Policy</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Terms & Conditions</a></li>
           </ul>
         </div>
 
         {/* Links Column 3 */}
         <div>
-          <h4 className="font-bold text-gray-800 mb-4">Bantuan</h4>
+          <h4 className="font-bold text-gray-800 mb-4">Support</h4>
           <ul className="space-y-3 text-sm text-gray-500">
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Pusat Bantuan</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Hubungi Kami</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Lacak Pesanan</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Upload Resep</a></li>
-            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Konsultasi Apoteker</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Help Centre</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Contact Us</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Track Order</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Upload Prescription</a></li>
+            <li><a href="#" className="hover:text-[#2563EB] transition-colors">Pharmacist Consultation</a></li>
           </ul>
         </div>
 
         {/* Newsletter */}
         <div className="lg:col-span-1">
-          <h4 className="font-bold text-gray-800 mb-2">Berlangganan Newsletter</h4>
-          <p className="text-sm text-gray-500 mb-4">Dapatkan info promo & tips kesehatan</p>
+          <h4 className="font-bold text-gray-800 mb-2">Subscribe to Newsletter</h4>
+          <p className="text-sm text-gray-500 mb-4">Get promo updates & health tips</p>
           <div className="flex flex-col gap-2">
             <input 
               type="email" 
-              placeholder="Masukkan email Anda" 
+              placeholder="Enter your email" 
               className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
             />
             <button className="bg-[#2563EB] text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-blue-800 transition-colors">
-              Langganan
+              Subscribe
             </button>
           </div>
         </div>
@@ -91,9 +91,9 @@ export function Footer() {
         <div className="flex items-center gap-4 opacity-70 grayscale">
           <span className="font-bold text-blue-800 italic">VISA</span>
           <span className="font-bold text-red-600">MasterCard</span>
-          <span className="font-bold text-blue-600">BCA</span>
-          <span className="font-bold text-cyan-500">OVO</span>
-          <span className="font-bold text-green-500">Gopay</span>
+          <span className="font-bold text-blue-600">Maybank</span>
+          <span className="font-bold text-cyan-500">TNG</span>
+          <span className="font-bold text-green-500">GrabPay</span>
         </div>
       </div>
     </footer>

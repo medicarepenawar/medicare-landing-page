@@ -6,9 +6,9 @@ export function CategorySection() {
   return (
     <div className="px-6 lg:px-16 py-8">
       <div className="flex justify-between items-end mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>
-        <h2 className="text-2xl font-bold text-gray-800">Belanja per Kategori</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Shop by Category</h2>
         <a href="#" className="text-[#2563EB] font-semibold text-sm hover:underline flex items-center gap-1">
-          Lihat Semua Kategori <span className="text-lg leading-none">→</span>
+          View All Categories <span className="text-lg leading-none">→</span>
         </a>
       </div>
 

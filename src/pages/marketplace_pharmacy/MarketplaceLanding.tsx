@@ -18,10 +18,10 @@ export default function MarketplaceLanding() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulasi loading/preload (misal: mengambil data)
+    // Simulate loading/preload (e.g., fetching data)
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // 1.5 detik loading
+    }, 1000); // 1 second loading
     return () => clearTimeout(timer);
   }, []);
 

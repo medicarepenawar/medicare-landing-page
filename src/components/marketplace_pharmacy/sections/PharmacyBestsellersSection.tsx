@@ -11,7 +11,7 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
   const products = usePharmacyProducts(pharmacy?.id || "");
 
   const formatPrice = (price: number) => {
-    return `Rp${price.toLocaleString("id-ID")}`;
+    return `RM${price.toLocaleString("en-MY")}`;
   };
 
   console.log("PharmacySlug:", pharmacySlug);
@@ -54,7 +54,7 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
         </div>
 
         <div className="flex justify-between items-end mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Produk Kami</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Our Products</h2>
         </div>
 
         {products.length > 0 ? (
@@ -98,7 +98,7 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
                         }}
                         className="w-full bg-[#2563EB] text-white py-2 mt-3 rounded-md font-semibold text-sm hover:bg-blue-700 transition-colors"
                       >
-                        Beli di App
+                        Buy on App
                       </button>
                     </div>
                   </div>
@@ -112,7 +112,7 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
           </div>
         ) : (
           <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
-            <p className="text-gray-600">Belum ada produk tersedia</p>
+            <p className="text-gray-600">No products available yet</p>
           </div>
         )}
       </div>

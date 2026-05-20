@@ -27,13 +27,13 @@ export function HeroSection() {
 
       <div className="md:w-1/2 z-10 mb-10 md:mb-0 space-y-6">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111827] leading-tight animate-fade-in-up opacity-0" style={{ animationDelay: "0.1s" }}>
-          Kesehatan Anda,
+          Your Health,
           <br />
-          <span className="text-[#2563EB]">Prioritas</span> <span className="text-red-500">Kami</span>
+          <span className="text-[#2563EB]">Our</span> <span className="text-red-500">Priority</span>
         </h1>
 
         <p className="text-gray-600 text-lg max-w-md animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>
-          Belanja obat, vitamin, dan kebutuhan kesehatan dengan mudah dan aman di Medicare.
+          Shop for medicines, vitamins, and health essentials easily and safely on Medicare.
         </p>
 
         <div
@@ -42,33 +42,33 @@ export function HeroSection() {
         >
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-[#2563EB]" />
-            100% Produk
+            100% Authentic
             <br />
-            Asli
+            Products
           </div>
           <div className="flex items-center gap-2">
             <Truck className="w-5 h-5 text-[#2563EB]" />
-            Pengiriman
+            Fast
             <br />
-            Cepat
+            Delivery
           </div>
           <div className="flex items-center gap-2">
             <Lock className="w-5 h-5 text-[#2563EB]" />
-            Pembayaran
+            Secure
             <br />
-            Aman
+            Payment
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-[#2563EB]" />
-            Konsultasi
+            Pharmacist
             <br />
-            Apoteker
+            Consultation
           </div>
         </div>
 
         {/* <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: "0.4s" }}>
           <button className="bg-[#2563EB] text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl">
-            Belanja Sekarang
+            Shop Now
           </button>
           <button 
             onClick={() => navigate(MARKETPLACE_PRESCRIPTION_URL)}
@@ -76,8 +76,8 @@ export function HeroSection() {
           >
             <Upload className="w-5 h-5" />
             <div className="text-left flex flex-col leading-tight">
-              <span>Upload Resep</span>
-              <span className="text-xs font-normal text-gray-500">Dapatkan obat lebih mudah</span>
+              <span>Upload Prescription</span>
+              <span className="text-xs font-normal text-gray-500">Get your medicines easily</span>
             </div>
           </button>
         </div> */}
