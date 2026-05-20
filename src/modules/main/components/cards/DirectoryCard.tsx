@@ -16,15 +16,14 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
   const handleViewProfile = () => {
     if (item.role === "Nurse" && item.slug) {
       navigate(`/nurse/${item.slug}`);
-    } else if (item.role === "Doctor") {
-      // TODO: Wire to doctor detail page when available
-      console.log("Doctor detail page not yet implemented");
-    } else if (item.role === "Vendor") {
-      // TODO: Wire to vendor/pharmacy page when available
-      console.log("Vendor detail page not yet implemented");
-    } else if (item.role === "Clinic") {
-      // TODO: Wire to clinic page when available
-      console.log("Clinic detail page not yet implemented");
+    } else if (item.role === "Doctor" && item.slug) {
+      navigate(`/doctor-specialist/${item.slug}`);
+    } else if (item.role === "Vendor" && item.slug) {
+      navigate(`/marketplace/pharmacy/${item.slug}`);
+    } else if (item.role === "Clinic" && item.slug) {
+      navigate(`/clinic/${item.slug}`);
+    } else if (item.role === "Lab" && item.slug) {
+      navigate(`/lab/${item.slug}`);
     }
   };
   return (
@@ -87,21 +86,6 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
               </span>
             </div>
           )}
-
-          {/* Availability — overlaps image bottom edge for z-depth */}
-          <div className="absolute -bottom-3 left-4 z-20">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white shadow-md border border-gray-100 text-[11px] font-medium text-gray-700">
-              <span
-                className={cn(
-                  "w-1.5 h-1.5 rounded-full",
-                  item.availability.includes("Now") || item.availability.includes("Today") || item.availability.includes("24/7")
-                    ? "bg-emerald-500 animate-pulse"
-                    : "bg-amber-400",
-                )}
-              />
-              {item.availability}
-            </span>
-          </div>
         </div>
 
         {/* Content */}

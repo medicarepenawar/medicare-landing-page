@@ -3,6 +3,8 @@ import Register from "./modules/landing-page/pages/Register";
 import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
 import NurseRegisterPage from "./pages/nurse/NurseRegisterPage";
 import NurseDetailPage from "./pages/nurse/NurseDetailPage";
+import LabDetailPage from "./pages/lab/LabDetailPage";
+import ClinicDetailPage from "./pages/clinic/ClinicDetailPage";
 import LabAssistantRegisterPage from "./pages/labassistant/LabAssistantRegisterPage";
 import TherapistRegisterPage from "./pages/therapist/TherapistRegisterPage";
 import RegistrationSuccess from "./modules/landing-page/pages/RegistrationSuccess";
@@ -31,6 +33,8 @@ import {
   MARKETPLACE_PRESCRIPTION_URL,
   DOCTOR_SPECIALIST_URL,
   NURSE_DETAIL_URL,
+  LAB_DETAIL_URL,
+  CLINIC_DETAIL_URL,
   CLINIC_LANDING_URL,
 } from "./constants/constant";
 import MainPage from "./modules/main/pages/MainPage";
@@ -59,11 +63,14 @@ function App() {
         <Route path="/main" element={<MainPage />} />
         <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
         <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
+        <Route path="/marketplace/pharmacy/:pharmacySlug" element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
         <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
         <Route path={MARKETPLACE_CHECKOUT_URL} element={<CheckoutPage />} />
         <Route path={MARKETPLACE_PRESCRIPTION_URL} element={<UploadPrescriptionPage />} />
         <Route path={NURSE_DETAIL_URL} element={<NurseDetailPage />} />
+        <Route path={LAB_DETAIL_URL} element={<LabDetailPage />} />
+        <Route path={CLINIC_DETAIL_URL} element={<ClinicDetailPage />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />

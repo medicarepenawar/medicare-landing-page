@@ -4,29 +4,29 @@ export function FeaturesSection() {
   const features = [
     {
       icon: <ShieldCheck className="w-8 h-8 text-red-500" />,
-      title: "Apotek Terpercaya",
-      subtitle: "Izin resmi & terpercaya"
+      title: "Trusted Pharmacy",
+      subtitle: "Licensed & officially registered"
     },
     {
       icon: <BadgeCheck className="w-8 h-8 text-red-500" />,
-      title: "Produk 100% Original",
-      subtitle: "Asli, aman, dan berkualitas"
+      title: "100% Original Products",
+      subtitle: "Authentic, safe, and quality assured"
     },
     {
       icon: <Tags className="w-8 h-8 text-red-500" />,
-      title: "Harga Kompetitif",
-      subtitle: "Terjangkau setiap hari"
+      title: "Competitive Pricing",
+      subtitle: "Affordable prices every day"
     },
     {
       icon: <HeadphonesIcon className="w-8 h-8 text-red-500" />,
-      title: "Layanan Pelanggan 24/7",
-      subtitle: "Siap membantu kapan saja"
+      title: "24/7 Customer Service",
+      subtitle: "Ready to help anytime"
     }
   ];
 
   return (
     <div className="px-6 lg:px-16 py-12 bg-gray-50 border-t border-gray-100">
-      <h2 className="text-xl font-bold text-gray-800 mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>Kenapa Belanja di Medicare?</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: "0.2s" }}>Why Shop at Medicare?</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {features.map((feature, index) => (

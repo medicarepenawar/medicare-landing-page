@@ -77,7 +77,7 @@ export default function NurseDetailPage() {
                 <p className="text-gray-600 mb-6">{nurse.specialization}</p>
 
                 {/* Rating */}
-                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
+                {/* <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <span key={i} className={`text-xl ${i < Math.floor(nurse.rating) ? "text-yellow-400" : "text-gray-300"}`}>
@@ -87,7 +87,7 @@ export default function NurseDetailPage() {
                   </div>
                   <span className="font-bold text-gray-900">{nurse.rating}/5</span>
                   <span className="text-gray-500">({nurse.totalReviews} reviews)</span>
-                </div>
+                </div> */}
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-4">
@@ -241,16 +241,9 @@ export default function NurseDetailPage() {
                 className="w-full bg-[#2563EB] text-white py-3 rounded-lg font-bold mb-4 hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2"
               >
                 <Calendar className="w-5 h-5" />
-                Book {nurse.name.split(" ")[nurse.name.split(" ").length - 1]} Now
+                Book {nurse.name.split(" ")[nurse.name.split(" ").length - 1]} at Medicare App
               </button>
 
-              <button
-                onClick={handleChat}
-                className="w-full border-2 border-[#2563EB] text-[#2563EB] py-3 rounded-lg font-bold hover:bg-[#2563EB]/5 transition-colors flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Chat with {nurse.name.split(" ")[nurse.name.split(" ").length - 1]}
-              </button>
 
               {/* Additional Info */}
               <div className="mt-8 pt-8 border-t border-gray-200">

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { TopBar } from "../../components/marketplace_pharmacy/layout/TopBar";
 import { Header } from "../../components/marketplace_pharmacy/layout/Header";
 import { NavBar } from "../../components/marketplace_pharmacy/layout/NavBar";
@@ -8,17 +9,19 @@ import { BenefitsStrip } from "../../components/marketplace_pharmacy/sections/Be
 import { CategorySection } from "../../components/marketplace_pharmacy/sections/CategorySection";
 import { PromoBanner } from "../../components/marketplace_pharmacy/sections/PromoBanner";
 import { BestsellersSection } from "../../components/marketplace_pharmacy/sections/BestsellersSection";
+import { PharmacyBestsellersSection } from "../../components/marketplace_pharmacy/sections/PharmacyBestsellersSection";
 import { FeaturesSection } from "../../components/marketplace_pharmacy/sections/FeaturesSection";
 import { Preloader } from "../../components/marketplace_pharmacy/layout/Preloader";
 
 export default function MarketplaceLanding() {
+  const { pharmacySlug } = useParams<{ pharmacySlug?: string }>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulasi loading/preload (misal: mengambil data)
+    // Simulate loading/preload (e.g., fetching data)
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // 1.5 detik loading
+    }, 1000); // 1 second loading
     return () => clearTimeout(timer);
   }, []);
 
@@ -32,12 +35,22 @@ export default function MarketplaceLanding() {
       <Header />
       <NavBar />
       <main>
-        <HeroSection />
-        <BenefitsStrip />
-        <CategorySection />
-        <PromoBanner />
-        <BestsellersSection />
-        <FeaturesSection />
+        {pharmacySlug ? (
+          // Show pharmacy-specific products
+          <>
+            <PharmacyBestsellersSection pharmacySlug={pharmacySlug} />
+          </>
+        ) : (
+          // Show general marketplace
+          <>
+            <HeroSection />
+            <BenefitsStrip />
+            <CategorySection />
+            <PromoBanner />
+            <BestsellersSection />
+            <FeaturesSection />
+          </>
+        )}
       </main>
       <Footer />
 
