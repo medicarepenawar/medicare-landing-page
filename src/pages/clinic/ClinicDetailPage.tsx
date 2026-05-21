@@ -258,7 +258,6 @@ export default function ClinicDetailPage() {
                   <MapPin className="w-5 h-5 text-blue-600" />
                   Practice Location Map
                 </h3>
-            
                 <div className="rounded-2xl border border-gray-200 p-2 bg-white shadow-sm mb-6 overflow-hidden">
                   <iframe
                     title="Clinic Location Map"
