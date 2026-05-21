@@ -258,11 +258,7 @@ export default function ClinicDetailPage() {
                   <MapPin className="w-5 h-5 text-blue-600" />
                   Practice Location Map
                 </h3>
-                
-                <p className="text-gray-600 mb-6">
-                  Practice location street coordinates: <span className="font-semibold text-gray-800">{clinic.address.latitude}° N, {clinic.address.longitude}° E</span>
-                </p>
-
+            
                 <div className="rounded-2xl border border-gray-200 p-2 bg-white shadow-sm mb-6 overflow-hidden">
                   <iframe
                     title="Clinic Location Map"
