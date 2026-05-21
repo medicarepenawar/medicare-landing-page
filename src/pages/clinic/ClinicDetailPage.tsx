@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ChevronRight,
@@ -13,15 +13,44 @@ import {
 } from "lucide-react";
 import { Navbar } from "../../modules/main/components/layout/Navbar";
 import { Footer } from "../../modules/main/components/layout/Footer";
-import { getClinicBySlug } from "../../modules/constants/clinics";
+import { getClinicBySlug } from "../../services/clinicService";
+import type { Clinic } from "../../types/clinic";
 import Toast from "../../components/common/Toast";
 
 export default function ClinicDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const clinic = getClinicBySlug(slug || "");
+  const [clinic, setClinic] = useState<Clinic | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    if (!slug) return;
+    setLoading(true);
+    getClinicBySlug(slug)
+      .then(setClinic)
+      .catch((err) => {
+        console.error("Failed to load clinic profile:", err);
+        setClinic(null);
+      })
+      .finally(() => setLoading(false));
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+        <Navbar />
+        <main className="flex-grow max-w-7xl mx-auto px-5 md:px-16 py-8 pt-28 md:pt-36 w-full flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <p className="text-gray-500 font-medium animate-pulse">Loading clinic profile...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!clinic) {
     return (
@@ -47,8 +76,12 @@ export default function ClinicDetailPage() {
   };
 
   const handleCall = () => {
-    setToastMessage("Call feature coming soon!");
-    setShowToast(true);
+    if (clinic.phoneNumber) {
+      window.location.href = `tel:${clinic.phoneNumber}`;
+    } else {
+      setToastMessage("Contact number not listed.");
+      setShowToast(true);
+    }
   };
 
   return (
@@ -62,7 +95,7 @@ export default function ClinicDetailPage() {
             Home
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <Link to="/main" className="hover:text-[#2563EB]">
+          <Link to="/" className="hover:text-[#2563EB]">
             Find a Clinic
           </Link>
           <ChevronRight className="w-4 h-4" />
@@ -78,7 +111,7 @@ export default function ClinicDetailPage() {
               <div className="md:w-80 flex-shrink-0">
                 <div className="bg-[#f8fbff] rounded-2xl p-8 border border-gray-100 aspect-square flex items-center justify-center overflow-hidden">
                   <img
-                    src={clinic.image}
+                    src={clinic.images[0] || clinic.photo || "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=600"}
                     alt={clinic.name}
                     className="w-full h-full object-cover rounded-lg"
                   />
@@ -87,91 +120,41 @@ export default function ClinicDetailPage() {
 
               {/* Info */}
               <div className="flex-1">
-                <div className="inline-block bg-[#2563EB]/10 text-[#2563EB] text-xs font-bold px-3 py-1 rounded-sm mb-3">
-                  REGISTERED CLINIC
-                </div>
+                {clinic.verified && (
+                  <div className="inline-block bg-[#2563EB]/10 text-[#2563EB] text-xs font-bold px-3 py-1 rounded-sm mb-3">
+                    REGISTERED & VERIFIED CLINIC
+                  </div>
+                )}
 
                 <h1 className="text-4xl font-bold text-gray-900 mb-2">
                   {clinic.name}
                 </h1>
-                <p className="text-[#0b5f8c] font-semibold text-lg mb-1">
-                  {clinic.title}
+                <p className="text-[#0b5f8c] font-semibold text-lg mb-1 capitalize">
+                  Medicare Affiliated {clinic.vendorType}
                 </p>
-                <p className="text-gray-600 mb-6">{clinic.specialization}</p>
-
-                {/* Rating */}
-                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <span
-                        key={i}
-                        className={`text-xl ${i < Math.floor(clinic.rating) ? "text-yellow-400" : "text-gray-300"}`}
-                      >
-                        ★
-                      </span>
-                    ))}
-                  </div>
-                  <span className="font-bold text-gray-900">
-                    {clinic.rating}/5
-                  </span>
-                  <span className="text-gray-500">
-                    ({clinic.totalReviews} reviews)
-                  </span>
-                </div>
+                <p className="text-gray-600 mb-6">{clinic.description || "General Practice & Family Consultation Services"}</p>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <Award className="w-5 h-5 text-[#2563EB]" />
-                      <span className="text-sm text-gray-600">Experience</span>
+                      <span className="text-sm text-gray-600">Verification</span>
                     </div>
-                    <p className="font-bold text-gray-900">
-                      {clinic.experience.years}
-                      <span className="text-sm text-gray-600 block">
-                        {clinic.experience.field}
-                      </span>
+                    <p className="font-bold text-gray-900 capitalize">
+                      {clinic.verificationStatus}
+                      <span className="text-sm text-gray-600 block">Status</span>
                     </p>
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
-                      <Users className="w-5 h-5 text-[#2563EB]" />
-                      <span className="text-sm text-gray-600">Doctors</span>
+                      <Clock className="w-5 h-5 text-[#2563EB]" />
+                      <span className="text-sm text-gray-600">Availability</span>
                     </div>
                     <p className="font-bold text-gray-900">
-                      {clinic.doctors.total} Doctors
-                      <span className="text-sm text-gray-600 block">
-                        {clinic.doctors.specializations}
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <ShieldCheck className="w-5 h-5 text-[#2563EB]" />
-                      <span className="text-sm text-gray-600">Facilities</span>
-                    </div>
-                    <p className="font-bold text-gray-900">
-                      {clinic.facilities.standard}
-                      <span className="text-sm text-gray-600 block">
-                        {clinic.facilities.highlight}
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Stethoscope className="w-5 h-5 text-[#2563EB]" />
-                      <span className="text-sm text-gray-600">
-                        Services
-                      </span>
-                    </div>
-                    <p className="font-bold text-gray-900">
-                      {clinic.servicesOffered.length}+ Services
-                      <span className="text-sm text-gray-600 block">
-                        Comprehensive Care
-                      </span>
+                      {clinic.isAvailable ? "Open Now" : "Inactive"}
+                      <span className="text-sm text-gray-600 block">Vendor State</span>
                     </p>
                   </div>
                 </div>
@@ -179,138 +162,114 @@ export default function ClinicDetailPage() {
             </div>
 
             {/* About Section */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                {clinic.bio}
-              </h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                {clinic.description}
-              </p>
-            </div>
+            {clinic.description && (
+              <div className="mb-12">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">About Our Clinic</h2>
+                <p className="text-gray-600 leading-relaxed mb-6">
+                  {clinic.description}
+                </p>
+              </div>
+            )}
 
-            {/* Services Offered */}
+            {/* Personal & Business Registration Details Block */}
             <div className="mb-12 pb-12 border-b border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Services Offered
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {clinic.servicesOffered.map((service) => (
-                  <div
-                    key={service.id}
-                    className="bg-gray-50 p-4 rounded-lg text-center hover:shadow-md transition-shadow"
-                  >
-                    <div className="text-3xl mb-2">{service.icon}</div>
-                    <p className="font-medium text-gray-700 text-sm">
-                      {service.name}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Operating Hours & Coverage */}
-            <div className="grid md:grid-cols-2 gap-8 mb-12 pb-12 border-b border-gray-200">
-              {/* Operating Hours */}
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#2563EB]" />
-                  Operating Hours
-                </h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#2563EB] font-bold">✓</span>
-                    {clinic.operatingHours.type}
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#2563EB] font-bold">✓</span>
-                    {clinic.operatingHours.sunday}
-                  </li>
-                  {clinic.operatingHours.walkIn && (
-                    <li className="flex items-center gap-2">
-                      <span className="text-[#2563EB] font-bold">✓</span>
-                      Walk-in Welcome
-                    </li>
-                  )}
-                  {clinic.operatingHours.appointment && (
-                    <li className="flex items-center gap-2">
-                      <span className="text-[#2563EB] font-bold">✓</span>
-                      Appointment Available
-                    </li>
-                  )}
-                </ul>
-              </div>
-
-              {/* Service Coverage */}
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-[#2563EB]" />
-                  Location & Coverage
-                </h3>
-                <ul className="space-y-2 text-gray-600">
-                  {clinic.serviceCoverage.areas.map((area, idx) => (
-                    <li key={idx} className="flex items-center gap-2">
-                      <span className="text-[#2563EB] font-bold">✓</span>
-                      {area}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Consultation Fee */}
-            <div className="bg-[#f8fbff] p-6 rounded-lg border border-[#2563EB]/20 mb-12">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Consultation Fee
-              </h3>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-3xl font-bold text-[#0b5f8c]">
-                  {clinic.consultationFee.amount}
-                </span>
-                <span className="text-gray-600">per consultation</span>
-              </div>
-              <p className="text-sm text-gray-500">
-                {clinic.consultationFee.note}
-              </p>
-              {clinic.insurance.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-[#2563EB]/10">
-                  <p className="text-sm font-semibold text-gray-700 mb-2">Insurance & Panels</p>
-                  <ul className="space-y-1">
-                    {clinic.insurance.map((item, idx) => (
-                      <li key={idx} className="text-sm text-gray-500 flex items-center gap-2">
-                        <span className="text-[#2563EB] font-bold">✓</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {/* Why Choose This Clinic */}
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Why Choose {clinic.name}
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {clinic.whyChoose.map((reason) => (
-                  <div key={reason.id} className="flex gap-4">
-                    <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-[#2563EB]/10">
-                        <span className="text-[#2563EB] font-bold">✓</span>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Clinic Registration & Verification</h3>
+              
+              <div className="grid md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                {/* Contact & Location Details */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-800 border-b pb-2">Clinic Information</h4>
+                  
+                  {clinic.phoneNumber && (
+                    <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📱</div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Contact Number</p>
+                        <p className="text-gray-800 font-medium">{clinic.phoneNumber}</p>
                       </div>
                     </div>
+                  )}
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📍</div>
                     <div>
-                      <h4 className="font-bold text-gray-900 mb-1">
-                        {reason.title}
-                      </h4>
-                      <p className="text-gray-600 text-sm">
-                        {reason.description}
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Street Address</p>
+                      <p className="text-gray-800 font-medium">
+                        {clinic.address?.street || "No Address Listed"}
+                        {clinic.address?.city && `, ${clinic.address.city}`}
+                        {clinic.address?.state && `, ${clinic.address.state}`}
                       </p>
                     </div>
                   </div>
-                ))}
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🌍</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Vendor Status</p>
+                      <p className="text-gray-800 font-medium">
+                        {clinic.isAvailable ? "Active Vendor" : "Inactive Vendor"} • {clinic.vendorType.toUpperCase()}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Regulatory Credentials */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-800 border-b pb-2">Regulatory Credentials</h4>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📝</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Vendor License Number</p>
+                      <p className="text-gray-800 font-medium">{clinic.registrationNumber || "No Registration Number"}</p>
+                    </div>
+                  </div>
+
+                  {clinic.companyRegistrationNumber && (
+                    <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🏢</div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Company Registration Number</p>
+                        <p className="text-gray-800 font-medium">{clinic.companyRegistrationNumber}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🛡️</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Medicare Verification Status</p>
+                      <p className="text-gray-800 font-medium capitalize">
+                        {clinic.verificationStatus}
+                      </p>
+                      {clinic.verificationNotes && (
+                        <p className="text-xs text-gray-400 font-normal">Notes: {clinic.verificationNotes}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Practice Location map/coordinates details */}
+            {clinic.address?.latitude && clinic.address?.longitude && (
+              <div className="mb-12 pb-12 border-b border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-blue-600" />
+                  Practice Location Map
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Geographic coordinates: <span className="font-semibold text-gray-800">{clinic.address.latitude}° N, {clinic.address.longitude}° E</span>
+                </p>
+                <div className="bg-gray-50 p-4 rounded-xl border flex items-center gap-4">
+                  <div className="text-3xl">🗺️</div>
+                  <div>
+                    <p className="text-sm text-gray-700 font-medium">Coordinate-based Positioning Active</p>
+                    <p className="text-xs text-gray-500">Perfect integration with navigation and mapping services.</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right: Booking Card */}
@@ -344,21 +303,16 @@ export default function ClinicDetailPage() {
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Operating Hours</p>
-                    <p className="font-semibold text-gray-900">
-                      {clinic.operatingHours.type}
+                    <p className="text-xs text-gray-500 mb-1">Clinic Verification State</p>
+                    <p className="font-semibold text-green-600 flex items-center gap-1.5 text-sm">
+                      <span className="w-2 h-2 rounded-full bg-green-500 block"></span>
+                      {clinic.verified ? "Verified Practice" : "Registered Practice"}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Doctors</p>
+                    <p className="text-xs text-gray-500 mb-1">Registration Status</p>
                     <p className="font-semibold text-gray-900">
-                      {clinic.doctors.total} registered doctors
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">Rating</p>
-                    <p className="font-semibold text-gray-900">
-                      {clinic.rating}/5 from {clinic.totalReviews} reviews
+                      License: {clinic.registrationNumber || "Licensed Vendor"}
                     </p>
                   </div>
                 </div>
@@ -366,12 +320,10 @@ export default function ClinicDetailPage() {
 
               <div className="mt-6 p-4 bg-[#f8fbff] rounded-lg border border-[#2563EB]/20">
                 <p className="text-xs text-gray-600">
-                  <span className="font-bold text-[#2563EB]">✓</span> Registered
-                  & Licensed Clinic
+                  <span className="font-bold text-[#2563EB]">✓</span> Registered & Licensed Clinic
                 </p>
                 <p className="text-xs text-gray-600 mt-2">
-                  <span className="font-bold text-[#2563EB]">✓</span> Backed by
-                  Medicare Platform
+                  <span className="font-bold text-[#2563EB]">✓</span> Backed by Medicare Platform
                 </p>
               </div>
             </div>

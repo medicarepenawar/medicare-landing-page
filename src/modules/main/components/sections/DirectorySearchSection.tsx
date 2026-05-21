@@ -7,6 +7,7 @@ import { DirectoryCard } from "../cards/DirectoryCard";
 import { directoryItems } from "../../constants/directory";
 import { fetchAllDoctors } from "../../../../services/doctorSpecialistService";
 import { fetchAllNurses } from "../../../../services/nurseService";
+import { fetchAllClinics } from "../../../../services/clinicService";
 import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
@@ -18,14 +19,15 @@ export const DirectorySearchSection: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [doctors, setDoctors] = useState<DirectoryItem[]>([]);
   const [nurses, setNurses] = useState<DirectoryItem[]>([]);
+  const [clinics, setClinics] = useState<DirectoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Vendor", "Clinic", "Lab"];
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([fetchAllDoctors(), fetchAllNurses()])
-      .then(([apiDocs, apiNurses]) => {
+    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics()])
+      .then(([apiDocs, apiNurses, apiClinics]) => {
         const mappedDocs: DirectoryItem[] = apiDocs.map((doc) => {
           return {
             id: `doc-${doc.id}`,
@@ -57,6 +59,22 @@ export const DirectorySearchSection: React.FC = () => {
           };
         });
         setNurses(mappedNurses);
+
+        const mappedClinics: DirectoryItem[] = apiClinics.map((clinic) => {
+          return {
+            id: `clinic-${clinic.id}`,
+            name: clinic.vendor?.name || "Medicare Affiliated Clinic",
+            role: "Clinic",
+            specialty: clinic.vendor?.description || "General Practice Clinic",
+            location: clinic.vendor?.address?.street || "Malaysia",
+            rating: 4.9,
+            availability: clinic.is_available ? "Available Today" : "Temporarily Closed",
+            image: clinic.vendor?.photo || "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=400",
+            badge: clinic.vendor?.verified ? "Verified" : undefined,
+            slug: clinic.id.toString(),
+          };
+        });
+        setClinics(mappedClinics);
       })
       .catch((err) => {
         console.error("Failed to fetch directory data:", err);
@@ -67,10 +85,12 @@ export const DirectorySearchSection: React.FC = () => {
   }, []);
 
   const combinedItems = useMemo(() => {
-    // Exclude static doctors and static nurses, and use fetched instead
-    const nonApiItems = directoryItems.filter((item) => item.role !== "Doctor" && item.role !== "Nurse");
-    return [...doctors, ...nurses, ...nonApiItems];
-  }, [doctors, nurses]);
+    // Exclude static doctors, static nurses, and static clinics, and use fetched instead
+    const nonApiItems = directoryItems.filter(
+      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic"
+    );
+    return [...doctors, ...nurses, ...clinics, ...nonApiItems];
+  }, [doctors, nurses, clinics]);
 
   const doctorSpecialties = useMemo(() => {
     const specialtiesSet = new Set<string>();
