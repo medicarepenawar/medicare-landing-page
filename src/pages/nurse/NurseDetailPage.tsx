@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ChevronRight, MessageCircle, Calendar, MapPin, Award, Users, Heart } from "lucide-react";
-import { Header } from "../../modules/landing-page/components/home/Header";
-import { Footer } from "../../modules/landing-page/components/home/Footer";
+import { Navbar } from "../../modules/main/components/layout/Navbar";
+import { Footer } from "../../modules/main/components/layout/Footer";
 import { getNurseBySlug } from "../../modules/constants/nurses";
 import Toast from "../../components/common/Toast";
 
@@ -15,15 +15,15 @@ export default function NurseDetailPage() {
 
   if (!nurse) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50">
-        <Header />
-        <main className="max-w-7xl mx-auto px-6 py-16 text-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50 flex flex-col font-sans">
+        <Navbar />
+        <main className="flex-grow max-w-7xl mx-auto px-6 py-16 pt-28 md:pt-36 text-center">
           <div className="text-gray-600">Nurse not found</div>
           <button onClick={() => navigate("/")} className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Back to Home
           </button>
         </main>
-        <Footer companyProfile={undefined} servicesData={undefined} />
+        <Footer />
       </div>
     );
   }
@@ -39,10 +39,10 @@ export default function NurseDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
-      <Header />
+    <div className="min-h-screen bg-white flex flex-col font-sans">
+      <Navbar />
 
-      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-8 pt-24">
+      <main className="flex-grow max-w-7xl mx-auto px-6 lg:px-8 py-8 pt-28 md:pt-36">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-4">
           <Link to="/" className="hover:text-[#2563EB]">
@@ -278,7 +278,7 @@ export default function NurseDetailPage() {
         </div>
       </main>
 
-      <Footer companyProfile={undefined} servicesData={undefined} />
+      <Footer />
 
       {showToast && <Toast message={toastMessage} onClose={() => setShowToast(false)} />}
     </div>

@@ -29,12 +29,12 @@ const EducationCard = ({ data }: { data: Education[] }) => {
                 item.isLatest ? "text-blue-600" : "text-gray-500"
               }`}
             >
-              {item.degree} ({item.year})
+              {item.major}
             </span>
             <p className="text-sm font-semibold text-gray-800">
-              {item.university}
+              {item.university} 
             </p>
-            <p className="text-xs text-gray-400">{item.major}</p>
+            <p className="text-xs text-gray-400">{item.year}</p>
           </div>
         ))}
       </div>

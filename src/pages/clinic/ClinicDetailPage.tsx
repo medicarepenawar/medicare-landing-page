@@ -11,8 +11,8 @@ import {
   ShieldCheck,
   Stethoscope,
 } from "lucide-react";
-import { Header } from "../../modules/landing-page/components/home/Header";
-import { Footer } from "../../modules/landing-page/components/home/Footer";
+import { Navbar } from "../../modules/main/components/layout/Navbar";
+import { Footer } from "../../modules/main/components/layout/Footer";
 import { getClinicBySlug } from "../../modules/constants/clinics";
 import Toast from "../../components/common/Toast";
 
@@ -25,9 +25,9 @@ export default function ClinicDetailPage() {
 
   if (!clinic) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50">
-        <Header />
-        <main className="max-w-7xl mx-auto px-6 py-16 text-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50 flex flex-col font-sans">
+        <Navbar />
+        <main className="flex-grow max-w-7xl mx-auto px-6 py-16 pt-28 md:pt-36 text-center">
           <div className="text-gray-600">Clinic not found</div>
           <button
             onClick={() => navigate("/")}
@@ -36,7 +36,7 @@ export default function ClinicDetailPage() {
             Back to Home
           </button>
         </main>
-        <Footer companyProfile={undefined} servicesData={undefined} />
+        <Footer />
       </div>
     );
   }
@@ -52,10 +52,10 @@ export default function ClinicDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
-      <Header />
+    <div className="min-h-screen bg-white flex flex-col font-sans">
+      <Navbar />
 
-      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-8 pt-24">
+      <main className="flex-grow max-w-7xl mx-auto px-6 lg:px-8 py-8 pt-28 md:pt-36">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-8 pt-4">
           <Link to="/" className="hover:text-[#2563EB]">
@@ -379,7 +379,7 @@ export default function ClinicDetailPage() {
         </div>
       </main>
 
-      <Footer companyProfile={undefined} servicesData={undefined} />
+      <Footer />
 
       {showToast && (
         <Toast message={toastMessage} onClose={() => setShowToast(false)} />
