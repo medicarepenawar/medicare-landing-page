@@ -30,7 +30,11 @@ export const DirectorySearchSection: React.FC = () => {
     setLoading(true);
     Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs()])
       .then(([apiDocs, apiNurses, apiClinics, apiLabs]) => {
-        const mappedDocs: DirectoryItem[] = apiDocs.map((doc) => {
+        // Deduplicate arrays by id
+        const uniqueDocs = apiDocs.filter(
+          (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
+        );
+        const mappedDocs: DirectoryItem[] = uniqueDocs.map((doc) => {
           return {
             id: `doc-${doc.id}`,
             name: doc.name,
@@ -46,7 +50,10 @@ export const DirectorySearchSection: React.FC = () => {
         });
         setDoctors(mappedDocs);
 
-        const mappedNurses: DirectoryItem[] = apiNurses.map((nurse) => {
+        const uniqueNurses = apiNurses.filter(
+          (nurse, index, self) => self.findIndex((n) => n.id === nurse.id) === index
+        );
+        const mappedNurses: DirectoryItem[] = uniqueNurses.map((nurse) => {
           return {
             id: `nurse-${nurse.id}`,
             name: nurse.name,
@@ -62,7 +69,10 @@ export const DirectorySearchSection: React.FC = () => {
         });
         setNurses(mappedNurses);
 
-        const mappedClinics: DirectoryItem[] = apiClinics.map((clinic) => {
+        const uniqueClinics = apiClinics.filter(
+          (clinic, index, self) => self.findIndex((c) => c.id === clinic.id) === index
+        );
+        const mappedClinics: DirectoryItem[] = uniqueClinics.map((clinic) => {
           return {
             id: `clinic-${clinic.id}`,
             name: clinic.vendor?.name || "Medicare Affiliated Clinic",
@@ -78,7 +88,10 @@ export const DirectorySearchSection: React.FC = () => {
         });
         setClinics(mappedClinics);
 
-        const mappedLabs: DirectoryItem[] = apiLabs.map((lab) => {
+        const uniqueLabs = apiLabs.filter(
+          (lab, index, self) => self.findIndex((l) => l.id === lab.id) === index
+        );
+        const mappedLabs: DirectoryItem[] = uniqueLabs.map((lab) => {
           return {
             id: `lab-${lab.id}`,
             name: lab.name,
