@@ -1,17 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ChevronRight, MessageCircle, Calendar, MapPin, Award, Users, Heart } from "lucide-react";
 import { Navbar } from "../../modules/main/components/layout/Navbar";
 import { Footer } from "../../modules/main/components/layout/Footer";
-import { getNurseBySlug } from "../../modules/constants/nurses";
+import { getNurseBySlug } from "../../services/nurseService";
+import type { Nurse } from "../../types/nurse";
 import Toast from "../../components/common/Toast";
 
 export default function NurseDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const nurse = getNurseBySlug(slug || "");
+  const [nurse, setNurse] = useState<Nurse | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    if (!slug) return;
+    setLoading(true);
+    getNurseBySlug(slug)
+      .then(setNurse)
+      .catch((err) => {
+        console.error("Failed to load nurse profile:", err);
+        setNurse(null);
+      })
+      .finally(() => setLoading(false));
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+        <Navbar />
+        <main className="flex-grow max-w-7xl mx-auto px-5 md:px-16 py-8 pt-28 md:pt-36 w-full flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <p className="text-gray-500 font-medium animate-pulse">Loading nurse profile...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!nurse) {
     return (
@@ -142,6 +171,91 @@ export default function NurseDetailPage() {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">{nurse.bio}</h2>
               <p className="text-gray-600 leading-relaxed mb-6">{nurse.description}</p>
+            </div>
+
+            {/* Personal & Professional Credentials Section */}
+            <div className="mb-12 pb-12 border-b border-gray-200">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Personal & Professional Credentials</h3>
+              
+              <div className="grid md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                {/* Contact & Address */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-800 border-b pb-2">Contact Details</h4>
+                  
+                  {nurse.phoneNumber && (
+                    <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📱</div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Phone Number</p>
+                        <p className="text-gray-800 font-medium">{nurse.phoneNumber}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📍</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Full Address</p>
+                      <p className="text-gray-800 font-medium">
+                        {nurse.address || "No Address Provided"}
+                        {nurse.postcode && `, ${nurse.postcode}`}
+                        {nurse.city && `, ${nurse.city}`}
+                        {nurse.state && `, ${nurse.state}`}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🌍</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Nationality & Gender</p>
+                      <p className="text-gray-800 font-medium">{nurse.nationality} • {nurse.gender}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Professional Qualifications & Registration */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-800 border-b pb-2">Professional Credentials</h4>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📝</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Annual Practising Certificate (APC)</p>
+                      <p className="text-gray-800 font-medium">No. {nurse.apcNumber || "N/A"}</p>
+                      {nurse.apcExpired && (
+                        <p className="text-xs text-gray-400 font-normal">Expires: {new Date(nurse.apcExpired).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🎓</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Education & Qualification</p>
+                      <p className="text-gray-800 font-medium">
+                        {nurse.firstGraduateFrom ? `Graduated from ${nurse.firstGraduateFrom}` : "N/A"}
+                        {nurse.firstGraduateYear && ` (${nurse.firstGraduateYear})`}
+                      </p>
+                      {nurse.nurseCertificateId && (
+                        <p className="text-xs text-gray-400 font-normal">Certificate ID: {nurse.nurseCertificateId}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🪪</div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Identification (NRIC / Passport)</p>
+                      <p className="text-gray-800 font-medium">
+                        {nurse.nric ? `NRIC: ${nurse.nric}` : ""}
+                        {nurse.passportNumber ? `Passport: ${nurse.passportNumber}` : ""}
+                        {!nurse.nric && !nurse.passportNumber && "N/A"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Services Offered */}
