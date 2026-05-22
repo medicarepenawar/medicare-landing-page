@@ -26,6 +26,7 @@ export interface ApiVendor {
   is_available: boolean;
   deleted_at: string | null;
   address: ApiAddress | null;
+  slug?: string;
 }
 
 export interface ApiClinic {
@@ -40,6 +41,7 @@ export interface ApiClinic {
   created_at: string;
   updated_at: string;
   vendor: ApiVendor;
+  slug?: string;
 }
 
 export interface ClinicApiResponse {
@@ -116,14 +118,37 @@ export const transformApiClinicToClinic = (apiClinic: ApiClinic): Clinic => {
   };
 };
 
+export interface SingleClinicApiResponse {
+  message?: string;
+  data: ApiClinic;
+}
+
 export const getClinicBySlug = async (slug: string): Promise<Clinic | null> => {
-  const idNum = parseInt(slug, 10);
-  if (!isNaN(idNum)) {
+  try {
+    const response = await axios.get<SingleClinicApiResponse | ApiClinic>(
+      `${BASE_API_URL}/landing-page/clinics/${slug}`
+    );
+    const responseData = response.data;
+    const apiClinic = (responseData && 'data' in responseData) ? responseData.data : (responseData as ApiClinic);
+    if (apiClinic && apiClinic.id) {
+      return transformApiClinicToClinic(apiClinic);
+    }
+  } catch (error) {
+    console.error(`Failed to fetch clinic by slug "${slug}":`, error);
+  }
+
+  // Fallback: search in all clinics list
+  try {
     const allClinics = await fetchAllClinics();
-    const foundClinic = allClinics.find((c) => c.id === idNum);
+    const foundClinic = allClinics.find(
+      (c) => c.vendor?.slug === slug || c.id.toString() === slug || c.id === parseInt(slug, 10)
+    );
     if (foundClinic) {
       return transformApiClinicToClinic(foundClinic);
     }
+  } catch (err) {
+    console.error("Clinic fallback search failed:", err);
   }
+
   return null;
 };

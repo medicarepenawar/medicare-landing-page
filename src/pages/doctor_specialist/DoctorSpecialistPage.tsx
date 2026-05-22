@@ -10,7 +10,7 @@ import { Navbar } from "../../modules/main/components/layout/Navbar";
 import { Footer } from "../../modules/main/components/layout/Footer";
 
 const DoctorSpecialist = () => {
-  const { id: slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
   const [doctor, setDoctor] = useState<Doctor | null>(null);

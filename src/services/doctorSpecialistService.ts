@@ -40,6 +40,7 @@ export interface ApiDoctor {
   deleted_at: string | null;
   specialities: any[];
   doctor_specialists: any[];
+  slug?: string;
 }
 
 export interface DoctorsApiResponse {
@@ -305,27 +306,44 @@ export const getDoctorById = async (_id: string): Promise<Doctor> => {
   });
 };
 
+export interface SingleDoctorApiResponse {
+  message?: string;
+  data: ApiDoctor;
+}
+
 export const getDoctorBySlug = async (slug: string): Promise<Doctor> => {
-  const idNum = parseInt(slug, 10);
-  if (!isNaN(idNum)) {
+  try {
+    const response = await axios.get<SingleDoctorApiResponse | ApiDoctor>(
+      `${BASE_API_URL}/landing-page/specialist-doctors/${slug}`
+    );
+    const responseData = response.data;
+    const apiDoc = (responseData && 'data' in responseData) ? responseData.data : (responseData as ApiDoctor);
+    if (apiDoc && apiDoc.id) {
+      return transformApiDoctorToDoctor(apiDoc);
+    }
+  } catch (error) {
+    console.error(`Failed to fetch doctor by slug "${slug}":`, error);
+  }
+
+  // Fallback 1: Local mock / slug check in directoryItems
+  const doctorItem = directoryItems.find((item) => item.slug === slug && item.role === "Doctor");
+  if (doctorItem) {
+    return transformDirectoryItemToDoctor(doctorItem);
+  }
+
+  // Fallback 2: Full listing search by id or slug matching
+  try {
     const allDocs = await fetchAllDoctors();
-    const foundDoc = allDocs.find((doc) => doc.id === idNum);
+    const foundDoc = allDocs.find((doc) => doc.slug === slug || doc.id.toString() === slug || doc.id === parseInt(slug, 10));
     if (foundDoc) {
       return transformApiDoctorToDoctor(foundDoc);
     }
+  } catch (err) {
+    console.error("Doctor fallback search failed:", err);
   }
 
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const doctorItem = directoryItems.find((item) => item.slug === slug && item.role === "Doctor");
-
-      if (doctorItem) {
-        const doctor = transformDirectoryItemToDoctor(doctorItem);
-        resolve(doctor);
-      } else {
-        reject(new Error(`Doctor with slug "${slug}" not found`));
-      }
-    }, 500);
+    reject(new Error(`Doctor with slug "${slug}" not found`));
   });
 };
 

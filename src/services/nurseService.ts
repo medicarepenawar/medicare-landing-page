@@ -33,6 +33,7 @@ export interface ApiNurse {
   verification_status: string;
   verification_notes: string | null;
   deleted_at: string | null;
+  slug?: string;
 }
 
 export interface NursesApiResponse {
@@ -108,14 +109,36 @@ export const transformApiNurseToNurse = (apiNurse: ApiNurse): Nurse => {
   };
 };
 
+export interface SingleNurseApiResponse {
+  message?: string;
+  data: ApiNurse;
+}
+
 export const getNurseBySlug = async (slug: string): Promise<Nurse | null> => {
-  const idNum = parseInt(slug, 10);
-  if (!isNaN(idNum)) {
+  try {
+    const response = await axios.get<SingleNurseApiResponse | ApiNurse>(
+      `${BASE_API_URL}/landing-page/nurses/${slug}`
+    );
+    const responseData = response.data;
+    const apiNurse = (responseData && 'data' in responseData) ? responseData.data : (responseData as ApiNurse);
+    if (apiNurse && apiNurse.id) {
+      return transformApiNurseToNurse(apiNurse);
+    }
+  } catch (error) {
+    console.error(`Failed to fetch nurse by slug "${slug}":`, error);
+  }
+
+  // Fallback: search in all nurses list
+  try {
     const allNurses = await fetchAllNurses();
-    const foundNurse = allNurses.find((n) => n.id === idNum);
+    const foundNurse = allNurses.find(
+      (n) => n.slug === slug || n.id.toString() === slug || n.id === parseInt(slug, 10)
+    );
     if (foundNurse) {
       return transformApiNurseToNurse(foundNurse);
     }
+  } catch (err) {
+    console.error("Nurse fallback search failed:", err);
   }
 
   return null;

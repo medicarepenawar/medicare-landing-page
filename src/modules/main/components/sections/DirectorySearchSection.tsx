@@ -45,7 +45,7 @@ export const DirectorySearchSection: React.FC = () => {
             availability: "Available Today",
             image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
             badge: doc.verified ? "Verified" : undefined,
-            slug: doc.id.toString(),
+            slug: doc.slug || doc.id.toString(),
           };
         });
         setDoctors(mappedDocs);
@@ -64,7 +64,7 @@ export const DirectorySearchSection: React.FC = () => {
             availability: "Available Today",
             image: nurse.photo || "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=400",
             badge: nurse.verified ? "Verified" : undefined,
-            slug: nurse.id.toString(),
+            slug: nurse.slug || nurse.id.toString(),
           };
         });
         setNurses(mappedNurses);
@@ -83,7 +83,7 @@ export const DirectorySearchSection: React.FC = () => {
             availability: clinic.is_available ? "Available Today" : "Temporarily Closed",
             image: clinic.vendor?.photo || "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=400",
             badge: clinic.vendor?.verified ? "Verified" : undefined,
-            slug: clinic.id.toString(),
+            slug: clinic.slug || clinic.vendor?.slug || clinic.id.toString(),
           };
         });
         setClinics(mappedClinics);
@@ -102,7 +102,7 @@ export const DirectorySearchSection: React.FC = () => {
             availability: lab.is_available ? "Available Today" : "Temporarily Closed",
             image: (lab.photo && lab.photo[0]) || "https://images.unsplash.com/photo-1579165466521-35b38d326e0e?auto=format&fit=crop&q=80&w=400",
             badge: lab.verified ? "Verified" : undefined,
-            slug: lab.id.toString(),
+            slug: lab.slug || lab.id.toString(),
           };
         });
         setLabs(mappedLabs);

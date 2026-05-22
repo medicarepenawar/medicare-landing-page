@@ -1,5 +1,5 @@
 // API Base URL
-export const BASE_API_URL = "https://dev.medicarebackend.com/api";
+export const BASE_API_URL = "https://api.medicare.com.my/api";
 
 // Internal Routes
 export const HOME_PAGE_URL = "/";
@@ -12,7 +12,7 @@ export const MARKETPLACE_PRODUCT_URL = "/pharmacy/mukminpharmacy/product/:id";
 export const MARKETPLACE_CART_URL = "/pharmacy/mukminpharmacy/cart";
 export const MARKETPLACE_CHECKOUT_URL = "/pharmacy/mukminpharmacy/checkout";
 export const MARKETPLACE_PRESCRIPTION_URL = "/pharmacy/mukminpharmacy/upload-prescription";
-export const DOCTOR_SPECIALIST_URL = "/doctor-specialist/:id";
+export const DOCTOR_SPECIALIST_URL = "/doctor-specialist/:slug";
 export const NURSE_DETAIL_URL = "/nurse/:slug";
 export const LAB_DETAIL_URL = "/lab/:slug";
 export const CLINIC_DETAIL_URL = "/clinic/:slug";

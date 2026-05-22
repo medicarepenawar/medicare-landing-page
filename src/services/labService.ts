@@ -37,6 +37,7 @@ export interface ApiLab {
   deleted_at: string | null;
   address: ApiLabAddress | null;
   vendor_onsite_lab: ApiOnsiteLab | null;
+  slug?: string;
 }
 
 export interface LabApiResponse {
@@ -114,14 +115,37 @@ export const transformApiLabToLab = (apiLab: ApiLab): Lab => {
   };
 };
 
+export interface SingleLabApiResponse {
+  message?: string;
+  data: ApiLab;
+}
+
 export const getLabBySlug = async (slug: string): Promise<Lab | null> => {
-  const idNum = parseInt(slug, 10);
-  if (!isNaN(idNum)) {
+  try {
+    const response = await axios.get<SingleLabApiResponse | ApiLab>(
+      `${BASE_API_URL}/landing-page/laboratories/${slug}`
+    );
+    const responseData = response.data;
+    const apiLab = (responseData && 'data' in responseData) ? responseData.data : (responseData as ApiLab);
+    if (apiLab && apiLab.id) {
+      return transformApiLabToLab(apiLab);
+    }
+  } catch (error) {
+    console.error(`Failed to fetch lab by slug "${slug}":`, error);
+  }
+
+  // Fallback: search in all labs list
+  try {
     const allLabs = await fetchAllLabs();
-    const foundLab = allLabs.find((l) => l.id === idNum);
+    const foundLab = allLabs.find(
+      (l) => l.slug === slug || l.id.toString() === slug || l.id === parseInt(slug, 10)
+    );
     if (foundLab) {
       return transformApiLabToLab(foundLab);
     }
+  } catch (err) {
+    console.error("Lab fallback search failed:", err);
   }
+
   return null;
 };
