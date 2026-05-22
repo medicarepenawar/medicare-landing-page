@@ -272,23 +272,7 @@ export default function ClinicDetailPage() {
                   ></iframe>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                  <div className="flex items-center gap-3">
-                    <div className="text-3xl">🗺️</div>
-                    <div>
-                      <p className="text-sm text-gray-800 font-semibold">Dynamic Positioning Active</p>
-                      <p className="text-xs text-gray-500 font-medium">Fully synchronized map layout using 3rd party integration.</p>
-                    </div>
-                  </div>
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${clinic.address.latitude},${clinic.address.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2"
-                  >
-                    <span>🧭</span> Open in Google Maps
-                  </a>
-                </div>
+          
               </div>
             )}
           </div>
