@@ -13,20 +13,7 @@ const CredentialCard = ({doctor}: {doctor: Doctor}) => {
         <CredentialItem label="MMC Number" value={doctor.mmcNumber} />
         <CredentialItem label="APC Number" value={doctor.apcNumber} />
 
-        {/* Kondisional Rendering: tampilkan gaya berbeda jika expired */}
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">
-            APC Expiration
-          </span>
-          <span
-            className={`text-sm font-semibold flex items-center gap-1 ${
-              doctor.isApcExpired ? "text-red-500" : "text-green-600"
-            }`}
-          >
-            <span className="material-symbols-outlined text-base">event</span>
-            {doctor.apcExpiry}
-          </span>
-        </div>
+       
       </div>
     </section>
     );
