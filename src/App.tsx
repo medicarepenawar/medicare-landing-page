@@ -3,6 +3,7 @@ import Register from "./modules/landing-page/pages/Register";
 import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
 import NurseRegisterPage from "./pages/nurse/NurseRegisterPage";
 import NurseDetailPage from "./pages/nurse/NurseDetailPage";
+import TherapistDetailPage from "./pages/therapist/TherapistDetailPage";
 import LabDetailPage from "./pages/lab/LabDetailPage";
 import ClinicDetailPage from "./pages/clinic/ClinicDetailPage";
 import LabAssistantRegisterPage from "./pages/labassistant/LabAssistantRegisterPage";
@@ -42,6 +43,9 @@ import {
   CLINICS_LIST_URL,
   LABS_LIST_URL,
   PHARMACIES_LIST_URL,
+  THERAPIST_DETAIL_URL,
+  THERAPISTS_LIST_URL,
+  THERAPIST_LIST_URL_ALT,
 } from "./constants/constant";
 import MainPage from "./modules/main/pages/MainPage";
 import Home from "./modules/landing-page/pages/Home";
@@ -78,6 +82,7 @@ function App() {
         <Route path={NURSE_DETAIL_URL} element={<NurseDetailPage />} />
         <Route path={LAB_DETAIL_URL} element={<LabDetailPage />} />
         <Route path={CLINIC_DETAIL_URL} element={<ClinicDetailPage />} />
+        <Route path={THERAPIST_DETAIL_URL} element={<TherapistDetailPage />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
@@ -103,6 +108,8 @@ function App() {
         <Route path={CLINICS_LIST_URL} element={<DirectoryCategoryPage category="Clinic" />} />
         <Route path={LABS_LIST_URL} element={<DirectoryCategoryPage category="Lab" />} />
         <Route path={PHARMACIES_LIST_URL} element={<DirectoryCategoryPage category="Vendor" />} />
+        <Route path={THERAPISTS_LIST_URL} element={<DirectoryCategoryPage category="Therapist" />} />
+        <Route path={THERAPIST_LIST_URL_ALT} element={<DirectoryCategoryPage category="Therapist" />} />
       </Routes>
     </ToastProvider>
   );

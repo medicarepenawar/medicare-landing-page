@@ -10,10 +10,11 @@ import { fetchAllDoctors } from "../../../../services/doctorSpecialistService";
 import { fetchAllNurses } from "../../../../services/nurseService";
 import { fetchAllClinics } from "../../../../services/clinicService";
 import { fetchAllLabs } from "../../../../services/labService";
+import { fetchAllTherapists } from "../../../../services/therapistService";
 import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
-type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab";
+type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist";
 
 interface DirectorySearchSectionProps {
   fixedTab?: FilterTab;
@@ -58,6 +59,19 @@ const categoryMetadata: Record<FilterTab, { title: React.ReactNode; subtitle: st
     ),
     subtitle: "Discover trusted, verified home care nurses and medical assistants. Book professional nursing care.",
     badge: "Nurse Directory",
+  },
+  Therapist: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Professional
+        </span>{" "}
+        Therapist
+      </>
+    ),
+    subtitle: "Discover trusted, verified home care therapists and rehabilitation experts. Book professional therapy care.",
+    badge: "Therapist Directory",
   },
   Vendor: {
     title: (
@@ -108,14 +122,15 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   const [nurses, setNurses] = useState<DirectoryItem[]>([]);
   const [clinics, setClinics] = useState<DirectoryItem[]>([]);
   const [labs, setLabs] = useState<DirectoryItem[]>([]);
+  const [therapists, setTherapists] = useState<DirectoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Vendor", "Clinic", "Lab"];
+  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab"];
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs()])
-      .then(([apiDocs, apiNurses, apiClinics, apiLabs]) => {
+    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists()])
+      .then(([apiDocs, apiNurses, apiClinics, apiLabs, apiTherapists]) => {
         // Deduplicate arrays by id
         const uniqueDocs = apiDocs.filter(
           (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
@@ -192,6 +207,25 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
           };
         });
         setLabs(mappedLabs);
+
+        const uniqueTherapists = apiTherapists.filter(
+          (therapist, index, self) => self.findIndex((t) => t.id === therapist.id) === index
+        );
+        const mappedTherapists: DirectoryItem[] = uniqueTherapists.map((therapist) => {
+          return {
+            id: `therapist-${therapist.id}`,
+            name: therapist.name,
+            role: "Therapist",
+            specialty: therapist.experience || "Professional Therapy & Rehabilitation Care",
+            location: therapist.city || therapist.state || "Malaysia",
+            rating: 4.8,
+            availability: "Available Today",
+            image: therapist.photo || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=400",
+            badge: therapist.verified ? "Verified" : undefined,
+            slug: therapist.slug || therapist.id.toString(),
+          };
+        });
+        setTherapists(mappedTherapists);
       })
       .catch((err) => {
         console.error("Failed to fetch directory data:", err);
@@ -208,12 +242,12 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   }, [fixedTab]);
 
   const combinedItems = useMemo(() => {
-    // Exclude static doctors, static nurses, static clinics, and static labs, and use fetched instead
+    // Exclude static doctors, static nurses, static clinics, static labs, and static therapists, and use fetched instead
     const nonApiItems = directoryItems.filter(
-      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab"
+      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab" && item.role !== "Therapist"
     );
-    return [...doctors, ...nurses, ...clinics, ...labs, ...nonApiItems];
-  }, [doctors, nurses, clinics, labs]);
+    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...nonApiItems];
+  }, [doctors, nurses, clinics, labs, therapists]);
 
   const doctorSpecialties = useMemo(() => {
     const specialtiesSet = new Set<string>();
@@ -250,6 +284,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
       Vendor: 0,
       Clinic: 0,
       Lab: 0,
+      Therapist: 0,
     };
     combinedItems.forEach((item) => {
       if (item.role in counts) {
