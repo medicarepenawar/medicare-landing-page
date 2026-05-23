@@ -29,6 +29,23 @@ export interface ApiVendor {
   slug?: string;
 }
 
+export interface ApiClinicDoctor {
+  id: number;
+  name: string;
+  slug: string | null;
+  photo: string | null;
+  phone_number: string | null;
+  specialist: string | null;
+  experience: string | null;
+  verified: boolean;
+  pivot?: {
+    vendors_vc_id: number;
+    doctor_id: number;
+    on_duty: number;
+    shift: string;
+  };
+}
+
 export interface ApiClinic {
   id: number;
   vendor_id: number;
@@ -42,6 +59,7 @@ export interface ApiClinic {
   updated_at: string;
   vendor: ApiVendor;
   slug?: string;
+  doctor?: ApiClinicDoctor[];
 }
 
 export interface ClinicApiResponse {
@@ -115,6 +133,22 @@ export const transformApiClinicToClinic = (apiClinic: ApiClinic): Clinic => {
       latitude: apiClinic.vendor.address.latitude,
       longitude: apiClinic.vendor.address.longitude,
     } : null,
+    doctors: apiClinic.doctor ? apiClinic.doctor.map((d) => ({
+      id: d.id,
+      name: d.name,
+      slug: d.slug || null,
+      photo: d.photo || null,
+      phone_number: d.phone_number || null,
+      specialist: d.specialist || null,
+      experience: d.experience || null,
+      verified: d.verified,
+      pivot: d.pivot ? {
+        vendors_vc_id: d.pivot.vendors_vc_id,
+        doctor_id: d.pivot.doctor_id,
+        on_duty: d.pivot.on_duty,
+        shift: d.pivot.shift,
+      } : undefined,
+    })) : [],
   };
 };
 

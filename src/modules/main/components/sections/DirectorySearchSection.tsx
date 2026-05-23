@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Search, SlidersHorizontal, X, Stethoscope } from "lucide-react";
+import { Search, SlidersHorizontal, X, Stethoscope, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "../layout/Container";
 import { SectionWrapper } from "../layout/SectionWrapper";
@@ -9,27 +10,127 @@ import { fetchAllDoctors } from "../../../../services/doctorSpecialistService";
 import { fetchAllNurses } from "../../../../services/nurseService";
 import { fetchAllClinics } from "../../../../services/clinicService";
 import { fetchAllLabs } from "../../../../services/labService";
+import { fetchAllTherapists } from "../../../../services/therapistService";
 import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
-type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab";
+type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist";
 
-export const DirectorySearchSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<FilterTab>("All");
+interface DirectorySearchSectionProps {
+  fixedTab?: FilterTab;
+}
+
+const categoryMetadata: Record<FilterTab, { title: React.ReactNode; subtitle: string; badge: string }> = {
+  All: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Healthcare
+        </span>{" "}
+        Professional
+      </>
+    ),
+    subtitle: "Discover trusted doctors, nurses, pharmacies, and clinics. Book appointments or get emergency support instantly.",
+    badge: "Healthcare Directory",
+  },
+  Doctor: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Specialist
+        </span>{" "}
+        Doctor
+      </>
+    ),
+    subtitle: "Discover trusted specialist doctors across multiple fields of practice. Book professional consultations today.",
+    badge: "Doctor Directory",
+  },
+  Nurse: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Professional
+        </span>{" "}
+        Nurse
+      </>
+    ),
+    subtitle: "Discover trusted, verified home care nurses and medical assistants. Book professional nursing care.",
+    badge: "Nurse Directory",
+  },
+  Therapist: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Professional
+        </span>{" "}
+        Therapist
+      </>
+    ),
+    subtitle: "Discover trusted, verified home care therapists and rehabilitation experts. Book professional therapy care.",
+    badge: "Therapist Directory",
+  },
+  Vendor: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Trusted
+        </span>{" "}
+        Pharmacy
+      </>
+    ),
+    subtitle: "Locate local pharmacies and retail healthcare vendors. Get your prescription filled or purchase healthcare items.",
+    badge: "Pharmacy Directory",
+  },
+  Clinic: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Nearest
+        </span>{" "}
+        Clinic
+      </>
+    ),
+    subtitle: "Locate medical clinics and healthcare centers. Find verified clinics near you for general checkups and consultations.",
+    badge: "Clinic Directory",
+  },
+  Lab: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Diagnostic
+        </span>{" "}
+        Lab
+      </>
+    ),
+    subtitle: "Locate professional laboratory services and diagnostic centers. Get accurate medical tests and results.",
+    badge: "Lab Directory",
+  },
+};
+
+export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ fixedTab }) => {
+  const [activeTab, setActiveTab] = useState<FilterTab>(fixedTab || "All");
   const [activeSpecialty, setActiveSpecialty] = useState<string>("All Specialties");
   const [searchQuery, setSearchQuery] = useState("");
   const [doctors, setDoctors] = useState<DirectoryItem[]>([]);
   const [nurses, setNurses] = useState<DirectoryItem[]>([]);
   const [clinics, setClinics] = useState<DirectoryItem[]>([]);
   const [labs, setLabs] = useState<DirectoryItem[]>([]);
+  const [therapists, setTherapists] = useState<DirectoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Vendor", "Clinic", "Lab"];
+  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab"];
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs()])
-      .then(([apiDocs, apiNurses, apiClinics, apiLabs]) => {
+    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists()])
+      .then(([apiDocs, apiNurses, apiClinics, apiLabs, apiTherapists]) => {
         // Deduplicate arrays by id
         const uniqueDocs = apiDocs.filter(
           (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
@@ -39,7 +140,7 @@ export const DirectorySearchSection: React.FC = () => {
             id: `doc-${doc.id}`,
             name: doc.name,
             role: "Doctor",
-            specialty: doc.specialist || "General Practitioner",
+            specialty: doc.specialist || undefined,
             location: doc.place_of_practice || doc.city || "Malaysia",
             rating: 4.9,
             availability: "Available Today",
@@ -58,7 +159,7 @@ export const DirectorySearchSection: React.FC = () => {
             id: `nurse-${nurse.id}`,
             name: nurse.name,
             role: "Nurse",
-            specialty: nurse.experience || "Professional Home Nursing Care",
+            specialty: nurse.experience || undefined,
             location: nurse.city || nurse.state || "Malaysia",
             rating: 4.8,
             availability: "Available Today",
@@ -77,7 +178,7 @@ export const DirectorySearchSection: React.FC = () => {
             id: `clinic-${clinic.id}`,
             name: clinic.vendor?.name || "Medicare Affiliated Clinic",
             role: "Clinic",
-            specialty: clinic.vendor?.description || "General Practice Clinic",
+            specialty: undefined,
             location: clinic.vendor?.address?.street || "Malaysia",
             rating: 4.9,
             availability: clinic.is_available ? "Available Today" : "Temporarily Closed",
@@ -96,7 +197,7 @@ export const DirectorySearchSection: React.FC = () => {
             id: `lab-${lab.id}`,
             name: lab.name,
             role: "Lab",
-            specialty: lab.description || "Diagnostics & Laboratory Services",
+            specialty: lab.description || undefined,
             location: lab.address?.street || "Malaysia",
             rating: 4.8,
             availability: lab.is_available ? "Available Today" : "Temporarily Closed",
@@ -106,6 +207,25 @@ export const DirectorySearchSection: React.FC = () => {
           };
         });
         setLabs(mappedLabs);
+
+        const uniqueTherapists = apiTherapists.filter(
+          (therapist, index, self) => self.findIndex((t) => t.id === therapist.id) === index
+        );
+        const mappedTherapists: DirectoryItem[] = uniqueTherapists.map((therapist) => {
+          return {
+            id: `therapist-${therapist.id}`,
+            name: therapist.name,
+            role: "Therapist",
+            specialty: therapist.experience || undefined,
+            location: therapist.city || therapist.state || "Malaysia",
+            rating: 4.8,
+            availability: "Available Today",
+            image: therapist.photo || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=400",
+            badge: therapist.verified ? "Verified" : undefined,
+            slug: therapist.slug || therapist.id.toString(),
+          };
+        });
+        setTherapists(mappedTherapists);
       })
       .catch((err) => {
         console.error("Failed to fetch directory data:", err);
@@ -115,13 +235,19 @@ export const DirectorySearchSection: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (fixedTab) {
+      setActiveTab(fixedTab);
+    }
+  }, [fixedTab]);
+
   const combinedItems = useMemo(() => {
-    // Exclude static doctors, static nurses, static clinics, and static labs, and use fetched instead
+    // Exclude static doctors, static nurses, static clinics, static labs, and static therapists, and use fetched instead
     const nonApiItems = directoryItems.filter(
-      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab"
+      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab" && item.role !== "Therapist"
     );
-    return [...doctors, ...nurses, ...clinics, ...labs, ...nonApiItems];
-  }, [doctors, nurses, clinics, labs]);
+    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...nonApiItems];
+  }, [doctors, nurses, clinics, labs, therapists]);
 
   const doctorSpecialties = useMemo(() => {
     const specialtiesSet = new Set<string>();
@@ -158,6 +284,7 @@ export const DirectorySearchSection: React.FC = () => {
       Vendor: 0,
       Clinic: 0,
       Lab: 0,
+      Therapist: 0,
     };
     combinedItems.forEach((item) => {
       if (item.role in counts) {
@@ -167,9 +294,29 @@ export const DirectorySearchSection: React.FC = () => {
     return counts;
   }, [combinedItems]);
 
+  const currentMeta = categoryMetadata[activeTab] || categoryMetadata.All;
+
   return (
     <SectionWrapper className="bg-gradient-to-br from-purple-50/50 via-white to-purple-50/50 min-h-screen pt-28 md:pt-36">
       <Container>
+        {/* Back to main directory breadcrumb if on a fixed category page */}
+        {fixedTab && (
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-5xl mx-auto mb-8"
+          >
+            <Link
+              to="/main"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#2563EB] font-medium transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Medical Directory
+            </Link>
+          </motion.div>
+        )}
+
         {/* ─── Hero Header with decorative elements ─── */}
         <div className="relative max-w-4xl mx-auto text-center mb-12 md:mb-16">
           {/* Decorative floating shapes — z-index layering */}
@@ -184,7 +331,7 @@ export const DirectorySearchSection: React.FC = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-[#2563EB]/5 border border-[#2563EB]/10 text-[#2563EB] text-sm font-medium mb-6">
               <Stethoscope className="w-4 h-4" />
-              Healthcare Directory
+              {currentMeta.badge}
             </span>
           </motion.div>
 
@@ -194,11 +341,7 @@ export const DirectorySearchSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.1] mb-6"
           >
-            Find Your{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
-              Healthcare
-            </span>{" "}
-            Professional
+            {currentMeta.title}
           </motion.h1>
 
           <motion.p
@@ -207,8 +350,7 @@ export const DirectorySearchSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto"
           >
-            Discover trusted doctors, nurses, pharmacies, and clinics. Book
-            appointments or get emergency support instantly.
+            {currentMeta.subtitle}
           </motion.p>
         </div>
 
@@ -242,36 +384,38 @@ export const DirectorySearchSection: React.FC = () => {
           </div>
 
           {/* ─── Role Tabs ─── */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  if (tab !== "Doctor")
-                    setActiveSpecialty("All Specialties");
-                }}
-                className={cn(
-                  "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border",
-                  activeTab === tab
-                    ? "bg-gray-900 text-white border-gray-900 shadow-lg shadow-gray-900/15"
-                    : "bg-white text-gray-600 border-gray-200/80 hover:border-gray-300 hover:text-gray-900 hover:shadow-sm"
-                )}
-              >
-                {tab === "Vendor" ? "Pharmacy" : tab}
-                <span
+          {!fixedTab && (
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    setActiveTab(tab);
+                    if (tab !== "Doctor")
+                      setActiveSpecialty("All Specialties");
+                  }}
                   className={cn(
-                    "text-[11px] px-1.5 py-0.5 rounded-md font-semibold",
+                    "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border",
                     activeTab === tab
-                      ? "bg-white/20 text-white"
-                      : "bg-gray-100 text-gray-500"
+                      ? "bg-gray-900 text-white border-gray-900 shadow-lg shadow-gray-900/15"
+                      : "bg-white text-gray-600 border-gray-200/80 hover:border-gray-300 hover:text-gray-900 hover:shadow-sm"
                   )}
                 >
-                  {tabCounts[tab]}
-                </span>
-              </button>
-            ))}
-          </div>
+                  {tab === "Vendor" ? "Pharmacy" : tab}
+                  <span
+                    className={cn(
+                      "text-[11px] px-1.5 py-0.5 rounded-md font-semibold",
+                      activeTab === tab
+                        ? "bg-white/20 text-white"
+                        : "bg-gray-100 text-gray-500"
+                    )}
+                  >
+                    {tabCounts[tab]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* ─── Doctor Specialty Sub-filter ─── */}
           <AnimatePresence>

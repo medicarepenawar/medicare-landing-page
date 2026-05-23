@@ -6,10 +6,13 @@ import { cn } from "../../utils/cn";
 import logoImg from "../../../../assets/img/home/logo.png";
 
 const navLinks = [
-  { label: "Directory", href: "/directory" },
-  { label: "Doctors", href: "/register/doctor" },
-  { label: "Vendors", href: "/register/vendor" },
-  { label: "Nurses", href: "/register/nurse" },
+
+  { label: "Doctors", href: "/specialist-doctors" },
+  { label: "Nurses", href: "/nurses" },
+  { label: "Therapists", href: "/therapists" },
+  { label: "Clinics", href: "/clinics" },
+  { label: "Labs", href: "/labs" },
+  { label: "Pharmacies", href: "/pharmacies" },
 ];
 
 export const Navbar: React.FC = () => {
