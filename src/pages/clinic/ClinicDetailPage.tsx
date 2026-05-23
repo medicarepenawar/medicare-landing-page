@@ -17,53 +17,7 @@ import { getClinicBySlug } from "../../services/clinicService";
 import type { Clinic } from "../../types/clinic";
 import Toast from "../../components/common/Toast";
 
-interface DoctorOnDuty {
-  id: string;
-  name: string;
-  specialty: string;
-  avatar: string;
-  status: "On Duty" | "On Break" | "Next Shift";
-  schedule: string;
-  days: string;
-  experience: string;
-  languages: string[];
-}
 
-const dummyDoctors: DoctorOnDuty[] = [
-  {
-    id: "dod-1",
-    name: "Dr. Siti Nurhaliza",
-    specialty: "General Practitioner & Family Medicine",
-    avatar: "https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=400",
-    status: "On Duty",
-    schedule: "08:00 AM - 02:00 PM",
-    days: "Mon - Fri",
-    experience: "8 Years",
-    languages: ["Malay", "English"],
-  },
-  {
-    id: "dod-2",
-    name: "Dr. Adrian Wijaya",
-    specialty: "Consultant Pediatrician",
-    avatar: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400",
-    status: "On Duty",
-    schedule: "10:00 AM - 04:00 PM",
-    days: "Mon, Wed, Fri",
-    experience: "12 Years",
-    languages: ["English", "Indonesian", "Mandarin"],
-  },
-  {
-    id: "dod-3",
-    name: "Dr. Sarah Mitchell",
-    specialty: "Obstetrics & Gynecology",
-    avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400",
-    status: "Next Shift",
-    schedule: "02:00 PM - 08:00 PM",
-    days: "Tue, Thu, Sat",
-    experience: "10 Years",
-    languages: ["English", "Malay"],
-  },
-];
 
 export default function ClinicDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -180,7 +134,6 @@ export default function ClinicDetailPage() {
                 <p className="text-[#0b5f8c] font-semibold text-lg mb-1 capitalize">
                   Medicare Affiliated {clinic.vendorType}
                 </p>
-                <p className="text-gray-600 mb-6">{clinic.description || "General Practice & Family Consultation Services"}</p>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-4">
@@ -238,17 +191,19 @@ export default function ClinicDetailPage() {
                     </div>
                   )}
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📍</div>
-                    <div>
-                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Street Address</p>
-                      <p className="text-gray-800 font-medium">
-                        {clinic.address?.street || "No Address Listed"}
-                        {clinic.address?.city && `, ${clinic.address.city}`}
-                        {clinic.address?.state && `, ${clinic.address.state}`}
-                      </p>
+                  {clinic.address?.street && (
+                    <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📍</div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Street Address</p>
+                        <p className="text-gray-800 font-medium">
+                          {clinic.address.street}
+                          {clinic.address.city && `, ${clinic.address.city}`}
+                          {clinic.address.state && `, ${clinic.address.state}`}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="flex items-start gap-3">
                     <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">🌍</div>
@@ -265,13 +220,15 @@ export default function ClinicDetailPage() {
                 <div className="space-y-4">
                   <h4 className="text-lg font-semibold text-gray-800 border-b pb-2">Regulatory Credentials</h4>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📝</div>
-                    <div>
-                      <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Vendor License Number</p>
-                      <p className="text-gray-800 font-medium">{clinic.registrationNumber || "No Registration Number"}</p>
+                  {clinic.registrationNumber && (
+                    <div className="flex items-start gap-3">
+                      <div className="w-5 h-5 mt-0.5 text-blue-600 flex-shrink-0">📝</div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Vendor License Number</p>
+                        <p className="text-gray-800 font-medium">{clinic.registrationNumber}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {clinic.companyRegistrationNumber && (
                     <div className="flex items-start gap-3">
@@ -337,84 +294,83 @@ export default function ClinicDetailPage() {
 
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-6">
-                {dummyDoctors.map((doctor) => (
-                  <div
-                    key={doctor.id}
-                    className="group relative bg-white border border-gray-200 rounded-2xl p-5 hover:border-blue-200 transition-all duration-300 hover:shadow-md flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Top profile part */}
-                      <div className="flex gap-4 items-start mb-4">
-                        <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-gray-50 border border-gray-100 flex-shrink-0">
-                          <img
-                            src={doctor.avatar}
-                            alt={doctor.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                        <div className="flex-grow">
-                          <div className="flex items-start justify-between gap-2">
-                            <h4 className="font-bold text-gray-900 text-[15px] leading-tight group-hover:text-blue-600 transition-colors">
-                              {doctor.name}
-                            </h4>
-                            <span
-                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                                doctor.status === "On Duty"
-                                  ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                                  : doctor.status === "On Break"
-                                  ? "bg-amber-50 text-amber-700 border border-amber-100"
-                                  : "bg-blue-50 text-blue-700 border border-blue-100"
-                              }`}
-                            >
-                              {doctor.status}
-                            </span>
+              {(!clinic.doctors || clinic.doctors.length === 0) ? (
+                <div className="text-center py-8 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                  <Stethoscope className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-500 font-medium">No doctors currently registered at this clinic.</p>
+                </div>
+              ) : (
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {clinic.doctors.map((doctor) => {
+                    const isDuty = doctor.pivot?.on_duty === 1;
+                    const shiftText = doctor.pivot?.shift ? `Shift ${doctor.pivot.shift}` : "Regular Shift";
+                    return (
+                      <div
+                        key={doctor.id}
+                        onClick={() => navigate(`/doctor-specialist/${doctor.slug || doctor.id}`)}
+                        className="group relative bg-white border border-gray-200 rounded-2xl p-5 hover:border-blue-200 transition-all duration-300 hover:shadow-md flex flex-col justify-between cursor-pointer"
+                      >
+                        <div>
+                          {/* Top profile part */}
+                          <div className="flex gap-4 items-start mb-4">
+                            <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-gray-50 border border-gray-100 flex-shrink-0">
+                              <img
+                                src={doctor.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400"}
+                                alt={doctor.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                            <div className="flex-grow">
+                              <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-bold text-gray-900 text-[15px] leading-tight group-hover:text-blue-600 transition-colors">
+                                  {doctor.name}
+                                </h4>
+                                <span
+                                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                                    isDuty
+                                      ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                                      : "bg-blue-50 text-blue-700 border border-blue-100"
+                                  }`}
+                                >
+                                  {isDuty ? "On Duty" : "Off Duty"}
+                                </span>
+                              </div>
+                               {doctor.specialist && (
+                                <p className="text-xs font-semibold text-blue-600 mt-1">
+                                  {doctor.specialist}
+                                </p>
+                              )}
+                              {doctor.experience && (
+                                <p className="text-[11px] text-gray-400 mt-0.5">
+                                  {doctor.experience} Years Experience
+                                </p>
+                              )}
+                            </div>
                           </div>
-                          <p className="text-xs font-semibold text-blue-600 mt-1">
-                            {doctor.specialty}
-                          </p>
-                          <p className="text-[11px] text-gray-400 mt-0.5">
-                            {doctor.experience} Experience
-                          </p>
+
+                          {/* Middle detail fields */}
+                          {doctor.pivot?.shift && (
+                            <div className="space-y-2.5 py-3 border-t border-b border-gray-100 mb-4">
+                              <div className="flex items-center gap-2 text-xs text-gray-600">
+                                <Clock className="w-3.5 h-3.5 text-gray-400" />
+                                <span className="font-medium">Shift {doctor.pivot.shift}</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Bottom action button */}
+                        <div
+                          className="w-full py-2 bg-gray-50 text-gray-700 text-xs font-bold rounded-lg border border-gray-200 group-hover:bg-[#2563EB] group-hover:text-white group-hover:border-[#2563EB] transition-all duration-300 flex items-center justify-center gap-1.5"
+                        >
+                          <Stethoscope className="w-3.5 h-3.5" />
+                          View Profile & Consult
                         </div>
                       </div>
-
-                      {/* Middle detail fields */}
-                      <div className="space-y-2.5 py-3 border-t border-b border-gray-100 mb-4">
-                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                          <Clock className="w-3.5 h-3.5 text-gray-400" />
-                          <span className="font-medium">{doctor.schedule}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                          <Calendar className="w-3.5 h-3.5 text-gray-400" />
-                          <span>{doctor.days}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                          <Users className="w-3.5 h-3.5 text-gray-400" />
-                          <span className="text-gray-500">
-                            Languages:{" "}
-                            <span className="text-gray-700 font-medium">
-                              {doctor.languages.join(", ")}
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom action button */}
-                    <button
-                      onClick={() => {
-                        setToastMessage(`Booking appointment with ${doctor.name} coming soon!`);
-                        setShowToast(true);
-                      }}
-                      className="w-full py-2 bg-gray-50 text-gray-700 text-xs font-bold rounded-lg border border-gray-200 hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all duration-300 flex items-center justify-center gap-1.5"
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      Consult With Doctor
-                    </button>
-                  </div>
-                ))}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
@@ -455,12 +411,14 @@ export default function ClinicDetailPage() {
                       {clinic.verified ? "Verified Practice" : "Registered Practice"}
                     </p>
                   </div>
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">Registration Status</p>
-                    <p className="font-semibold text-gray-900">
-                      License: {clinic.registrationNumber || "Licensed Vendor"}
-                    </p>
-                  </div>
+                  {clinic.registrationNumber && (
+                    <div>
+                      <p className="text-xs text-gray-500 mb-1">Registration Status</p>
+                      <p className="font-semibold text-gray-900">
+                        License: {clinic.registrationNumber}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
