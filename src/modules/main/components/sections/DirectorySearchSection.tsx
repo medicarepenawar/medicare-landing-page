@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Search, SlidersHorizontal, X, Stethoscope } from "lucide-react";
+import { Search, SlidersHorizontal, X, Stethoscope, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "../layout/Container";
 import { SectionWrapper } from "../layout/SectionWrapper";
@@ -14,8 +15,93 @@ import { cn } from "../../utils/cn";
 
 type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab";
 
-export const DirectorySearchSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<FilterTab>("All");
+interface DirectorySearchSectionProps {
+  fixedTab?: FilterTab;
+}
+
+const categoryMetadata: Record<FilterTab, { title: React.ReactNode; subtitle: string; badge: string }> = {
+  All: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Healthcare
+        </span>{" "}
+        Professional
+      </>
+    ),
+    subtitle: "Discover trusted doctors, nurses, pharmacies, and clinics. Book appointments or get emergency support instantly.",
+    badge: "Healthcare Directory",
+  },
+  Doctor: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Specialist
+        </span>{" "}
+        Doctor
+      </>
+    ),
+    subtitle: "Discover trusted specialist doctors across multiple fields of practice. Book professional consultations today.",
+    badge: "Doctor Directory",
+  },
+  Nurse: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Professional
+        </span>{" "}
+        Nurse
+      </>
+    ),
+    subtitle: "Discover trusted, verified home care nurses and medical assistants. Book professional nursing care.",
+    badge: "Nurse Directory",
+  },
+  Vendor: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Trusted
+        </span>{" "}
+        Pharmacy
+      </>
+    ),
+    subtitle: "Locate local pharmacies and retail healthcare vendors. Get your prescription filled or purchase healthcare items.",
+    badge: "Pharmacy Directory",
+  },
+  Clinic: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Nearest
+        </span>{" "}
+        Clinic
+      </>
+    ),
+    subtitle: "Locate medical clinics and healthcare centers. Find verified clinics near you for general checkups and consultations.",
+    badge: "Clinic Directory",
+  },
+  Lab: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Diagnostic
+        </span>{" "}
+        Lab
+      </>
+    ),
+    subtitle: "Locate professional laboratory services and diagnostic centers. Get accurate medical tests and results.",
+    badge: "Lab Directory",
+  },
+};
+
+export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ fixedTab }) => {
+  const [activeTab, setActiveTab] = useState<FilterTab>(fixedTab || "All");
   const [activeSpecialty, setActiveSpecialty] = useState<string>("All Specialties");
   const [searchQuery, setSearchQuery] = useState("");
   const [doctors, setDoctors] = useState<DirectoryItem[]>([]);
@@ -115,6 +201,12 @@ export const DirectorySearchSection: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (fixedTab) {
+      setActiveTab(fixedTab);
+    }
+  }, [fixedTab]);
+
   const combinedItems = useMemo(() => {
     // Exclude static doctors, static nurses, static clinics, and static labs, and use fetched instead
     const nonApiItems = directoryItems.filter(
@@ -167,9 +259,29 @@ export const DirectorySearchSection: React.FC = () => {
     return counts;
   }, [combinedItems]);
 
+  const currentMeta = categoryMetadata[activeTab] || categoryMetadata.All;
+
   return (
     <SectionWrapper className="bg-gradient-to-br from-purple-50/50 via-white to-purple-50/50 min-h-screen pt-28 md:pt-36">
       <Container>
+        {/* Back to main directory breadcrumb if on a fixed category page */}
+        {fixedTab && (
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-5xl mx-auto mb-8"
+          >
+            <Link
+              to="/main"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#2563EB] font-medium transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Medical Directory
+            </Link>
+          </motion.div>
+        )}
+
         {/* ─── Hero Header with decorative elements ─── */}
         <div className="relative max-w-4xl mx-auto text-center mb-12 md:mb-16">
           {/* Decorative floating shapes — z-index layering */}
@@ -184,7 +296,7 @@ export const DirectorySearchSection: React.FC = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-[#2563EB]/5 border border-[#2563EB]/10 text-[#2563EB] text-sm font-medium mb-6">
               <Stethoscope className="w-4 h-4" />
-              Healthcare Directory
+              {currentMeta.badge}
             </span>
           </motion.div>
 
@@ -194,11 +306,7 @@ export const DirectorySearchSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.1] mb-6"
           >
-            Find Your{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
-              Healthcare
-            </span>{" "}
-            Professional
+            {currentMeta.title}
           </motion.h1>
 
           <motion.p
@@ -207,8 +315,7 @@ export const DirectorySearchSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto"
           >
-            Discover trusted doctors, nurses, pharmacies, and clinics. Book
-            appointments or get emergency support instantly.
+            {currentMeta.subtitle}
           </motion.p>
         </div>
 
@@ -242,36 +349,38 @@ export const DirectorySearchSection: React.FC = () => {
           </div>
 
           {/* ─── Role Tabs ─── */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  if (tab !== "Doctor")
-                    setActiveSpecialty("All Specialties");
-                }}
-                className={cn(
-                  "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border",
-                  activeTab === tab
-                    ? "bg-gray-900 text-white border-gray-900 shadow-lg shadow-gray-900/15"
-                    : "bg-white text-gray-600 border-gray-200/80 hover:border-gray-300 hover:text-gray-900 hover:shadow-sm"
-                )}
-              >
-                {tab === "Vendor" ? "Pharmacy" : tab}
-                <span
+          {!fixedTab && (
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    setActiveTab(tab);
+                    if (tab !== "Doctor")
+                      setActiveSpecialty("All Specialties");
+                  }}
                   className={cn(
-                    "text-[11px] px-1.5 py-0.5 rounded-md font-semibold",
+                    "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border",
                     activeTab === tab
-                      ? "bg-white/20 text-white"
-                      : "bg-gray-100 text-gray-500"
+                      ? "bg-gray-900 text-white border-gray-900 shadow-lg shadow-gray-900/15"
+                      : "bg-white text-gray-600 border-gray-200/80 hover:border-gray-300 hover:text-gray-900 hover:shadow-sm"
                   )}
                 >
-                  {tabCounts[tab]}
-                </span>
-              </button>
-            ))}
-          </div>
+                  {tab === "Vendor" ? "Pharmacy" : tab}
+                  <span
+                    className={cn(
+                      "text-[11px] px-1.5 py-0.5 rounded-md font-semibold",
+                      activeTab === tab
+                        ? "bg-white/20 text-white"
+                        : "bg-gray-100 text-gray-500"
+                    )}
+                  >
+                    {tabCounts[tab]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* ─── Doctor Specialty Sub-filter ─── */}
           <AnimatePresence>

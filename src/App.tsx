@@ -36,10 +36,17 @@ import {
   LAB_DETAIL_URL,
   CLINIC_DETAIL_URL,
   CLINIC_LANDING_URL,
+  NURSES_LIST_URL,
+  DOCTORS_LIST_URL,
+  DOCTOR_LIST_URL_ALT,
+  CLINICS_LIST_URL,
+  LABS_LIST_URL,
+  PHARMACIES_LIST_URL,
 } from "./constants/constant";
 import MainPage from "./modules/main/pages/MainPage";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
+import DirectoryCategoryPage from "./pages/directory/DirectoryCategoryPage";
 
 import DoctorTermsAndConditions from "./modules/landing-page/components/terms/DoctorTermsAndConditions";
 import NurseTermsAndConditions from "./modules/landing-page/components/terms/NurseTermsAndConditions";
@@ -88,6 +95,14 @@ function App() {
         <Route path="/registration-success" element={<RegistrationSuccess />} />
 
         <Route path={DOCTOR_SPECIALIST_URL} element={<DoctorSpecialist />} />
+
+        {/* Category List Routes */}
+        <Route path={NURSES_LIST_URL} element={<DirectoryCategoryPage category="Nurse" />} />
+        <Route path={DOCTORS_LIST_URL} element={<DirectoryCategoryPage category="Doctor" />} />
+        <Route path={DOCTOR_LIST_URL_ALT} element={<DirectoryCategoryPage category="Doctor" />} />
+        <Route path={CLINICS_LIST_URL} element={<DirectoryCategoryPage category="Clinic" />} />
+        <Route path={LABS_LIST_URL} element={<DirectoryCategoryPage category="Lab" />} />
+        <Route path={PHARMACIES_LIST_URL} element={<DirectoryCategoryPage category="Vendor" />} />
       </Routes>
     </ToastProvider>
   );
