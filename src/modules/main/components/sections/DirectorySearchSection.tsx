@@ -123,34 +123,19 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   const [clinics, setClinics] = useState<DirectoryItem[]>([]);
   const [labs, setLabs] = useState<DirectoryItem[]>([]);
   const [therapists, setTherapists] = useState<DirectoryItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [doctorTypeFilter, setDoctorTypeFilter] = useState<"all" | "specialist" | "non-specialist">("all");
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
+  const [loadingOthers, setLoadingOthers] = useState(true);
+
+  const loading = loadingDoctors || loadingOthers;
 
   const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab"];
 
+  // Fetch all non-doctor directories once on mount
   useEffect(() => {
-    setLoading(true);
-    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists()])
-      .then(([apiDocs, apiNurses, apiClinics, apiLabs, apiTherapists]) => {
-        // Deduplicate arrays by id
-        const uniqueDocs = apiDocs.filter(
-          (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
-        );
-        const mappedDocs: DirectoryItem[] = uniqueDocs.map((doc) => {
-          return {
-            id: `doc-${doc.id}`,
-            name: doc.name,
-            role: "Doctor",
-            specialty: doc.specialist || undefined,
-            location: doc.place_of_practice || doc.city || "Malaysia",
-            rating: 4.9,
-            availability: "Available Today",
-            image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
-            badge: doc.verified ? "Verified" : undefined,
-            slug: doc.slug || doc.id.toString(),
-          };
-        });
-        setDoctors(mappedDocs);
-
+    setLoadingOthers(true);
+    Promise.all([fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists()])
+      .then(([apiNurses, apiClinics, apiLabs, apiTherapists]) => {
         const uniqueNurses = apiNurses.filter(
           (nurse, index, self) => self.findIndex((n) => n.id === nurse.id) === index
         );
@@ -228,12 +213,52 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
         setTherapists(mappedTherapists);
       })
       .catch((err) => {
-        console.error("Failed to fetch directory data:", err);
+        console.error("Failed to fetch other directory data:", err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingOthers(false);
       });
   }, []);
+
+  // Fetch doctors dynamically when doctorTypeFilter changes
+  useEffect(() => {
+    setLoadingDoctors(true);
+    const isSpecialistParam =
+      doctorTypeFilter === "specialist"
+        ? true
+        : doctorTypeFilter === "non-specialist"
+        ? false
+        : undefined;
+
+    fetchAllDoctors(isSpecialistParam)
+      .then((apiDocs) => {
+        const uniqueDocs = apiDocs.filter(
+          (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
+        );
+        const mappedDocs: DirectoryItem[] = uniqueDocs.map((doc) => {
+          return {
+            id: `doc-${doc.id}`,
+            name: doc.name,
+            role: "Doctor",
+            specialty: doc.specialist || undefined,
+            location: doc.place_of_practice || doc.city || "Malaysia",
+            rating: 4.9,
+            availability: "Available Today",
+            image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+            badge: doc.verified ? "Verified" : undefined,
+            slug: doc.slug || doc.id.toString(),
+          };
+        });
+        setDoctors(mappedDocs);
+        setActiveSpecialty("All Specialties");
+      })
+      .catch((err) => {
+        console.error("Failed to fetch doctors:", err);
+      })
+      .finally(() => {
+        setLoadingDoctors(false);
+      });
+  }, [doctorTypeFilter]);
 
   useEffect(() => {
     if (fixedTab) {
@@ -417,7 +442,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
             </div>
           )}
 
-          {/* ─── Doctor Specialty Sub-filter ─── */}
+          {/* ─── Doctor Classification & Specialty Sub-filters ─── */}
           <AnimatePresence>
             {activeTab === "Doctor" && (
               <motion.div
@@ -427,30 +452,83 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <div className="flex items-center gap-3 py-3 px-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100">
-                  <div className="flex items-center gap-2 text-gray-400 shrink-0">
-                    <SlidersHorizontal className="w-4 h-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">
-                      Specialist
-                    </span>
-                  </div>
-                  <div className="w-px h-5 bg-gray-200" />
-                  <div className="flex flex-wrap gap-1.5">
-                    {doctorSpecialties.map((specialty) => (
+                <div className="flex flex-col gap-4 py-4 px-5 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
+                  {/* Doctor Classification Toggle */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-2 text-gray-400 shrink-0">
+                      <Stethoscope className="w-[18px] h-[18px] text-gray-400" />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                        Doctor Classification
+                      </span>
+                    </div>
+                    <div className="w-px h-5 bg-gray-200 hidden sm:block" />
+                    <div className="flex rounded-xl bg-gray-100/80 p-1 border border-gray-200/30">
                       <button
-                        key={specialty}
-                        onClick={() => setActiveSpecialty(specialty)}
+                        onClick={() => setDoctorTypeFilter("all")}
                         className={cn(
-                          "px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all duration-200",
-                          activeSpecialty === specialty
-                            ? "bg-[#2563EB] text-white shadow-sm shadow-[#2563EB]/20"
-                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                          "px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300",
+                          doctorTypeFilter === "all"
+                            ? "bg-gray-900 text-white shadow-md font-semibold scale-[1.02]"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
                         )}
                       >
-                        {specialty}
+                        All Doctors
                       </button>
-                    ))}
+                      <button
+                        onClick={() => setDoctorTypeFilter("specialist")}
+                        className={cn(
+                          "px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300",
+                          doctorTypeFilter === "specialist"
+                            ? "bg-[#2563EB] text-white shadow-md font-semibold scale-[1.02]"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                        )}
+                      >
+                        Specialist Doctor
+                      </button>
+                      <button
+                        onClick={() => setDoctorTypeFilter("non-specialist")}
+                        className={cn(
+                          "px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300",
+                          doctorTypeFilter === "non-specialist"
+                            ? "bg-gray-900 text-white shadow-md font-semibold scale-[1.02]"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                        )}
+                      >
+                        Not Specialist
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Specialty Sub-filters (Only relevant when not selecting non-specialist) */}
+                  {doctorTypeFilter !== "non-specialist" && doctorSpecialties.length > 1 && (
+                    <div className="flex flex-col gap-2 pt-3 border-t border-gray-100">
+                      <div className="flex items-start sm:items-center flex-col sm:flex-row gap-3">
+                        <div className="flex items-center gap-2 text-gray-400 shrink-0">
+                          <SlidersHorizontal className="w-4 h-4 text-gray-400" />
+                          <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Specialty
+                          </span>
+                        </div>
+                        <div className="w-px h-5 bg-gray-200 hidden sm:block" />
+                        <div className="flex flex-wrap gap-1.5">
+                          {doctorSpecialties.map((specialty) => (
+                            <button
+                              key={specialty}
+                              onClick={() => setActiveSpecialty(specialty)}
+                              className={cn(
+                                "px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all duration-200 border",
+                                activeSpecialty === specialty
+                                  ? "bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]/30 shadow-sm font-semibold"
+                                  : "bg-white text-gray-500 border border-gray-200/80 hover:text-gray-700 hover:border-gray-300"
+                              )}
+                            >
+                              {specialty}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )}

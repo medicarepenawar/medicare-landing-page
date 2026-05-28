@@ -61,16 +61,18 @@ export interface DoctorsApiResponse {
   };
 }
 
-export const fetchAllDoctors = async (): Promise<ApiDoctor[]> => {
+export const fetchAllDoctors = async (isSpecialist?: boolean): Promise<ApiDoctor[]> => {
   let allDoctors: ApiDoctor[] = [];
   let currentPage = 1;
   let hasMore = true;
 
   try {
     while (hasMore) {
-      const response = await axios.get<DoctorsApiResponse>(
-        `${BASE_API_URL}/landing-page/specialist-doctors?page=${currentPage}`
-      );
+      let url = `${BASE_API_URL}/landing-page/doctors?page=${currentPage}`;
+      if (isSpecialist !== undefined) {
+        url += `&is_specialist=${isSpecialist ? 1 : 0}`;
+      }
+      const response = await axios.get<DoctorsApiResponse>(url);
       const data = response.data.data;
       if (data && data.data) {
         allDoctors = [...allDoctors, ...data.data];
@@ -342,8 +344,6 @@ export const getDoctorBySlug = async (slug: string): Promise<Doctor> => {
     console.error("Doctor fallback search failed:", err);
   }
 
-  return new Promise((resolve, reject) => {
-    reject(new Error(`Doctor with slug "${slug}" not found`));
-  });
+  return Promise.reject(new Error(`Doctor with slug "${slug}" not found`));
 };
 

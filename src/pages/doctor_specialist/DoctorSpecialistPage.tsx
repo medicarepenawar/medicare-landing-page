@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from "react-router-dom";
-import ServiceCard from "../../components/doctor_specialist/ServiceCard";
 import EducationCard from "../../components/doctor_specialist/EducationCard";
 import ProfileSidebar from "../../components/doctor_specialist/ProfileSidebar";
 import CredentialCard from "../../components/doctor_specialist/CredentialCard";

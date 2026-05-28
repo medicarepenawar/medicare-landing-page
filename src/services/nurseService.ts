@@ -1,7 +1,6 @@
 import axios from "axios";
 import { BASE_API_URL } from "../constants/constant";
 import type { Nurse } from "../types/nurse";
-import { NURSES_DATA } from "../modules/constants/nurses";
 
 export interface ApiNurse {
   id: number;

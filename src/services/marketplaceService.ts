@@ -1,5 +1,4 @@
 import { directoryItems } from "../modules/main/constants/directory";
-import type { DirectoryItem } from "../modules/main/types";
 
 export interface PharmacyProduct {
   id: string;

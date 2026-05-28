@@ -4,7 +4,7 @@ import { Footer } from "../../modules/main/components/layout/Footer";
 import { DirectorySearchSection } from "../../modules/main/components/sections/DirectorySearchSection";
 
 interface DirectoryCategoryPageProps {
-  category: "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab";
+  category: "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist";
 }
 
 const DirectoryCategoryPage: React.FC<DirectoryCategoryPageProps> = ({ category }) => {

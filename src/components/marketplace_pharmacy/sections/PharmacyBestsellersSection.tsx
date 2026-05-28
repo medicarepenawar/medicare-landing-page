@@ -64,7 +64,7 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
             </button>
 
             <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
-              {products.map((item, idx) => (
+              {products.map((item) => (
                 <Link
                   to={`/pharmacy/${pharmacySlug}/product/${item.id}`}
                   key={item.id}
