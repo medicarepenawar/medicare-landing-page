@@ -11,10 +11,11 @@ import { fetchAllNurses } from "../../../../services/nurseService";
 import { fetchAllClinics } from "../../../../services/clinicService";
 import { fetchAllLabs } from "../../../../services/labService";
 import { fetchAllTherapists } from "../../../../services/therapistService";
+import { fetchAllAmbulances } from "../../../../services/ambulanceService";
 import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
-type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist";
+type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist" | "Ambulance";
 
 interface DirectorySearchSectionProps {
   fixedTab?: FilterTab;
@@ -112,6 +113,19 @@ const categoryMetadata: Record<FilterTab, { title: React.ReactNode; subtitle: st
     subtitle: "Locate professional laboratory services and diagnostic centers. Get accurate medical tests and results.",
     badge: "Lab Directory",
   },
+  Ambulance: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Emergency
+        </span>{" "}
+        Ambulance
+      </>
+    ),
+    subtitle: "Locate professional 24/7 ambulance and medical evacuation services near you.",
+    badge: "Ambulance Directory",
+  },
 };
 
 export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ fixedTab }) => {
@@ -123,19 +137,20 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   const [clinics, setClinics] = useState<DirectoryItem[]>([]);
   const [labs, setLabs] = useState<DirectoryItem[]>([]);
   const [therapists, setTherapists] = useState<DirectoryItem[]>([]);
+  const [ambulances, setAmbulances] = useState<DirectoryItem[]>([]);
   const [doctorTypeFilter, setDoctorTypeFilter] = useState<"all" | "specialist" | "non-specialist">("all");
   const [loadingDoctors, setLoadingDoctors] = useState(true);
   const [loadingOthers, setLoadingOthers] = useState(true);
 
   const loading = loadingDoctors || loadingOthers;
 
-  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab"];
+  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab", "Ambulance"];
 
   // Fetch all non-doctor directories once on mount
   useEffect(() => {
     setLoadingOthers(true);
-    Promise.all([fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists()])
-      .then(([apiNurses, apiClinics, apiLabs, apiTherapists]) => {
+    Promise.all([fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists(), fetchAllAmbulances()])
+      .then(([apiNurses, apiClinics, apiLabs, apiTherapists, apiAmbulances]) => {
         const uniqueNurses = apiNurses.filter(
           (nurse, index, self) => self.findIndex((n) => n.id === nurse.id) === index
         );
@@ -211,6 +226,26 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
           };
         });
         setTherapists(mappedTherapists);
+
+        const uniqueAmbulances = apiAmbulances.filter(
+          (ambulance, index, self) => self.findIndex((a) => a.id === ambulance.id) === index
+        );
+        const mappedAmbulances: DirectoryItem[] = uniqueAmbulances.map((ambulance) => {
+          const vendor = ambulance.vendor;
+          return {
+            id: `ambulance-${ambulance.id}`,
+            name: vendor?.name || "Medicare Affiliated Ambulance Service",
+            role: "Ambulance",
+            specialty: vendor?.description || undefined,
+            location: vendor?.address?.city || vendor?.address?.state || "Malaysia",
+            rating: 4.8,
+            availability: ambulance.is_available ? "Available Today" : "Temporarily Closed",
+            image: vendor?.photo || "https://images.unsplash.com/photo-1587113997559-018787fdeab6?auto=format&fit=crop&q=80&w=400",
+            badge: vendor?.verified ? "Verified" : undefined,
+            slug: vendor?.slug || ambulance.id.toString(),
+          };
+        });
+        setAmbulances(mappedAmbulances);
       })
       .catch((err) => {
         console.error("Failed to fetch other directory data:", err);
@@ -267,12 +302,12 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   }, [fixedTab]);
 
   const combinedItems = useMemo(() => {
-    // Exclude static doctors, static nurses, static clinics, static labs, and static therapists, and use fetched instead
+    // Exclude static doctors, static nurses, static clinics, static labs, static therapists, and static ambulances, and use fetched instead
     const nonApiItems = directoryItems.filter(
-      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab" && item.role !== "Therapist"
+      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab" && item.role !== "Therapist" && item.role !== "Ambulance"
     );
-    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...nonApiItems];
-  }, [doctors, nurses, clinics, labs, therapists]);
+    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...ambulances, ...nonApiItems];
+  }, [doctors, nurses, clinics, labs, therapists, ambulances]);
 
   const doctorSpecialties = useMemo(() => {
     const specialtiesSet = new Set<string>();
@@ -300,7 +335,6 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
     });
   }, [combinedItems, activeTab, activeSpecialty, searchQuery]);
 
-  // Count items per tab
   const tabCounts = useMemo(() => {
     const counts: Record<FilterTab, number> = {
       All: combinedItems.length,
@@ -310,6 +344,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
       Clinic: 0,
       Lab: 0,
       Therapist: 0,
+      Ambulance: 0,
     };
     combinedItems.forEach((item) => {
       if (item.role in counts) {

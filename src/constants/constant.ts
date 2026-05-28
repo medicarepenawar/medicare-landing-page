@@ -17,6 +17,7 @@ export const NURSE_DETAIL_URL = "/nurse/:slug";
 export const LAB_DETAIL_URL = "/lab/:slug";
 export const CLINIC_DETAIL_URL = "/clinic/:slug";
 export const THERAPIST_DETAIL_URL = "/therapist/:slug";
+export const AMBULANCE_DETAIL_URL = "/ambulance/:slug";
 
 export const NURSES_LIST_URL = "/nurses";
 export const THERAPISTS_LIST_URL = "/therapists";
@@ -26,6 +27,7 @@ export const DOCTOR_LIST_URL_ALT = "/specialist-doctor";
 export const CLINICS_LIST_URL = "/clinics";
 export const LABS_LIST_URL = "/labs";
 export const PHARMACIES_LIST_URL = "/pharmacies";
+export const AMBULANCES_LIST_URL = "/ambulances";
 
 export const DEV_URL = "hidden-dev";
 
