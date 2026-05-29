@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Phone, Mail, Clock, MapPin, Check } from "lucide-react";
+import { Phone, Mail, Clock, MapPin, Check } from "lucide-react";
 import doctorAvatar from "../../../assets/img/main/doctor.png";
 
 export function Footer() {
