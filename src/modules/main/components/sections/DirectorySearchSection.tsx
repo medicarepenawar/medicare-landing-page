@@ -564,7 +564,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
                             : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
                         )}
                       >
-                        Not Specialist
+                        Medical Officer
                       </button>
                     </div>
                   </div>

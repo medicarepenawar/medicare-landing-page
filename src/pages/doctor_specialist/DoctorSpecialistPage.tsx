@@ -31,7 +31,7 @@ const DoctorSpecialist = () => {
         <main className="flex-grow max-w-7xl mx-auto px-5 md:px-16 py-8 pt-28 md:pt-36 w-full flex items-center justify-center">
           <div className="flex flex-col items-center gap-4">
             <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-            <p className="text-gray-500 font-medium animate-pulse">Loading specialist profile...</p>
+            <p className="text-gray-500 font-medium animate-pulse">Loading Doctor profile...</p>
           </div>
         </main>
         <Footer />
@@ -47,7 +47,7 @@ const DoctorSpecialist = () => {
           <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-md text-center space-y-4">
             <span className="material-symbols-outlined text-red-500 text-5xl">warning</span>
             <h2 className="text-xl font-bold text-gray-900">Profile Not Found</h2>
-            <p className="text-gray-500">The requested doctor specialist profile could not be found or is currently unavailable.</p>
+            <p className="text-gray-500">The requested doctor profile could not be found or is currently unavailable.</p>
             <button
               onClick={() => navigate("/main")}
               className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-sm cursor-pointer"

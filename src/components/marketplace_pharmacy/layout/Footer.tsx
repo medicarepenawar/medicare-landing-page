@@ -5,7 +5,6 @@ export function Footer() {
   return (
     <footer className="bg-[#F8FAFC] pt-16 pb-8 px-6 lg:px-16 border-t border-gray-100">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-10 lg:gap-16 mb-12 flex-wrap">
-        
         {/* Column 1: Why Choose Medicare Pharmacy? with Profile Avatar */}
         <div className="max-w-sm w-full md:w-auto space-y-4">
           <h4 className="font-extrabold text-gray-900 text-sm tracking-wider uppercase">

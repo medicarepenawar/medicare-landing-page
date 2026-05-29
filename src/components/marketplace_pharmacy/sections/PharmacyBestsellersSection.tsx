@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Heart, ShoppingCart, MapPin, Star, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, ShoppingCart, MapPin, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { usePharmacyProducts } from "../../../hooks/useMarketplace";
 import { fetchAllPharmacies } from "../../../services/pharmacyService";
@@ -92,11 +92,7 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
                 <MapPin className="w-4 h-4 text-gray-400" />
                 {pharmacy.location}
               </span>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                {pharmacy.rating}
-              </span>
+
             </div>
           </div>
         </div>
