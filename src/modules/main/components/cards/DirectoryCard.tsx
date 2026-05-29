@@ -17,7 +17,7 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
     if (item.role === "Nurse" && item.slug) {
       navigate(`/nurse/${item.slug}`);
     } else if (item.role === "Doctor" && item.slug) {
-      navigate(`/doctor-specialist/${item.slug}`);
+      navigate(`/doctor/${item.slug}`);
     } else if (item.role === "Vendor" && item.slug) {
       navigate(`/marketplace/pharmacy/${item.slug}`);
     } else if (item.role === "Clinic" && item.slug) {

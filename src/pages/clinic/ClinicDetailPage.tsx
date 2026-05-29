@@ -305,7 +305,7 @@ export default function ClinicDetailPage() {
                     return (
                       <div
                         key={doctor.id}
-                        onClick={() => navigate(`/doctor-specialist/${doctor.slug || doctor.id}`)}
+                        onClick={() => navigate(`/doctor/${doctor.slug || doctor.id}`)}
                         className="group relative bg-white border border-gray-200 rounded-2xl p-5 hover:border-blue-200 transition-all duration-300 hover:shadow-md flex flex-col justify-between cursor-pointer"
                       >
                         <div>
