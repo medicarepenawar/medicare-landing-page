@@ -200,22 +200,22 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ doctor }) => {
             <InfoRow label="Phone" value={doctor.phone} />
           </div>
 
+          {/* Practice Address */}
+          <div className="pt-4 border-t border-gray-100 space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+              Practice Address
+            </h3>
+            <div className="space-y-1">
+              <p className="font-semibold text-gray-900 text-sm">{doctor.address.hospitalName}</p>
+              <p className="text-gray-500 text-xs">{doctor.address.street}</p>
+              <p className="text-gray-500 text-xs">{doctor.address.city}</p>
+            </div>
+          </div>
+
           {/* Tombol Booking */}
           <button className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-sm">
             Book Appointment
           </button>
-        </div>
-      </div>
-
-      {/* Card Alamat */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
-          Practice Address
-        </h3>
-        <div className="space-y-1">
-          <p className="font-semibold text-gray-900">{doctor.address.hospitalName}</p>
-          <p className="text-gray-500 text-sm">{doctor.address.street}</p>
-          <p className="text-gray-500 text-sm">{doctor.address.city}</p>
         </div>
       </div>
     </aside>
@@ -434,15 +434,17 @@ const DoctorSpecialistPage: React.FC = () => {
               <p className="text-gray-500 leading-relaxed">{doctor.bio}</p>
             </section>
 
-            {/* Credentials & Education — dua kolom berdampingan */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Credentials & Education */}
+            <div className={`grid grid-cols-1 ${doctor.education && doctor.education.length > 0 ? "md:grid-cols-2" : ""} gap-6`}>
+              {doctor.education && doctor.education.length > 0 && (
+                <EducationCard education={doctor.education} />
+              )}
               <CredentialsCard
                 mmcNumber={doctor.mmcNumber}
                 apcNumber={doctor.apcNumber}
                 apcExpiry={doctor.apcExpiry}
                 isApcExpired={doctor.isApcExpired}
               />
-              <EducationCard education={doctor.education} />
             </div>
 
             {/* Services & Pricing */}

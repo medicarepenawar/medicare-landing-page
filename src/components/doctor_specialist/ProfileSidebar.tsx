@@ -56,24 +56,24 @@ const ProfileSidebar = ({ doctor }: { doctor: Doctor }) => {
             <InfoRow label="Phone" value={doctor.phone} />
           </div>
 
+          {/* Practice Address */}
+          <div className="pt-4 border-t border-gray-100 space-y-2">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+              Practice Address
+            </h3>
+            <div className="space-y-1">
+              <p className="font-semibold text-gray-900 text-sm">{doctor.address.hospitalName}</p>
+              <p className="text-gray-500 text-xs">{doctor.address.street}</p>
+              <p className="text-gray-500 text-xs">{doctor.address.city}</p>
+            </div>
+          </div>
+
           {/* Tombol Booking */}
           {doctor.isSpecialist && (
             <button className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-sm">
               Book Appointment
             </button>
           )}
-        </div>
-      </div>
-
-      {/* Card Alamat */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
-          Practice Address
-        </h3>
-        <div className="space-y-1">
-          <p className="font-semibold text-gray-900">{doctor.address.hospitalName}</p>
-          <p className="text-gray-500 text-sm">{doctor.address.street}</p>
-          <p className="text-gray-500 text-sm">{doctor.address.city}</p>
         </div>
       </div>
     </aside>

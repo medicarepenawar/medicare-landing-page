@@ -109,11 +109,12 @@ const DoctorSpecialist = () => {
               <p className="text-gray-500 leading-relaxed">{doctor.bio}</p>
             </section>
 
-            {/* Credentials & Education — dua kolom berdampingan */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             
-              <EducationCard data={doctor.education} />
-               <CredentialCard doctor={doctor} />
+            {/* Credentials & Education */}
+            <div className={`grid grid-cols-1 ${doctor.education && doctor.education.length > 0 ? "md:grid-cols-2" : ""} gap-6`}>
+              {doctor.education && doctor.education.length > 0 && (
+                <EducationCard data={doctor.education} />
+              )}
+              <CredentialCard doctor={doctor} />
             </div>
 
             {/* Services & Pricing */}
