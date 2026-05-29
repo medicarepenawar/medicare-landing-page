@@ -1,35 +1,74 @@
-import { MARKETPLACE_BENEFITS } from "../../../constants/marketplaceDummyData";
-import { FileText, UserPlus, Truck, RefreshCcw } from "lucide-react";
+import { ShieldCheck, CreditCard, RotateCcw, Headphones, Truck } from "lucide-react";
+
+interface TrustAssurance {
+  id: number;
+  title: string;
+  subtitle: string;
+  icon: React.ComponentType<any>;
+  color: string;
+}
+
+const TRUST_ASSURANCES_DATA: TrustAssurance[] = [
+  {
+    id: 1,
+    title: "Genuine Products",
+    subtitle: "100% authentic medicines from trusted brands",
+    icon: ShieldCheck,
+    color: "text-blue-600 bg-blue-50/80 border-blue-100",
+  },
+  {
+    id: 2,
+    title: "Secure Payments",
+    subtitle: "Multiple payment options with secure checkout",
+    icon: CreditCard,
+    color: "text-blue-600 bg-blue-50/80 border-blue-100",
+  },
+  {
+    id: 3,
+    title: "Easy Returns",
+    subtitle: "Hassle-free returns within 7 days",
+    icon: RotateCcw,
+    color: "text-blue-600 bg-blue-50/80 border-blue-100",
+  },
+  {
+    id: 4,
+    title: "Pharmacist Support",
+    subtitle: "Get expert advice 24/7",
+    icon: Headphones,
+    color: "text-blue-600 bg-blue-50/80 border-blue-100",
+  },
+  {
+    id: 5,
+    title: "Fast & Reliable Delivery",
+    subtitle: "Quick delivery to your doorstep",
+    icon: Truck,
+    color: "text-blue-600 bg-blue-50/80 border-blue-100",
+  },
+];
 
 export function BenefitsStrip() {
-  const getIcon = (id: number) => {
-    switch(id) {
-      case 1: return <FileText className="w-6 h-6 text-[#2563EB]" />;
-      case 2: return <UserPlus className="w-6 h-6 text-[#2563EB]" />;
-      case 3: return <Truck className="w-6 h-6 text-[#2563EB]" />;
-      case 4: return <RefreshCcw className="w-6 h-6 text-[#2563EB]" />;
-      default: return <FileText className="w-6 h-6 text-[#2563EB]" />;
-    }
-  };
-
   return (
-    <div className="relative -mt-8 z-20 px-6 lg:px-16 mb-12">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 flex flex-wrap lg:flex-nowrap justify-between gap-6">
-        {MARKETPLACE_BENEFITS.map((benefit, idx) => (
-          <div 
-            key={benefit.id} 
-            className={`flex items-center gap-4 flex-1 animate-slide-in opacity-0 ${idx !== MARKETPLACE_BENEFITS.length - 1 ? 'border-r border-gray-100' : ''}`}
-            style={{ animationDelay: `${0.2 + idx * 0.1}s`, animationFillMode: "forwards" }}
-          >
-            <div className="bg-blue-50 p-3 rounded-xl border border-blue-100 hover:-translate-y-1 transition-transform cursor-pointer">
-              {getIcon(benefit.id)}
+    <div className="px-6 lg:px-16 py-8 pb-12 max-w-7xl mx-auto w-full">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 flex flex-col md:flex-row flex-wrap lg:flex-nowrap justify-between gap-8">
+        {TRUST_ASSURANCES_DATA.map((item, idx) => {
+          const IconComponent = item.icon;
+          return (
+            <div
+              key={item.id}
+              className={`flex items-start gap-4 flex-1 ${
+                idx !== TRUST_ASSURANCES_DATA.length - 1 ? "lg:border-r lg:border-gray-100/80 pr-4" : ""
+              }`}
+            >
+              <div className={`p-3 rounded-xl border flex-shrink-0 ${item.color} shadow-sm`}>
+                <IconComponent className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-extrabold text-gray-800 text-sm leading-tight">{item.title}</h4>
+                <p className="text-xs text-gray-500 leading-relaxed font-medium">{item.subtitle}</p>
+              </div>
             </div>
-            <div>
-              <div className="font-bold text-gray-800 text-sm">{benefit.title}</div>
-              <div className="text-xs text-gray-500">{benefit.subtitle}</div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
