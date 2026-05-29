@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TopBar } from "../../components/marketplace_pharmacy/layout/TopBar";
-import { Header } from "../../components/marketplace_pharmacy/layout/Header";
-import { NavBar } from "../../components/marketplace_pharmacy/layout/NavBar";
+import { Navbar } from "../../modules/main/components/layout/Navbar";
 import { Footer } from "../../components/marketplace_pharmacy/layout/Footer";
 import { HeroSection } from "../../components/marketplace_pharmacy/sections/HeroSection";
 import { BenefitsStrip } from "../../components/marketplace_pharmacy/sections/BenefitsStrip";
@@ -31,14 +29,14 @@ export default function MarketplaceLanding() {
 
   return (
     <div className="min-h-screen bg-white font-sans w-full transition-opacity duration-700 opacity-100">
-      <TopBar />
-      <Header />
-      <NavBar />
-      <main>
+      <Navbar />
+      <main className="pt-[72px]">
         {pharmacySlug ? (
           // Show pharmacy-specific products
           <>
             <PharmacyBestsellersSection pharmacySlug={pharmacySlug} />
+            <BenefitsStrip />
+            <CategorySection />
           </>
         ) : (
           // Show general marketplace
