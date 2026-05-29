@@ -1,5 +1,4 @@
 import { directoryItems } from "../modules/main/constants/directory";
-import type { DirectoryItem } from "../modules/main/types";
 
 export interface PharmacyProduct {
   id: string;
@@ -35,10 +34,10 @@ const PHARMACY_PRODUCTS_MAP: Record<string, PharmacyProduct[]> = {
       pharmacyId: "dir-7",
       pharmacyName: "MedPlus Pharmacy",
       name: "Paracetamol 650mg",
-      category: "Obat",
-      variant: "Strip isi 10 Tablet",
-      originalPrice: 15000,
-      discountedPrice: 12000,
+      category: "Medicine",
+      variant: "Strip of 10 Tablets",
+      originalPrice: 15.00,
+      discountedPrice: 12.00,
       discountPercentage: 20,
       image: "/images/marketplace/bestseller_item.png",
     },
@@ -47,10 +46,10 @@ const PHARMACY_PRODUCTS_MAP: Record<string, PharmacyProduct[]> = {
       pharmacyId: "dir-7",
       pharmacyName: "MedPlus Pharmacy",
       name: "Amoxicillin 500mg",
-      category: "Obat",
-      variant: "Strip isi 10 Kapsul",
-      originalPrice: 19000,
-      discountedPrice: 15000,
+      category: "Medicine",
+      variant: "Strip of 10 Capsules",
+      originalPrice: 19.00,
+      discountedPrice: 15.00,
       discountPercentage: 21,
       image: "/images/marketplace/bestseller_item.png",
     },
@@ -59,10 +58,10 @@ const PHARMACY_PRODUCTS_MAP: Record<string, PharmacyProduct[]> = {
       pharmacyId: "dir-7",
       pharmacyName: "MedPlus Pharmacy",
       name: "Vitamin D3 60K",
-      category: "Vitamin & Suplemen",
-      variant: "Strip isi 4 Tablet",
-      originalPrice: 60000,
-      discountedPrice: 45000,
+      category: "Vitamins & Supplements",
+      variant: "Strip of 4 Tablets",
+      originalPrice: 60.00,
+      discountedPrice: 45.00,
       discountPercentage: 25,
       image: "/images/marketplace/category_medicines.png",
     },
@@ -74,10 +73,10 @@ const PHARMACY_PRODUCTS_MAP: Record<string, PharmacyProduct[]> = {
       pharmacyId: "dir-8",
       pharmacyName: "Caring Health Pharmacy",
       name: "Omega 3 Fish Oil",
-      category: "Vitamin & Suplemen",
-      variant: "Kapsul - 60 Kapsul",
-      originalPrice: 178000,
-      discountedPrice: 139000,
+      category: "Vitamins & Supplements",
+      variant: "Bottle - 60 Capsules",
+      originalPrice: 178.00,
+      discountedPrice: 139.00,
       discountPercentage: 22,
       image: "/images/marketplace/promo_bottles.png",
     },
@@ -86,10 +85,10 @@ const PHARMACY_PRODUCTS_MAP: Record<string, PharmacyProduct[]> = {
       pharmacyId: "dir-8",
       pharmacyName: "Caring Health Pharmacy",
       name: "Saline Nasal Spray",
-      category: "Perawatan Diri",
+      category: "Personal Care",
       variant: "20ml",
-      originalPrice: 100000,
-      discountedPrice: 75000,
+      originalPrice: 100.00,
+      discountedPrice: 75.00,
       discountPercentage: 25,
       image: "/images/marketplace/bestseller_item.png",
     },
@@ -98,10 +97,10 @@ const PHARMACY_PRODUCTS_MAP: Record<string, PharmacyProduct[]> = {
       pharmacyId: "dir-8",
       pharmacyName: "Caring Health Pharmacy",
       name: "AccuSure Blood Glucose Monitor",
-      category: "Alat Kesehatan",
+      category: "Medical Devices",
       variant: "Monitor",
-      originalPrice: 640000,
-      discountedPrice: 499000,
+      originalPrice: 640.00,
+      discountedPrice: 499.00,
       discountPercentage: 22,
       image: "/images/marketplace/category_medicines.png",
     },
@@ -164,28 +163,28 @@ class MarketplaceService {
     });
 
     const categoryDescriptions: Record<string, { description: string; image: string }> = {
-      Obat: {
-        description: "Untuk berbagai keluhan",
+      Medicine: {
+        description: "For various symptoms",
         image: "/images/marketplace/bestseller_item.png",
       },
-      "Vitamin & Suplemen": {
-        description: "Jaga daya tahan tubuh",
+      "Vitamins & Supplements": {
+        description: "Boost your daily immunity",
         image: "/images/marketplace/promo_bottles.png",
       },
-      "Perawatan Diri": {
-        description: "Tampil bersih & percaya diri",
+      "Personal Care": {
+        description: "Look fresh and confident",
         image: "/images/marketplace/category_medicines.png",
       },
-      "Alat Kesehatan": {
-        description: "Dukung hidup sehat",
+      "Medical Devices": {
+        description: "Monitor your vitals",
         image: "/images/marketplace/bestseller_item.png",
       },
-      Kesehatan: {
-        description: "Sehari-hari lebih sehat",
+      "Health Care": {
+        description: "Everyday health essentials",
         image: "/images/marketplace/promo_bottles.png",
       },
-      "Ibu & Anak": {
-        description: "Kebutuhan si kecil",
+      "Mother & Child": {
+        description: "For the little ones",
         image: "/images/marketplace/category_medicines.png",
       },
     };

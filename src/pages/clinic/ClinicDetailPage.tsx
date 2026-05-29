@@ -7,8 +7,6 @@ import {
   MapPin,
   Award,
   Clock,
-  Users,
-  ShieldCheck,
   Stethoscope,
 } from "lucide-react";
 import { Navbar } from "../../modules/main/components/layout/Navbar";
@@ -307,7 +305,7 @@ export default function ClinicDetailPage() {
                     return (
                       <div
                         key={doctor.id}
-                        onClick={() => navigate(`/doctor-specialist/${doctor.slug || doctor.id}`)}
+                        onClick={() => navigate(`/doctor/${doctor.slug || doctor.id}`)}
                         className="group relative bg-white border border-gray-200 rounded-2xl p-5 hover:border-blue-200 transition-all duration-300 hover:shadow-md flex flex-col justify-between cursor-pointer"
                       >
                         <div>
@@ -353,7 +351,7 @@ export default function ClinicDetailPage() {
                             <div className="space-y-2.5 py-3 border-t border-b border-gray-100 mb-4">
                               <div className="flex items-center gap-2 text-xs text-gray-600">
                                 <Clock className="w-3.5 h-3.5 text-gray-400" />
-                                <span className="font-medium">Shift {doctor.pivot.shift}</span>
+                                <span className="font-medium">{shiftText}</span>
                               </div>
                             </div>
                           )}

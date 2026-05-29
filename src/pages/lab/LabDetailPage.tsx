@@ -7,8 +7,6 @@ import {
   MapPin,
   Award,
   Clock,
-  FlaskConical,
-  ShieldCheck,
 } from "lucide-react";
 import { Navbar } from "../../modules/main/components/layout/Navbar";
 import { Footer } from "../../modules/main/components/layout/Footer";

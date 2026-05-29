@@ -6,6 +6,7 @@ import NurseDetailPage from "./pages/nurse/NurseDetailPage";
 import TherapistDetailPage from "./pages/therapist/TherapistDetailPage";
 import LabDetailPage from "./pages/lab/LabDetailPage";
 import ClinicDetailPage from "./pages/clinic/ClinicDetailPage";
+import AmbulanceDetailPage from "./pages/ambulance/AmbulanceDetailPage";
 import LabAssistantRegisterPage from "./pages/labassistant/LabAssistantRegisterPage";
 import TherapistRegisterPage from "./pages/therapist/TherapistRegisterPage";
 import RegistrationSuccess from "./modules/landing-page/pages/RegistrationSuccess";
@@ -46,6 +47,8 @@ import {
   THERAPIST_DETAIL_URL,
   THERAPISTS_LIST_URL,
   THERAPIST_LIST_URL_ALT,
+  AMBULANCE_DETAIL_URL,
+  AMBULANCES_LIST_URL,
 } from "./constants/constant";
 import MainPage from "./modules/main/pages/MainPage";
 import Home from "./modules/landing-page/pages/Home";
@@ -74,7 +77,7 @@ function App() {
         <Route path="/main" element={<MainPage />} />
         <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
         <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
-        <Route path="/marketplace/pharmacy/:pharmacySlug" element={<MarketplaceLanding />} />
+        <Route path="/marketplace/pharmacy/:pharmacySlug?" element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
         <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
         <Route path={MARKETPLACE_CHECKOUT_URL} element={<CheckoutPage />} />
@@ -83,6 +86,7 @@ function App() {
         <Route path={LAB_DETAIL_URL} element={<LabDetailPage />} />
         <Route path={CLINIC_DETAIL_URL} element={<ClinicDetailPage />} />
         <Route path={THERAPIST_DETAIL_URL} element={<TherapistDetailPage />} />
+        <Route path={AMBULANCE_DETAIL_URL} element={<AmbulanceDetailPage />} />
         <Route path={REGISTER_URL} element={<Register />} />
         <Route path={DOCTOR_REGISTER_URL} element={<DoctorRegisterPage />} />
         <Route path={VENDOR_REGISTER_URL} element={<VendorRegisterPage />} />
@@ -110,6 +114,7 @@ function App() {
         <Route path={PHARMACIES_LIST_URL} element={<DirectoryCategoryPage category="Vendor" />} />
         <Route path={THERAPISTS_LIST_URL} element={<DirectoryCategoryPage category="Therapist" />} />
         <Route path={THERAPIST_LIST_URL_ALT} element={<DirectoryCategoryPage category="Therapist" />} />
+        <Route path={AMBULANCES_LIST_URL} element={<DirectoryCategoryPage category="Ambulance" />} />
       </Routes>
     </ToastProvider>
   );

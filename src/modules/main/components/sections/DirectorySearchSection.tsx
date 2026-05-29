@@ -11,10 +11,12 @@ import { fetchAllNurses } from "../../../../services/nurseService";
 import { fetchAllClinics } from "../../../../services/clinicService";
 import { fetchAllLabs } from "../../../../services/labService";
 import { fetchAllTherapists } from "../../../../services/therapistService";
+import { fetchAllAmbulances } from "../../../../services/ambulanceService";
+import { fetchAllPharmacies } from "../../../../services/pharmacyService";
 import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
-type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist";
+type FilterTab = "All" | "Doctor" | "Nurse" | "Vendor" | "Clinic" | "Lab" | "Therapist" | "Ambulance";
 
 interface DirectorySearchSectionProps {
   fixedTab?: FilterTab;
@@ -112,6 +114,19 @@ const categoryMetadata: Record<FilterTab, { title: React.ReactNode; subtitle: st
     subtitle: "Locate professional laboratory services and diagnostic centers. Get accurate medical tests and results.",
     badge: "Lab Directory",
   },
+  Ambulance: {
+    title: (
+      <>
+        Find Your{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#EF4444]">
+          Emergency
+        </span>{" "}
+        Ambulance
+      </>
+    ),
+    subtitle: "Locate professional 24/7 ambulance and medical evacuation services near you.",
+    badge: "Ambulance Directory",
+  },
 };
 
 export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ fixedTab }) => {
@@ -123,34 +138,28 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   const [clinics, setClinics] = useState<DirectoryItem[]>([]);
   const [labs, setLabs] = useState<DirectoryItem[]>([]);
   const [therapists, setTherapists] = useState<DirectoryItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [ambulances, setAmbulances] = useState<DirectoryItem[]>([]);
+  const [vendors, setVendors] = useState<DirectoryItem[]>([]);
+  const [doctorTypeFilter, setDoctorTypeFilter] = useState<"all" | "specialist" | "non-specialist">("all");
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
+  const [loadingOthers, setLoadingOthers] = useState(true);
 
-  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab"];
+  const loading = loadingDoctors || loadingOthers;
 
+  const tabs: FilterTab[] = ["All", "Doctor", "Nurse", "Therapist", "Vendor", "Clinic", "Lab", "Ambulance"];
+
+  // Fetch all non-doctor directories once on mount
   useEffect(() => {
-    setLoading(true);
-    Promise.all([fetchAllDoctors(), fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists()])
-      .then(([apiDocs, apiNurses, apiClinics, apiLabs, apiTherapists]) => {
-        // Deduplicate arrays by id
-        const uniqueDocs = apiDocs.filter(
-          (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
-        );
-        const mappedDocs: DirectoryItem[] = uniqueDocs.map((doc) => {
-          return {
-            id: `doc-${doc.id}`,
-            name: doc.name,
-            role: "Doctor",
-            specialty: doc.specialist || undefined,
-            location: doc.place_of_practice || doc.city || "Malaysia",
-            rating: 4.9,
-            availability: "Available Today",
-            image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
-            badge: doc.verified ? "Verified" : undefined,
-            slug: doc.slug || doc.id.toString(),
-          };
-        });
-        setDoctors(mappedDocs);
-
+    setLoadingOthers(true);
+    Promise.all([
+      fetchAllNurses(),
+      fetchAllClinics(),
+      fetchAllLabs(),
+      fetchAllTherapists(),
+      fetchAllAmbulances(),
+      fetchAllPharmacies()
+    ])
+      .then(([apiNurses, apiClinics, apiLabs, apiTherapists, apiAmbulances, apiPharmacies]) => {
         const uniqueNurses = apiNurses.filter(
           (nurse, index, self) => self.findIndex((n) => n.id === nurse.id) === index
         );
@@ -226,14 +235,93 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
           };
         });
         setTherapists(mappedTherapists);
+
+        const uniqueAmbulances = apiAmbulances.filter(
+          (ambulance, index, self) => self.findIndex((a) => a.id === ambulance.id) === index
+        );
+        const mappedAmbulances: DirectoryItem[] = uniqueAmbulances.map((ambulance) => {
+          const vendor = ambulance.vendor;
+          return {
+            id: `ambulance-${ambulance.id}`,
+            name: vendor?.name || "Medicare Affiliated Ambulance Service",
+            role: "Ambulance",
+            specialty: vendor?.description || undefined,
+            location: vendor?.address?.city || vendor?.address?.state || "Malaysia",
+            rating: 4.8,
+            availability: ambulance.is_available ? "Available Today" : "Temporarily Closed",
+            image: vendor?.photo || "https://images.unsplash.com/photo-1587113997559-018787fdeab6?auto=format&fit=crop&q=80&w=400",
+            badge: vendor?.verified ? "Verified" : undefined,
+            slug: vendor?.slug || ambulance.id.toString(),
+          };
+        });
+        setAmbulances(mappedAmbulances);
+
+        const uniquePharmacies = apiPharmacies.filter(
+          (pharmacy, index, self) => self.findIndex((p) => p.id === pharmacy.id) === index
+        );
+        const mappedPharmacies: DirectoryItem[] = uniquePharmacies.map((pharmacy) => {
+          return {
+            id: `pharmacy-${pharmacy.id}`,
+            name: pharmacy.name,
+            role: "Vendor",
+            specialty: pharmacy.description || undefined,
+            location: pharmacy.address ? `${pharmacy.address.city}, ${pharmacy.address.state}` : "Malaysia",
+            rating: 4.8,
+            availability: pharmacy.is_available ? "Available Today" : "Temporarily Closed",
+            image: (pharmacy.photo && pharmacy.photo[0]) || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
+            badge: pharmacy.verified ? "Verified" : undefined,
+            slug: pharmacy.slug || pharmacy.id.toString(),
+          };
+        });
+        setVendors(mappedPharmacies);
       })
       .catch((err) => {
-        console.error("Failed to fetch directory data:", err);
+        console.error("Failed to fetch other directory data:", err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingOthers(false);
       });
   }, []);
+
+  // Fetch doctors dynamically when doctorTypeFilter changes
+  useEffect(() => {
+    setLoadingDoctors(true);
+    const isSpecialistParam =
+      doctorTypeFilter === "specialist"
+        ? true
+        : doctorTypeFilter === "non-specialist"
+        ? false
+        : undefined;
+
+    fetchAllDoctors(isSpecialistParam)
+      .then((apiDocs) => {
+        const uniqueDocs = apiDocs.filter(
+          (doc, index, self) => self.findIndex((d) => d.id === doc.id) === index
+        );
+        const mappedDocs: DirectoryItem[] = uniqueDocs.map((doc) => {
+          return {
+            id: `doc-${doc.id}`,
+            name: doc.name,
+            role: "Doctor",
+            specialty: doc.specialist || undefined,
+            location: doc.place_of_practice || doc.city || "Malaysia",
+            rating: 4.9,
+            availability: "Available Today",
+            image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+            badge: doc.verified ? "Verified" : undefined,
+            slug: doc.slug || doc.id.toString(),
+          };
+        });
+        setDoctors(mappedDocs);
+        setActiveSpecialty("All Specialties");
+      })
+      .catch((err) => {
+        console.error("Failed to fetch doctors:", err);
+      })
+      .finally(() => {
+        setLoadingDoctors(false);
+      });
+  }, [doctorTypeFilter]);
 
   useEffect(() => {
     if (fixedTab) {
@@ -242,12 +330,19 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   }, [fixedTab]);
 
   const combinedItems = useMemo(() => {
-    // Exclude static doctors, static nurses, static clinics, static labs, and static therapists, and use fetched instead
+    // Exclude static doctors, static nurses, static clinics, static labs, static therapists, static ambulances, and static pharmacies, and use fetched instead
     const nonApiItems = directoryItems.filter(
-      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab" && item.role !== "Therapist"
+      (item) =>
+        item.role !== "Doctor" &&
+        item.role !== "Nurse" &&
+        item.role !== "Clinic" &&
+        item.role !== "Lab" &&
+        item.role !== "Therapist" &&
+        item.role !== "Ambulance" &&
+        item.role !== "Vendor"
     );
-    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...nonApiItems];
-  }, [doctors, nurses, clinics, labs, therapists]);
+    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...ambulances, ...vendors, ...nonApiItems];
+  }, [doctors, nurses, clinics, labs, therapists, ambulances, vendors]);
 
   const doctorSpecialties = useMemo(() => {
     const specialtiesSet = new Set<string>();
@@ -275,7 +370,6 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
     });
   }, [combinedItems, activeTab, activeSpecialty, searchQuery]);
 
-  // Count items per tab
   const tabCounts = useMemo(() => {
     const counts: Record<FilterTab, number> = {
       All: combinedItems.length,
@@ -285,6 +379,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
       Clinic: 0,
       Lab: 0,
       Therapist: 0,
+      Ambulance: 0,
     };
     combinedItems.forEach((item) => {
       if (item.role in counts) {
@@ -417,7 +512,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
             </div>
           )}
 
-          {/* ─── Doctor Specialty Sub-filter ─── */}
+          {/* ─── Doctor Classification & Specialty Sub-filters ─── */}
           <AnimatePresence>
             {activeTab === "Doctor" && (
               <motion.div
@@ -427,30 +522,83 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <div className="flex items-center gap-3 py-3 px-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100">
-                  <div className="flex items-center gap-2 text-gray-400 shrink-0">
-                    <SlidersHorizontal className="w-4 h-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">
-                      Specialist
-                    </span>
-                  </div>
-                  <div className="w-px h-5 bg-gray-200" />
-                  <div className="flex flex-wrap gap-1.5">
-                    {doctorSpecialties.map((specialty) => (
+                <div className="flex flex-col gap-4 py-4 px-5 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
+                  {/* Doctor Classification Toggle */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-2 text-gray-400 shrink-0">
+                      <Stethoscope className="w-[18px] h-[18px] text-gray-400" />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                        Doctor Classification
+                      </span>
+                    </div>
+                    <div className="w-px h-5 bg-gray-200 hidden sm:block" />
+                    <div className="flex rounded-xl bg-gray-100/80 p-1 border border-gray-200/30">
                       <button
-                        key={specialty}
-                        onClick={() => setActiveSpecialty(specialty)}
+                        onClick={() => setDoctorTypeFilter("all")}
                         className={cn(
-                          "px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all duration-200",
-                          activeSpecialty === specialty
-                            ? "bg-[#2563EB] text-white shadow-sm shadow-[#2563EB]/20"
-                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                          "px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300",
+                          doctorTypeFilter === "all"
+                            ? "bg-gray-900 text-white shadow-md font-semibold scale-[1.02]"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
                         )}
                       >
-                        {specialty}
+                        All Doctors
                       </button>
-                    ))}
+                      <button
+                        onClick={() => setDoctorTypeFilter("specialist")}
+                        className={cn(
+                          "px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300",
+                          doctorTypeFilter === "specialist"
+                            ? "bg-[#2563EB] text-white shadow-md font-semibold scale-[1.02]"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                        )}
+                      >
+                        Specialist Doctor
+                      </button>
+                      <button
+                        onClick={() => setDoctorTypeFilter("non-specialist")}
+                        className={cn(
+                          "px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300",
+                          doctorTypeFilter === "non-specialist"
+                            ? "bg-gray-900 text-white shadow-md font-semibold scale-[1.02]"
+                            : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"
+                        )}
+                      >
+                        Not Specialist
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Specialty Sub-filters (Only relevant when not selecting non-specialist) */}
+                  {doctorTypeFilter !== "non-specialist" && doctorSpecialties.length > 1 && (
+                    <div className="flex flex-col gap-2 pt-3 border-t border-gray-100">
+                      <div className="flex items-start sm:items-center flex-col sm:flex-row gap-3">
+                        <div className="flex items-center gap-2 text-gray-400 shrink-0">
+                          <SlidersHorizontal className="w-4 h-4 text-gray-400" />
+                          <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            Specialty
+                          </span>
+                        </div>
+                        <div className="w-px h-5 bg-gray-200 hidden sm:block" />
+                        <div className="flex flex-wrap gap-1.5">
+                          {doctorSpecialties.map((specialty) => (
+                            <button
+                              key={specialty}
+                              onClick={() => setActiveSpecialty(specialty)}
+                              className={cn(
+                                "px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all duration-200 border",
+                                activeSpecialty === specialty
+                                  ? "bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]/30 shadow-sm font-semibold"
+                                  : "bg-white text-gray-500 border border-gray-200/80 hover:text-gray-700 hover:border-gray-300"
+                              )}
+                            >
+                              {specialty}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )}
