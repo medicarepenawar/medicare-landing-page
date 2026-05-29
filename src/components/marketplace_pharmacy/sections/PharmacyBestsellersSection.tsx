@@ -1,14 +1,48 @@
-import { ChevronLeft, ChevronRight, Heart, ShoppingCart, MapPin, Star } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Heart, ShoppingCart, MapPin, Star, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { usePharmacyProducts, usePharmacyBySlug } from "../../../hooks/useMarketplace";
+import { usePharmacyProducts } from "../../../hooks/useMarketplace";
+import { fetchAllPharmacies } from "../../../services/pharmacyService";
+import { marketplaceService } from "../../../services/marketplaceService";
 
 interface PharmacyBestsellersSectionProps {
   pharmacySlug: string;
 }
 
 export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellersSectionProps) {
-  const pharmacy = usePharmacyBySlug(pharmacySlug);
+  const [pharmacy, setPharmacy] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const products = usePharmacyProducts(pharmacy?.id || "");
+
+  useEffect(() => {
+    setLoading(true);
+    fetchAllPharmacies()
+      .then((apiPharmacies) => {
+        const found = apiPharmacies.find((p) => p.slug === pharmacySlug);
+        if (found) {
+          setPharmacy({
+            id: found.id.toString(),
+            name: found.name,
+            location: found.address ? `${found.address.city}, ${found.address.state}` : "Malaysia",
+            rating: 4.8,
+            availability: found.is_available ? "Open 24 Hours" : "Temporarily Closed",
+            image: (found.photo && found.photo[0]) || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
+          });
+        } else {
+          // Fallback to local mockup pharmacy
+          const localPharmacy = marketplaceService.getPharmacyBySlug(pharmacySlug);
+          if (localPharmacy) {
+            setPharmacy(localPharmacy);
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load pharmacy details:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [pharmacySlug]);
 
   const formatPrice = (price: number) => {
     return `RM${price.toFixed(2)}`;
@@ -19,6 +53,17 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
     e.stopPropagation();
     window.location.href = "/pharmacy/mukminpharmacy/cart";
   };
+
+  if (loading) {
+    return (
+      <div className="px-6 lg:px-16 py-8 pb-20 min-h-[400px] flex items-center justify-center">
+        <div className="text-center py-12 flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
+          <p className="text-gray-500 font-medium text-sm">Loading pharmacy details...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!pharmacy) {
     return (

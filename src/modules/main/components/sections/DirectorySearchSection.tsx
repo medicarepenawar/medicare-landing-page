@@ -12,6 +12,7 @@ import { fetchAllClinics } from "../../../../services/clinicService";
 import { fetchAllLabs } from "../../../../services/labService";
 import { fetchAllTherapists } from "../../../../services/therapistService";
 import { fetchAllAmbulances } from "../../../../services/ambulanceService";
+import { fetchAllPharmacies } from "../../../../services/pharmacyService";
 import type { DirectoryItem } from "../../types";
 import { cn } from "../../utils/cn";
 
@@ -138,6 +139,7 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   const [labs, setLabs] = useState<DirectoryItem[]>([]);
   const [therapists, setTherapists] = useState<DirectoryItem[]>([]);
   const [ambulances, setAmbulances] = useState<DirectoryItem[]>([]);
+  const [vendors, setVendors] = useState<DirectoryItem[]>([]);
   const [doctorTypeFilter, setDoctorTypeFilter] = useState<"all" | "specialist" | "non-specialist">("all");
   const [loadingDoctors, setLoadingDoctors] = useState(true);
   const [loadingOthers, setLoadingOthers] = useState(true);
@@ -149,8 +151,15 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   // Fetch all non-doctor directories once on mount
   useEffect(() => {
     setLoadingOthers(true);
-    Promise.all([fetchAllNurses(), fetchAllClinics(), fetchAllLabs(), fetchAllTherapists(), fetchAllAmbulances()])
-      .then(([apiNurses, apiClinics, apiLabs, apiTherapists, apiAmbulances]) => {
+    Promise.all([
+      fetchAllNurses(),
+      fetchAllClinics(),
+      fetchAllLabs(),
+      fetchAllTherapists(),
+      fetchAllAmbulances(),
+      fetchAllPharmacies()
+    ])
+      .then(([apiNurses, apiClinics, apiLabs, apiTherapists, apiAmbulances, apiPharmacies]) => {
         const uniqueNurses = apiNurses.filter(
           (nurse, index, self) => self.findIndex((n) => n.id === nurse.id) === index
         );
@@ -246,6 +255,25 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
           };
         });
         setAmbulances(mappedAmbulances);
+
+        const uniquePharmacies = apiPharmacies.filter(
+          (pharmacy, index, self) => self.findIndex((p) => p.id === pharmacy.id) === index
+        );
+        const mappedPharmacies: DirectoryItem[] = uniquePharmacies.map((pharmacy) => {
+          return {
+            id: `pharmacy-${pharmacy.id}`,
+            name: pharmacy.name,
+            role: "Vendor",
+            specialty: pharmacy.description || undefined,
+            location: pharmacy.address ? `${pharmacy.address.city}, ${pharmacy.address.state}` : "Malaysia",
+            rating: 4.8,
+            availability: pharmacy.is_available ? "Available Today" : "Temporarily Closed",
+            image: (pharmacy.photo && pharmacy.photo[0]) || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
+            badge: pharmacy.verified ? "Verified" : undefined,
+            slug: pharmacy.slug || pharmacy.id.toString(),
+          };
+        });
+        setVendors(mappedPharmacies);
       })
       .catch((err) => {
         console.error("Failed to fetch other directory data:", err);
@@ -302,12 +330,19 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
   }, [fixedTab]);
 
   const combinedItems = useMemo(() => {
-    // Exclude static doctors, static nurses, static clinics, static labs, static therapists, and static ambulances, and use fetched instead
+    // Exclude static doctors, static nurses, static clinics, static labs, static therapists, static ambulances, and static pharmacies, and use fetched instead
     const nonApiItems = directoryItems.filter(
-      (item) => item.role !== "Doctor" && item.role !== "Nurse" && item.role !== "Clinic" && item.role !== "Lab" && item.role !== "Therapist" && item.role !== "Ambulance"
+      (item) =>
+        item.role !== "Doctor" &&
+        item.role !== "Nurse" &&
+        item.role !== "Clinic" &&
+        item.role !== "Lab" &&
+        item.role !== "Therapist" &&
+        item.role !== "Ambulance" &&
+        item.role !== "Vendor"
     );
-    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...ambulances, ...nonApiItems];
-  }, [doctors, nurses, clinics, labs, therapists, ambulances]);
+    return [...doctors, ...nurses, ...clinics, ...labs, ...therapists, ...ambulances, ...vendors, ...nonApiItems];
+  }, [doctors, nurses, clinics, labs, therapists, ambulances, vendors]);
 
   const doctorSpecialties = useMemo(() => {
     const specialtiesSet = new Set<string>();
