@@ -57,9 +57,11 @@ const ProfileSidebar = ({ doctor }: { doctor: Doctor }) => {
           </div>
 
           {/* Tombol Booking */}
-          <button className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-sm">
-            Book Appointment
-          </button>
+          {doctor.isSpecialist && (
+            <button className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-sm">
+              Book Appointment
+            </button>
+          )}
         </div>
       </div>
 

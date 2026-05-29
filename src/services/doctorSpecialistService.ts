@@ -128,6 +128,15 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
     isApcExpired = expiryDate < new Date();
   }
 
+  const isSpecialist = 
+    (apiDoc as any).is_specialist === true || 
+    (apiDoc as any).is_specialist === 1 || 
+    (apiDoc as any).is_specialist === "1" ||
+    apiDoc.type === "specialist" || 
+    !!apiDoc.specialist_graduate_from ||
+    (!!apiDoc.specialist && 
+     !["general practitioner", "general practice", "gp"].includes(apiDoc.specialist.toLowerCase().trim()));
+
   return {
     name: apiDoc.name,
     specialty: apiDoc.specialist || "General Practitioner",
@@ -168,11 +177,15 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
       },
     ],
     imageUrl: apiDoc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+    isSpecialist: isSpecialist,
   };
 };
 
 // Transform DirectoryItem to Doctor type
 const transformDirectoryItemToDoctor = (item: DirectoryItem): Doctor => {
+  const isSpecialist = !!item.specialty && 
+    !["general practitioner", "general practice", "gp"].includes(item.specialty.toLowerCase().trim());
+
   const doctor: Doctor = {
     name: item.name,
     specialty: item.specialty || "General Practitioner",
@@ -234,6 +247,7 @@ const transformDirectoryItemToDoctor = (item: DirectoryItem): Doctor => {
       },
     ],
     imageUrl: item.image,
+    isSpecialist: isSpecialist,
   };
   return doctor;
 };
@@ -300,6 +314,7 @@ const doctorData: Doctor = {
   ],
   imageUrl:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuD3evB2KFAuXphZ5q32s49G0OoRpUHaZrmb6yH7PML3lTK79wvQruS0BWJXlV_ijsVsy6bc50dla9HyNjEOmB3j1QB6FV27Pifr1WphvrInhpWQNYke5rQfWOeYBNjWgikQV3HNnbT5tOuEp6vncUETTMDulZTTMj1XP3JRheexTKEzW1L2RTxWsLZ1Jn6ZcOngWGHYaB3Sk_YWAc49K7QvzQ00WiYti2Zq89jhnZU19Wee8UK2IqKYoB50d6yD9KPCaxDrAmQ-O8Yt",
+  isSpecialist: true,
 };
 
 export const getDoctorById = async (_id: string): Promise<Doctor> => {

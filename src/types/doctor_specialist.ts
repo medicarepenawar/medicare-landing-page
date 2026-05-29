@@ -36,6 +36,7 @@ export interface Doctor {
   education: Education[];
   services: Service[];
   imageUrl: string;
+  isSpecialist?: boolean;
 }
 
 
