@@ -12,7 +12,6 @@ import {
   Globe, 
   FileText, 
   GraduationCap, 
-  Fingerprint,
   Home,
   Shield
 } from "lucide-react";
@@ -77,9 +76,9 @@ export default function NurseDetailPage() {
     setShowToast(true);
   };
 
-  // Get last name for the booking button (e.g. Fahi Faizuwan Bin Md Lazaam -> Lazaam)
+  // Get first name for the booking button (e.g. Fahi Faizuwan Bin Md Lazaam -> Fahi)
   const nameParts = nurse.name.trim().split(/\s+/);
-  const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nurse.name;
+  const firstName = nameParts[0] || nurse.name;
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans antialiased text-[#1E293B]">
@@ -243,19 +242,6 @@ export default function NurseDetailPage() {
                     <h4 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Contact Details</h4>
                     
                     <div className="space-y-6">
-                      {/* Phone Number */}
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-[#F1F5F9] text-[#1A73E8] rounded-xl flex-shrink-0">
-                          <Phone className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">Phone Number</span>
-                          <span className="text-sm font-bold text-[#1E293B]">
-                            {nurse.phoneNumber || "N/A"}
-                          </span>
-                        </div>
-                      </div>
-
                       {/* Address */}
                       <div className="flex items-start gap-4">
                         <div className="p-3 bg-[#F1F5F9] text-[#1A73E8] rounded-xl flex-shrink-0">
@@ -327,28 +313,13 @@ export default function NurseDetailPage() {
                           )}
                         </div>
                       </div>
-
-                      {/* Identification */}
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-[#F1F5F9] text-[#1A73E8] rounded-xl flex-shrink-0">
-                          <Fingerprint className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">Identification (NRIC / Passport)</span>
-                          <span className="text-sm font-bold text-[#1E293B]">
-                            {nurse.nric ? `NRIC: ${nurse.nric}` : ""}
-                            {nurse.passportNumber ? `Passport: ${nurse.passportNumber}` : ""}
-                            {!nurse.nric && !nurse.passportNumber && "N/A"}
-                          </span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Practice Location Card with Real Google Maps Integration */}
-              <div className="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300">
+              {/* Practice Location Card */}
+              <div className="bg-white border border-slate-100 p-6 md:p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] mt-8 flex items-center justify-between gap-6 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300">
                 <div className="flex-1 w-full text-left">
                   <div className="p-3 bg-[#E8F0FE] text-[#1A73E8] rounded-2xl w-fit mb-4">
                     <MapPin className="w-6 h-6" />
@@ -357,23 +328,6 @@ export default function NurseDetailPage() {
                   <p className="text-slate-500 font-medium text-base">
                     City: <span className="font-bold text-slate-800">{nurse.city || "N/A"}</span>, State: <span className="font-bold text-slate-800">{nurse.state || "N/A"}</span>
                   </p>
-                </div>
-
-                {/* Real Live Google Maps Integration */}
-                <div className="w-full sm:w-[320px] h-[180px] rounded-2xl overflow-hidden border border-slate-100 shadow-sm flex-shrink-0 relative">
-                  <iframe
-                    title="Nurse Practice Location Map"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                      [nurse.address, nurse.postcode, nurse.city, nurse.state].filter(Boolean).join(", ") || "Johor, Malaysia"
-                    )}&z=14&output=embed`}
-                    className="w-full h-full"
-                  />
                 </div>
               </div>
             </div>
@@ -393,7 +347,7 @@ export default function NurseDetailPage() {
               >
                 <div className="flex items-center gap-2 font-bold text-sm text-blue-100">
                   <Calendar className="w-4.5 h-4.5 text-white" />
-                  Book {lastName} at
+                  Book SRN {firstName} at
                 </div>
                 <div className="font-extrabold text-base tracking-wide">
                   MediCare App
