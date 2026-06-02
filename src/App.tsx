@@ -76,8 +76,7 @@ function App() {
         <Route path={DEV_URL} element={<Home />} />
         <Route path="/main" element={<MainPage />} />
         <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
-        <Route path={MARKETPLACE_URL} element={<MarketplaceLanding />} />
-        <Route path="/marketplace/pharmacy/:pharmacySlug?" element={<MarketplaceLanding />} />
+        <Route path="/pharmacies/:pharmacySlug" element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
         <Route path={MARKETPLACE_CART_URL} element={<CartPage />} />
         <Route path={MARKETPLACE_CHECKOUT_URL} element={<CheckoutPage />} />

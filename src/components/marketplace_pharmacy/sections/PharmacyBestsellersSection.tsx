@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Heart, ShoppingCart, MapPin, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { usePharmacyProducts } from "../../../hooks/useMarketplace";
-import { fetchAllPharmacies } from "../../../services/pharmacyService";
+import { fetchAllPharmacies, fetchPharmacyDetailBySlug } from "../../../services/pharmacyService";
 import { marketplaceService } from "../../../services/marketplaceService";
 
 interface PharmacyBestsellersSectionProps {
@@ -11,33 +10,69 @@ interface PharmacyBestsellersSectionProps {
 
 export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellersSectionProps) {
   const [pharmacy, setPharmacy] = useState<any>(null);
+  const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const products = usePharmacyProducts(pharmacy?.id || "");
 
   useEffect(() => {
     setLoading(true);
-    fetchAllPharmacies()
-      .then((apiPharmacies) => {
-        const found = apiPharmacies.find((p) => p.slug === pharmacySlug);
-        if (found) {
+    fetchPharmacyDetailBySlug(pharmacySlug)
+      .then((detail) => {
+        if (detail) {
           setPharmacy({
-            id: found.id.toString(),
-            name: found.name,
-            location: found.address ? `${found.address.city}, ${found.address.state}` : "Malaysia",
+            id: detail.id.toString(),
+            name: detail.name,
+            location: detail.address ? `${detail.address.city}, ${detail.address.state}` : "Malaysia",
             rating: 4.8,
-            availability: found.is_available ? "Open 24 Hours" : "Temporarily Closed",
-            image: (found.photo && found.photo[0]) || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
+            availability: detail.is_available ? "Open 24 Hours" : "Temporarily Closed",
+            image: (detail.photo && detail.photo[0]) || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
           });
-        } else {
-          // Fallback to local mockup pharmacy
-          const localPharmacy = marketplaceService.getPharmacyBySlug(pharmacySlug);
-          if (localPharmacy) {
-            setPharmacy(localPharmacy);
+
+          // Map items from vendor_pharmacy.ph_items
+          if (detail.vendor_pharmacy?.ph_items) {
+            const mappedItems = detail.vendor_pharmacy.ph_items.map((item) => ({
+              id: item.id.toString(),
+              name: item.name,
+              variant: item.unit || (item.packing ? `Pack of ${item.packing}` : "Each"),
+              originalPrice: item.price,
+              discountedPrice: item.price,
+              discountPercentage: 0,
+              image: item.image || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
+            }));
+            setProducts(mappedItems);
+          } else {
+            setProducts([]);
           }
         }
       })
       .catch((err) => {
-        console.error("Failed to load pharmacy details:", err);
+        console.error("Failed to load pharmacy details from slug endpoint:", err);
+        // Fallback to local mockup pharmacy
+        const localPharmacy = marketplaceService.getPharmacyBySlug(pharmacySlug);
+        if (localPharmacy) {
+          setPharmacy(localPharmacy);
+          const mockProducts = marketplaceService.getPharmacyProducts(localPharmacy.id);
+          setProducts(mockProducts);
+        } else {
+          // Try to search using fetchAllPharmacies list as secondary fallback
+          fetchAllPharmacies()
+            .then((apiPharmacies) => {
+              const found = apiPharmacies.find((p) => p.slug === pharmacySlug);
+              if (found) {
+                setPharmacy({
+                  id: found.id.toString(),
+                  name: found.name,
+                  location: found.address ? `${found.address.city}, ${found.address.state}` : "Malaysia",
+                  rating: 4.8,
+                  availability: found.is_available ? "Open 24 Hours" : "Temporarily Closed",
+                  image: (found.photo && found.photo[0]) || "https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&q=80&w=400",
+                });
+                setProducts([]);
+              }
+            })
+            .catch((fallbackErr) => {
+              console.error("Fallback fetchAllPharmacies also failed:", fallbackErr);
+            });
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -48,10 +83,10 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
     return `RM${price.toFixed(2)}`;
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleBuyAtApp = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = "/pharmacy/mukminpharmacy/cart";
+    alert("Please download the Medicare Mobile App to purchase products.");
   };
 
   if (loading) {
@@ -124,11 +159,6 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
                 key={item.id}
                 className="min-w-[210px] w-[230px] bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all flex flex-col snap-start relative group/card"
               >
-                {/* Wishlist Button */}
-                <button className="absolute top-4 right-4 text-gray-300 hover:text-red-500 z-10 transition-colors">
-                  <Heart className="w-5 h-5" />
-                </button>
-
                 {/* Image Container */}
                 <div className="w-full aspect-[4/3] mb-4 flex items-center justify-center relative overflow-hidden bg-gray-50/50 rounded-xl p-2">
                   <img
@@ -152,18 +182,19 @@ export function PharmacyBestsellersSection({ pharmacySlug }: PharmacyBestsellers
                     <div className="flex flex-wrap items-baseline gap-1.5 mb-3.5">
                       <span className="font-extrabold text-[#111827] text-[16px]">{formatPrice(item.discountedPrice)}</span>
                       <span className="text-xs text-gray-400 line-through font-medium">{formatPrice(item.originalPrice)}</span>
-                      <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-sm ml-auto">
-                        -{item.discountPercentage}%
-                      </span>
+                      {item.discountPercentage > 0 && (
+                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-sm ml-auto">
+                          -{item.discountPercentage}%
+                        </span>
+                      )}
                     </div>
 
-                    {/* Add to Cart CTA */}
+                    {/* Buy at medicare App CTA */}
                     <button
-                      onClick={handleAddToCart}
+                      onClick={handleBuyAtApp}
                       className="w-full bg-[#2563EB] text-white py-2.5 rounded-xl font-bold text-xs hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 shadow-sm"
                     >
-                      <ShoppingCart className="w-3.5 h-3.5" />
-                      Add to Cart
+                      Buy at medicare App
                     </button>
                   </div>
                 </div>
