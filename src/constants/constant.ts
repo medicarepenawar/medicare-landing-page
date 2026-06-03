@@ -52,7 +52,7 @@ export const CLINIC_LANDING_URL = "/clinic/:slug";
 
 // External Login URLs (after successful registration)
 export const DOCTOR_REGISTRATION_SUCCESS_URL = "https://dms.medicare.com.my/login";
-export const VENDOR_REGISTRATION_SUCCESS_URL = "https://vendor.medicare.com.my/vendor/login";
+export const VENDOR_REGISTRATION_SUCCESS_URL = "https://vendor.medicare.com.my";
 export const NURSE_REGISTRATION_SUCCESS_URL = ""; // Nurse login is via mobile app only
 export const LAB_ASSISTANT_REGISTRATION_SUCCESS_URL = ""; // Lab Assistant login is via mobile app only
 export const THERAPIST_REGISTRATION_SUCCESS_URL = ""; // Therapist login is via mobile app only
