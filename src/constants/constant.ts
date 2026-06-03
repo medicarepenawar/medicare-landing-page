@@ -51,8 +51,8 @@ export const PRIVACY_POLICY_URL = "/policy";
 export const CLINIC_LANDING_URL = "/clinic/:slug";
 
 // External Login URLs (after successful registration)
-export const DOCTOR_REGISTRATION_SUCCESS_URL = "https://dms.medicarebackend.com/login";
-export const VENDOR_REGISTRATION_SUCCESS_URL = "https://vendor.medicarebackend.com/vendor/login";
+export const DOCTOR_REGISTRATION_SUCCESS_URL = "https://dms.medicare.com.my/login";
+export const VENDOR_REGISTRATION_SUCCESS_URL = "https://vendor.medicare.com.my/vendor/login";
 export const NURSE_REGISTRATION_SUCCESS_URL = ""; // Nurse login is via mobile app only
 export const LAB_ASSISTANT_REGISTRATION_SUCCESS_URL = ""; // Lab Assistant login is via mobile app only
 export const THERAPIST_REGISTRATION_SUCCESS_URL = ""; // Therapist login is via mobile app only
