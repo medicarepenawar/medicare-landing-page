@@ -92,14 +92,27 @@ export const fetchAllDoctors = async (isSpecialist?: boolean): Promise<ApiDoctor
 };
 
 export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
+  const specList = apiDoc.specialities && apiDoc.specialities.length > 0
+    ? apiDoc.specialities.map(s => s.name).join(", ")
+    : null;
+  const resolvedSpecialist = apiDoc.specialist || specList || "General Practitioner";
+
   const education: Education[] = [];
 
   if (apiDoc.specialist_graduate_from) {
     education.push({
-      year: apiDoc.specialist_graduate_year ? apiDoc.specialist_graduate_year.toString() : "N/A",
+      year: apiDoc.first_graduate_year ? apiDoc.first_graduate_year.toString() : "N/A", // Fallback to first graduate year if specialist year is missing
       degree: "Specialist Graduate",
       university: apiDoc.specialist_graduate_from,
-      major: apiDoc.specialist || "Specialist",
+      major: resolvedSpecialist || "Specialist",
+      isLatest: true,
+    });
+  } else if (apiDoc.specialist_graduate_year) {
+    education.push({
+      year: apiDoc.specialist_graduate_year.toString(),
+      degree: "Specialist Graduate",
+      university: apiDoc.place_of_practice || "Medical Center",
+      major: resolvedSpecialist || "Specialist",
       isLatest: true,
     });
   }
@@ -115,8 +128,8 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
   }
 
   const tags = ["Verified"];
-  if (apiDoc.specialist) {
-    tags.unshift(apiDoc.specialist);
+  if (resolvedSpecialist && resolvedSpecialist !== "General Practitioner") {
+    tags.unshift(resolvedSpecialist);
   }
   if (apiDoc.experience) {
     tags.push(`${apiDoc.experience} Years Exp.`);
@@ -134,18 +147,56 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
     (apiDoc as any).is_specialist === "1" ||
     apiDoc.type === "specialist" || 
     !!apiDoc.specialist_graduate_from ||
-    (!!apiDoc.specialist && 
-     !["general practitioner", "general practice", "gp"].includes(apiDoc.specialist.toLowerCase().trim()));
+    (!!resolvedSpecialist && 
+     !["general practitioner", "general practice", "gp"].includes(resolvedSpecialist.toLowerCase().trim()));
+
+  const isFemale = apiDoc.gender?.toLowerCase() === "female";
+  const defaultPhoto = isFemale
+    ? "https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=400"
+    : "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400";
+
+  const services: Service[] = [
+    {
+      id: 1,
+      name: isSpecialist ? "Specialist Consultation" : "General Consultation",
+      description: isSpecialist
+        ? `Comprehensive specialist assessment, diagnosis, and medical advice by Dr. ${apiDoc.name}.`
+        : `General medical examination, consultation, and treatment by Dr. ${apiDoc.name}.`,
+      duration: "15 - 30 mins",
+      price: isSpecialist ? "RM 150 - RM 300" : "RM 40 - RM 80",
+      priceLabel: "Consultation Fee",
+    },
+    {
+      id: 2,
+      name: "Follow-up Consultation",
+      description: `Follow-up evaluation to monitor progress and adjust treatment plan under the supervision of Dr. ${apiDoc.name}.`,
+      duration: "10 - 20 mins",
+      price: isSpecialist ? "RM 100 - RM 150" : "RM 30 - RM 60",
+      priceLabel: "Follow-up Rate",
+    },
+  ];
+
+  const photoUrl = apiDoc.photo
+    ? (apiDoc.photo.startsWith("http://") || apiDoc.photo.startsWith("https://")
+      ? apiDoc.photo
+      : `https://api.medicare.com.my/${apiDoc.photo.startsWith("/") ? apiDoc.photo.slice(1) : apiDoc.photo}`)
+    : defaultPhoto;
+
+  const signatureUrl = apiDoc.signature
+    ? (apiDoc.signature.startsWith("http://") || apiDoc.signature.startsWith("https://")
+      ? apiDoc.signature
+      : `https://api.medicare.com.my/${apiDoc.signature.startsWith("/") ? apiDoc.signature.slice(1) : apiDoc.signature}`)
+    : null;
 
   return {
     name: apiDoc.name,
-    specialty: apiDoc.specialist || "General Practitioner",
+    specialty: resolvedSpecialist,
     hospital: apiDoc.place_of_practice || "Premier Healthcare Center",
     gender: apiDoc.gender ? apiDoc.gender.charAt(0).toUpperCase() + apiDoc.gender.slice(1) : "Male",
     nationality: apiDoc.nationality || "Malaysian",
-    phone: apiDoc.phone_number || "+60 3-2000-0000",
+    phone: apiDoc.phone_number || "Contact via Clinic",
     tags: tags,
-    bio: `${apiDoc.name} is a highly skilled and dedicated medical professional specializing in ${apiDoc.specialist || "healthcare"}. With over ${apiDoc.experience || "3"} years of clinical experience, they are committed to providing the highest quality of patient-centric care at ${apiDoc.place_of_practice || "Premier Healthcare Center"}.`,
+    bio: `${apiDoc.name} is a highly skilled and dedicated medical professional specializing in ${resolvedSpecialist || "healthcare"}. With over ${apiDoc.experience || "3"} years of clinical experience, they are committed to providing the highest quality of patient-centric care at ${apiDoc.place_of_practice || "Premier Healthcare Center"}.`,
     mmcNumber: apiDoc.mmc_number || "N/A",
     apcNumber: apiDoc.apc_number || "N/A",
     apcExpiry: apiDoc.apc_expired
@@ -158,26 +209,18 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
       city: apiDoc.city ? `${apiDoc.city}, ${apiDoc.state || ""}`.trim() : "Kuala Lumpur",
     },
     education: education,
-    services: [
-      {
-        id: 1,
-        name: "Specialist Consultation",
-        description: "Comprehensive medical assessment and consultation.",
-        duration: "30 - 45 mins",
-        price: "RM 150",
-        priceLabel: "Starting Price",
-      },
-      {
-        id: 2,
-        name: "Follow-up Consultation",
-        description: "Follow-up appointment for ongoing treatment and monitoring.",
-        duration: "20 - 30 mins",
-        price: "RM 100",
-        priceLabel: "Standard Rate",
-      },
-    ],
-    imageUrl: apiDoc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+    services: services,
+    imageUrl: photoUrl,
     isSpecialist: isSpecialist,
+    nsrNumber: apiDoc.nsr_number || null,
+    signatureUrl: signatureUrl,
+    specialities: apiDoc.specialities ? apiDoc.specialities.map((spec: any) => ({
+      id: spec.id,
+      name: spec.name,
+      slug: spec.slug,
+      iconUrl: spec.icon ? (spec.icon.startsWith("http://") || spec.icon.startsWith("https://") ? spec.icon : `https://api.medicare.com.my/${spec.icon.startsWith("/") ? spec.icon.slice(1) : spec.icon}`) : null,
+      isActive: spec.is_active !== false,
+    })) : [],
   };
 };
 

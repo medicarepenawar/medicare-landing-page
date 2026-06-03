@@ -307,7 +307,13 @@ export const DirectorySearchSection: React.FC<DirectorySearchSectionProps> = ({ 
             location: doc.place_of_practice || doc.city || "Malaysia",
             rating: 4.9,
             availability: "Available Today",
-            image: doc.photo || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+            image: doc.photo
+              ? (doc.photo.startsWith("http://") || doc.photo.startsWith("https://")
+                ? doc.photo
+                : `https://api.medicare.com.my/${doc.photo.startsWith("/") ? doc.photo.slice(1) : doc.photo}`)
+              : (doc.gender?.toLowerCase() === "female"
+                ? "https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=400"
+                : "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400"),
             badge: doc.verified ? "Verified" : undefined,
             slug: doc.slug || doc.id.toString(),
           };
