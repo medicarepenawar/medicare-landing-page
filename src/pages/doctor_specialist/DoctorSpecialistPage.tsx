@@ -118,7 +118,7 @@ const DoctorSpecialist = () => {
                 <div className="flex flex-wrap gap-2.5 mb-4">
                   <span className="inline-flex items-center gap-1.5 bg-[#E6F4EA] text-[#137333] border border-[#A3E2AB]/40 text-[11px] md:text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#137333] block" />
-                    {doctor.isSpecialist ? "Registered Specialist Doctor" : "Registered General Practitioner"}
+                    {doctor.isSpecialist ? "Registered Specialist Doctor" : "Registered Medical Officer"}
                   </span>
                   <span className="inline-flex items-center gap-1.5 bg-[#E8F0FE] text-[#1A73E8] border border-[#ADC8FA]/40 text-[11px] md:text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#1A73E8] block" />
@@ -132,140 +132,21 @@ const DoctorSpecialist = () => {
                 </h1>
                 
                 {/* Specialization and Subtitles */}
-                <p className="text-[#2563EB] font-bold text-lg">{doctor.specialty}</p>
-                <p className="text-slate-500 font-medium text-base mt-1">{doctor.hospital}</p>
-
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
-                  {/* Experience */}
-                  <div className="bg-white border border-slate-100 p-4 rounded-2xl flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-300">
-                    <div className="p-2 bg-[#E8F0FE] text-[#1A73E8] rounded-xl mb-2.5">
-                      <Award className="w-4.5 h-4.5" />
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Experience</span>
-                    <span className="text-lg font-extrabold text-slate-800">
-                      {doctor.tags.find(t => t.includes("Exp."))?.replace(/\s*Exp\./i, "") || "Practice"}
-                    </span>
-                    <span className="text-[10px] text-slate-400 mt-0.5 font-semibold">Clinical Exp</span>
-                  </div>
-
-                  {/* Gender */}
-                  <div className="bg-white border border-slate-100 p-4 rounded-2xl flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-300">
-                    <div className="p-2 bg-[#E8F0FE] text-[#1A73E8] rounded-xl mb-2.5">
-                      <Users className="w-4.5 h-4.5" />
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Gender</span>
-                    <span className="text-lg font-extrabold text-slate-800">
-                      {doctor.gender}
-                    </span>
-                    <span className="text-[10px] text-slate-400 mt-0.5 font-semibold">Professional</span>
-                  </div>
-
-                  {/* Location */}
-                  <div className="bg-white border border-slate-100 p-4 rounded-2xl flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-300">
-                    <div className="p-2 bg-[#E8F0FE] text-[#1A73E8] rounded-xl mb-2.5">
-                      <MapPin className="w-4.5 h-4.5" />
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Location</span>
-                    <span className="text-xs font-extrabold text-slate-800 truncate w-full px-1 mb-0.5">
-                      {doctor.address.city || "Malaysia"}
-                    </span>
-                    <span className="text-[10px] text-[#1A73E8] font-bold">
-                      {doctor.hospital ? "Affiliated" : "Practice"}
-                    </span>
-                  </div>
-
-                  {/* Nationality */}
-                  <div className="bg-white border border-slate-100 p-4 rounded-2xl flex flex-col items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-300">
-                    <div className="p-2 bg-[#E8F0FE] text-[#1A73E8] rounded-xl mb-2.5">
-                      <Heart className="w-4.5 h-4.5" />
-                    </div>
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Nationality</span>
-                    <span className="text-lg font-extrabold text-slate-800">
-                      {doctor.nationality || "Malaysia"}
-                    </span>
-                    <span className="text-[10px] text-slate-400 mt-0.5 font-semibold">Registered</span>
-                  </div>
-                </div>
+                <p className="text-[#2563EB] font-bold text-lg">{doctor.isSpecialist ?doctor.specialty :"Medical Officer"}</p>
               </div>
             </div>
 
-            {/* Biography & Tags Segment */}
-            <div className="mt-8 border-t border-slate-100 pt-8">
-              <h3 className="text-xl font-bold text-slate-800 mb-4">Professional Biography</h3>
-              <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                {doctor.bio}
-              </p>
+          
 
-              {/* Checklist Badges - Green pill-badges */}
-              <div className="flex flex-wrap gap-3 mt-8">
-                <span className="inline-flex items-center gap-1.5 bg-[#E6F4EA]/60 text-[#137333] border border-[#A3E2AB]/30 text-xs font-semibold px-4 py-2.5 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:bg-[#E6F4EA] transition-all">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  Professional & Reliable
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-[#E6F4EA]/60 text-[#137333] border border-[#A3E2AB]/30 text-xs font-semibold px-4 py-2.5 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:bg-[#E6F4EA] transition-all">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  Patient-Centered Care
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-[#E6F4EA]/60 text-[#137333] border border-[#A3E2AB]/30 text-xs font-semibold px-4 py-2.5 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:bg-[#E6F4EA] transition-all">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  Clinical Excellence
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-[#E6F4EA]/60 text-[#137333] border border-[#A3E2AB]/30 text-xs font-semibold px-4 py-2.5 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:bg-[#E6F4EA] transition-all">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  Verified Practitioner
-                </span>
-              </div>
-            </div>
-
-            {/* Medical Specialities */}
-            {doctor.specialities && doctor.specialities.length > 0 && (
-              <div className="border-t border-slate-100 pt-8 mt-8">
-                <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                  <Stethoscope className="w-5.5 h-5.5 text-blue-600" />
-                  Medical Specialities
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {doctor.specialities.map((spec) => (
-                    <div 
-                      key={spec.id} 
-                      className="flex items-center gap-4 p-5 rounded-2xl bg-[#F8FAFC] border border-slate-100/80 hover:border-blue-200 hover:bg-white hover:shadow-md transition-all duration-300"
-                    >
-                      <div className="w-12 h-12 bg-white rounded-xl border border-slate-100 p-2 flex items-center justify-center flex-shrink-0 shadow-[0_2px_10px_rgba(0,0,0,0.01)]">
-                        {spec.iconUrl ? (
-                          <img src={spec.iconUrl} alt={spec.name} className="w-full h-full object-contain" />
-                        ) : (
-                          <Stethoscope className="w-5 h-5 text-blue-500" />
-                        )}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-slate-800 text-sm md:text-base leading-snug">{spec.name}</h4>
-                        <span className={`inline-flex items-center text-[10px] font-bold px-2.5 py-0.5 rounded-full mt-2 uppercase tracking-wider border ${
-                          spec.isActive 
-                            ? "bg-emerald-50 text-emerald-600 border-emerald-100/50" 
-                            : "bg-slate-100 text-slate-500 border-slate-200/50"
-                        }`}>
-                          {spec.isActive ? "Active Practice" : "Secondary Speciality"}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+          
 
             {/* Personal & Professional Credentials Layout */}
-            <div className="border-t border-slate-100 pt-8">
-              <div className="text-center mb-10">
-                <h3 className="text-2xl md:text-3xl font-extrabold text-[#0B2545] tracking-tight">Personal & Professional Credentials</h3>
-                <div className="w-16 h-1 bg-[#2563EB] mx-auto rounded-full mt-3.5" />
-              </div>
-
+            <div className="border-t border-slate-100 ">
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Contact Details Card */}
                 <div className="bg-white border border-slate-100 p-8 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] flex flex-col justify-between hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
                   <div>
-                    <h4 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Practice Location</h4>
+                    <h4 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Place of Practice</h4>
                     
                     <div className="space-y-6">
                       {/* Address */}
@@ -274,11 +155,10 @@ const DoctorSpecialist = () => {
                           <MapPin className="w-5 h-5" />
                         </div>
                         <div>
-                          <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">Full Address</span>
+                        
                           <span className="text-sm font-bold text-[#1E293B] leading-relaxed">
                             {doctor.address.hospitalName && <span className="block text-[#0B2545] mb-0.5">{doctor.address.hospitalName}</span>}
-                            {doctor.address.street && <span className="block font-medium text-slate-600">{doctor.address.street}</span>}
-                            {doctor.address.city && <span className="block text-slate-500">{doctor.address.city}</span>}
+                           
                           </span>
                         </div>
                       </div>
@@ -305,23 +185,7 @@ const DoctorSpecialist = () => {
                     <h4 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">Professional Credentials</h4>
                     
                     <div className="space-y-6">
-                      {/* APC Certificate */}
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-[#F1F5F9] text-[#1A73E8] rounded-xl flex-shrink-0">
-                          <FileText className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">Annual Practising Certificate (APC)</span>
-                          <span className="text-sm font-bold text-[#1E293B]">
-                            No. {doctor.apcNumber || "N/A"}
-                          </span>
-                          {doctor.apcExpiry && (
-                            <span className="text-xs text-slate-400 mt-1 block">
-                              Expires: {doctor.apcExpiry}
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                     
 
                       {/* MMC Registration */}
                       <div className="flex items-start gap-4">
@@ -350,6 +214,24 @@ const DoctorSpecialist = () => {
                           </div>
                         </div>
                       )}
+
+                       {/* APC Certificate */}
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-[#F1F5F9] text-[#1A73E8] rounded-xl flex-shrink-0">
+                          <FileText className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">Annual Practising Certificate (APC)</span>
+                          <span className="text-sm font-bold text-[#1E293B]">
+                            No. {doctor.apcNumber || "N/A"}
+                          </span>
+                          {doctor.apcExpiry && (
+                            <span className="text-xs text-slate-400 mt-1 block">
+                              Expires: {doctor.apcExpiry}
+                            </span>
+                          )}
+                        </div>
+                      </div>
 
                     </div>
                   </div>
