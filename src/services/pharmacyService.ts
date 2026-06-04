@@ -11,12 +11,40 @@ export interface ApiPharmacyAddress {
   longitude: string | null;
 }
 
+export interface ApiPharmacyItem {
+  id: number;
+  category_id: number;
+  vendor_pharmacy_id: number;
+  item_id: number;
+  name: string;
+  description: string | null;
+  code: string | null;
+  price: number;
+  unit: string | null;
+  packing: string | null;
+  composition: string | null;
+  side_effect: string | null;
+  dose: string | null;
+  usage: string | null;
+  attention: string | null;
+  item_reg_no: string | null;
+  balance: number;
+  image: string | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
 export interface ApiVendorPharmacy {
   id: number;
   pharmacy_license: string | null;
   license_photo: string | null;
   vendor_id: number;
   is_available: boolean;
+  deleted_at: string | null;
+  created_at: string;
+  updated_at: string;
+  ph_items: ApiPharmacyItem[];
 }
 
 export interface ApiPharmacy {
@@ -53,6 +81,11 @@ export interface PharmacyApiResponse {
   };
 }
 
+export interface PharmacyDetailApiResponse {
+  message: string;
+  data: ApiPharmacy;
+}
+
 export const fetchAllPharmacies = async (): Promise<ApiPharmacy[]> => {
   let allPharmacies: ApiPharmacy[] = [];
   let currentPage = 1;
@@ -78,4 +111,11 @@ export const fetchAllPharmacies = async (): Promise<ApiPharmacy[]> => {
   }
 
   return allPharmacies;
+};
+
+export const fetchPharmacyDetailBySlug = async (slug: string): Promise<ApiPharmacy> => {
+  const response = await axios.get<PharmacyDetailApiResponse>(
+    `${BASE_API_URL}/landing-page/pharmacies/${slug}`
+  );
+  return response.data.data;
 };

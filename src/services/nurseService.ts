@@ -81,6 +81,12 @@ export const fetchAllNurses = async (): Promise<ApiNurse[]> => {
 };
 
 export const transformApiNurseToNurse = (apiNurse: ApiNurse): Nurse => {
+  const photoUrl = apiNurse.photo
+    ? (apiNurse.photo.startsWith("http://") || apiNurse.photo.startsWith("https://")
+      ? apiNurse.photo
+      : `https://api.medicare.com.my/${apiNurse.photo.startsWith("/") ? apiNurse.photo.slice(1) : apiNurse.photo}`)
+    : null;
+
   return {
     id: apiNurse.id,
     slug: apiNurse.id.toString(),
@@ -92,7 +98,7 @@ export const transformApiNurseToNurse = (apiNurse: ApiNurse): Nurse => {
     phoneNumber: apiNurse.phone_number,
     nationality: apiNurse.nationality ? apiNurse.nationality.charAt(0).toUpperCase() + apiNurse.nationality.slice(1) : null,
     apcExpired: apiNurse.apc_expired,
-    photo: apiNurse.photo,
+    photo: photoUrl,
     address: apiNurse.address,
     postcode: apiNurse.postcode,
     state: apiNurse.state,

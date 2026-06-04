@@ -37,6 +37,9 @@ export interface Doctor {
   services: Service[];
   imageUrl: string;
   isSpecialist?: boolean;
+  nsrNumber?: string | null;
+  signatureUrl?: string | null;
+  specialities?: any[];
 }
 
 

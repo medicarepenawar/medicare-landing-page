@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Star, MapPin, ArrowUpRight } from "lucide-react";
+import { MapPin, ArrowUpRight } from "lucide-react";
 import { cn } from "../../utils/cn";
 import type { DirectoryItem } from "../../types";
 
@@ -19,7 +19,7 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
     } else if (item.role === "Doctor" && item.slug) {
       navigate(`/doctor/${item.slug}`);
     } else if (item.role === "Vendor" && item.slug) {
-      navigate(`/marketplace/pharmacy/${item.slug}`);
+      navigate(`/pharmacies/${item.slug}`);
     } else if (item.role === "Clinic" && item.slug) {
       navigate(`/clinic/${item.slug}`);
     } else if (item.role === "Lab" && item.slug) {
@@ -101,16 +101,10 @@ export const DirectoryCard: React.FC<DirectoryCardProps> = ({ item, index = 0 })
             </div>
 
             {/* Meta row */}
-            <div className="flex items-center justify-between">
               <div className="flex items-center gap-1 text-gray-400">
                 <MapPin className="w-3.5 h-3.5" />
                 <span className="text-[12px]">{item.location}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                <span className="text-[13px] font-semibold text-gray-900">{item.rating}</span>
-              </div>
-            </div>
           </div>
 
           {/* Action CTA */}

@@ -9,7 +9,6 @@ import {
   Activity,
   Truck,
   Users,
-  Star,
   ChevronRight,
   AlertCircle,
   Zap,
@@ -550,21 +549,11 @@ export default function AmbulanceDetailPage() {
             
             <div className="space-y-4 mt-6 flex-1 flex flex-col justify-center">
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  ))}
-                </div>
                 <p className="text-xs font-semibold text-slate-600 italic">"Extremely rapid dispatch and patient handling. Paramedic crew was highly professional and compassionate!"</p>
                 <p className="text-[10px] font-black text-slate-700">- Nurul H. • Johor Bahru</p>
               </div>
 
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  ))}
-                </div>
                 <p className="text-xs font-semibold text-slate-600 italic">"Clean ambulance, fully equipped life support, and highly experienced medics. Very helpful during hospital discharge transfer!"</p>
                 <p className="text-[10px] font-black text-slate-700">- Ahmad R. • Kuala Lumpur</p>
               </div>
