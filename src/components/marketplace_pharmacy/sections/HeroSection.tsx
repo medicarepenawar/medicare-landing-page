@@ -10,7 +10,7 @@ export function HeroSection() {
   };
 
   const handleUploadNow = () => {
-    window.location.href = "/pharmacy/mukminpharmacy/upload-prescription";
+    window.location.href = "/pharmacies/mukminpharmacy/upload-prescription";
   };
 
   return (

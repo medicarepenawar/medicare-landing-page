@@ -12,7 +12,7 @@ export function BestsellersSection() {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = "/pharmacy/mukminpharmacy/cart";
+    window.location.href = "/pharmacies/mukminpharmacy/cart";
   };
 
   return (
@@ -34,7 +34,7 @@ export function BestsellersSection() {
         <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x">
           {bestsellers.map((item) => (
             <Link
-              to={`/pharmacy/mukminpharmacy/product/${item.id}`}
+              to={`/pharmacies/mukminpharmacy/product/${item.id}`}
               key={item.id}
               className="min-w-[210px] w-[230px] bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all flex flex-col snap-start relative group/card"
             >

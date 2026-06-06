@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_API_URL } from "../constants/constant";
-import type { Doctor, Education } from "../types/doctor_specialist";
+import type { Doctor, Education, Service } from "../types/doctor_specialist";
 import { directoryItems } from "../modules/main/constants/directory";
 import type { DirectoryItem } from "../modules/main/types";
 
@@ -16,12 +16,14 @@ export interface ApiDoctor {
   phone_number: string | null;
   mmc_number: string;
   apc_number: string;
+  nsr_number: string;
   apc_expired: string | null;
   photo: string | null;
   front_nric_photo: string | null;
   back_nric_photo: string | null;
   apc_certificate_file: string | null;
   mmc_certificate_file: string | null;
+
   verified: boolean;
   type: string | null;
   verification_status: string;
@@ -182,11 +184,7 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
       : `https://api.medicare.com.my/${apiDoc.photo.startsWith("/") ? apiDoc.photo.slice(1) : apiDoc.photo}`)
     : defaultPhoto;
 
-  const signatureUrl = apiDoc.signature
-    ? (apiDoc.signature.startsWith("http://") || apiDoc.signature.startsWith("https://")
-      ? apiDoc.signature
-      : `https://api.medicare.com.my/${apiDoc.signature.startsWith("/") ? apiDoc.signature.slice(1) : apiDoc.signature}`)
-    : null;
+ 
 
   return {
     name: apiDoc.name,
@@ -213,7 +211,7 @@ export const transformApiDoctorToDoctor = (apiDoc: ApiDoctor): Doctor => {
     imageUrl: photoUrl,
     isSpecialist: isSpecialist,
     nsrNumber: apiDoc.nsr_number || null,
-    signatureUrl: signatureUrl,
+
     specialities: apiDoc.specialities ? apiDoc.specialities.map((spec: any) => ({
       id: spec.id,
       name: spec.name,
