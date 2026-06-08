@@ -6,13 +6,10 @@ import {
   MapPin, 
   Award, 
   Users, 
-  Heart, 
   Check, 
   FileText, 
   GraduationCap, 
-  Shield, 
-  Clock, 
-  Stethoscope 
+  Shield 
 } from "lucide-react";
 import type { Doctor } from "../../types/doctor_specialist";
 import { getDoctorBySlug } from "../../services/doctorSpecialistService";
