@@ -50,6 +50,7 @@ import {
   AMBULANCES_LIST_URL,
 } from "./constants/constant";
 import MainPage from "./modules/main/pages/MainPage";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import Home from "./modules/landing-page/pages/Home";
 import UnderConstruction from "./modules/landing-page/pages/UnderConstruction";
 import DirectoryCategoryPage from "./pages/directory/DirectoryCategoryPage";
@@ -73,7 +74,14 @@ function App() {
     <ToastProvider>
       <Routes>
         <Route path={DEV_URL} element={<Home />} />
-        <Route path="/main" element={<MainPage />} />
+        <Route
+          path="/main"
+          element={
+            <ProtectedRoute>
+              <MainPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path={HOME_PAGE_URL} element={<UnderConstruction />} />
         <Route path="/pharmacies/:pharmacySlug" element={<MarketplaceLanding />} />
         <Route path={MARKETPLACE_PRODUCT_URL} element={<ProductDetail />} />
