@@ -11,6 +11,7 @@ import { validatePhoneNumber } from "../../utils/phoneValidation";
 const vendorTypeOptions: Array<{ label: string; value: VendorType }> = [
   { label: "Hospital", value: "hospital" },
   { label: "Clinic", value: "clinic" },
+  { label: "Occupational Health Clinic", value: "occupational_health_clinic" },
   { label: "Pharmacy", value: "pharmacy" },
   { label: "Onsite Lab", value: "laboratory" },
   { label: "Ambulance Provider", value: "ambulance_provider" },
