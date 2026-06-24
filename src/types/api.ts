@@ -1,5 +1,5 @@
 export type UserRole = "Customer" | "Doctor" | "Nurse" | "Vendor" | "OlLabAssistant" | "Therapist";
-export type VendorType = "hospital" | "clinic" | "pharmacy" | "laboratory" | "ambulance_provider";
+export type VendorType = "hospital" | "clinic" | "occupational_health_clinic" | "pharmacy" | "laboratory" | "ambulance_provider";
 
 // Base Register Request
 export interface RegisterRequest {
